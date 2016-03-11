@@ -2,9 +2,9 @@
 
 BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
-SpinWeightedSphericalHarmonicY::usage = "\!\(\*RowBox[{\"SpinWeightedSphericalHarmonicY\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spherical harmonic \!\(\*RowBox[{SubscriptBox[\" \", StyleBox[\"s\", \"TI\"]], SubsuperscriptBox[StyleBox[\"Y\", \"TI\"], StyleBox[\"l\", \"TI\"], StyleBox[\"m\", \"TI\"]], \"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\"}], \")\"}]\).";
-SpinWeightedSpheroidalHarmonicS::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal harmonic \!\(\*RowBox[{SubscriptBox[\"\", StyleBox[\"s\", \"TI\"]], SubsuperscriptBox[StyleBox[\"S\", \"TI\"], StyleBox[\"l\", \"TI\"], StyleBox[\"m\", \"TI\"]], \"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\", \";\", \"\[Gamma]\"}], \")\"}]\).";
-SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalEigenvalue\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal eigenvalue of spin-weight \!\(\*StyleBox[\"s\", \"TI\"]\), degree \!\(\*StyleBox[\"l\", \"TI\"]\) and order \!\(\*StyleBox[\"m\", \"TI\"]\).";
+SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
+SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]] gives the spin-weighted oblate spheroidal harmonic with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
+SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 Begin["`Private`"];
 

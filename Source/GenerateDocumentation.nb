@@ -5,6 +5,8 @@ Cell[BoxData[
    RowBox[{"ParentDirectory", "[", 
     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"docDir", "=", 
   RowBox[{"FileNameJoin", "[", 
@@ -17,6 +19,12 @@ Cell[BoxData[
        ",", 
        RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
    "]"}]}]], "Input"],
+
+Cell[BoxData["\<\"/Users/barry/Library/Mathematica/Applications/\
+SpinWeightedSpheroidalHarmonics/Documentation\"\>"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Short", "[", 
@@ -32,10 +40,78 @@ Cell[BoxData[
    "10"}], "]"}]], "Input"],
 
 Cell[BoxData[
- RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input"],
+ TagBox[
+  RowBox[{"{", 
+   RowBox[{"\<\"/Users/barry/Library/Mathematica/Applications/\
+SpinWeightedSpheroidalHarmonics/Documentation/English/Guides/\
+SpinWeightedSpheroidalHarmonics.nb\"\>", 
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
+SpinWeightedSpheroidalHarmonics/Documentation/English/Index/_0.cfs\"\>", ",", 
+    
+    RowBox[{"\[LeftSkeleton]", "7", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
+SpinWeightedSpheroidalHarmonics/Documentation/English/SpellIndex/segments.gen\
+\"\>", ",", \
+"\<\"/Users/barry/Library/Mathematica/Applications/\
+SpinWeightedSpheroidalHarmonics/Documentation/English/Tutorials/\
+SpinWeightedSpheroidalHarmonics.nb\"\>"}], "}"}],
+  Short[#, 10]& ]], "Output"]
+}, Open  ]],
 
 Cell[BoxData[
- RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input"]
+ RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
+ EmphasizeSyntaxErrors->True],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print"],
+
+Cell[BoxData["\<\"SpinWeightedSphericalHarmonicY\"\>"], "Print"],
+
+Cell[BoxData["\<\"SpinWeightedSpheroidalEigenvalue\"\>"], "Print"],
+
+Cell[BoxData["\<\"SpinWeightedSpheroidalHarmonicS\"\>"], "Print"],
+
+Cell[BoxData["\<\"Building guides\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Creating \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
+English/Guides\"\>"}],
+  SequenceForm[
+  "Creating ", 
+   "/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
+English/Guides"],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"Building tutorials\"\>"], "Print"],
+
+Cell[BoxData["\<\"Source/Documentation/English/Tutorials/\
+SpinWeightedSpheroidalHarmonics.md\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"l\"\>", ",", "\<\"m\"\>", ",", "\<\"result\"\>", 
+     ",", "\<\"s\"\>", ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Theta]\"\>", 
+     ",", "\<\"\[Phi]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {"l", "m", "result", "s", "\[Gamma]", "\[Theta]", "\[Phi]"}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print"],
+
+Cell[BoxData["\<\"Done\"\>"], "Print"]
+}, Open  ]]
+}, Open  ]]
 },
 WindowSize->{740, 867},
 WindowMargins->{{Automatic, 463}, {Automatic, 3}},

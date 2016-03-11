@@ -1,0 +1,170 @@
+Notebook[{
+Cell[" ", "GuideColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["SpinWeightedSpheroidalHarmonics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->
+   "paclet:SpinWeightedSpheroidalHarmonics/guide/\
+SpinWeightedSpheroidalHarmonics"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Spin-weighted Spheroidal Harmonics",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->
+   "paclet:SpinWeightedSpheroidalHarmonics/guide/\
+SpinWeightedSpheroidalHarmonics"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["SPINWEIGHTEDSPHEROIDALHARMONICS GUIDE", "PacletNameCell"], Cell[
+    TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {"SpinWeightedSpheroidalHarmonics":>
+       Documentation`HelpLookup[
+       "paclet:SpinWeightedSpheroidalHarmonics/tutorial/\
+SpinWeightedSpheroidalHarmonics"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->
+         False], {"\<\"Go to SpinWeightedSpheroidalHarmonics website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://bitbucket.org/barrywardell/\
+SpinWeightedSpheroidalHarmonics"], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell[CellGroupData[{
+
+Cell["Spin-weighted Spheroidal Harmonics", "GuideTitle"],
+
+Cell["\<\
+The SpinWeightedSpheroidalHarmonics package provides functions for computing \
+spin-weighted spheroidal harmonics, spin-weighted spherical harmonics and \
+their associated eigenvalues. Support is included for both \
+arbitrary-precision numerical evaluation, and for series expansions.\
+\>", "GuideAbstract"],
+
+Cell[CellGroupData[{
+
+Cell["Spin-weighted Spheroidal Harmonics", "GuideFunctionsSubsection"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["SpinWeightedSpheroidalEigenvalue",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalEigenvalue"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "evaluate a spin-weighted spheroidal eigenvalue."
+}], "GuideText"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["SpinWeightedSpheroidalHarmonicS",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalHarmonicS"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "evaluate a spin-weighted spheroidal harmonic."
+}], "GuideText"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Spin-weighted Spherical Harmonics", "GuideFunctionsSubsection"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["SpinWeightedSphericalHarmonicY",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSphericalHarmonicY"]], "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "evaluate a spin-weighted spherical harmonic."
+}], "GuideText"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideTutorialsSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell["TUTORIALS", "GuideTutorialsSection"], 
+     Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[ButtonBox["SpinWeightedSpheroidalHarmonics",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:SpinWeightedSpheroidalHarmonics/tutorial/\
+SpinWeightedSpheroidalHarmonics"]], "GuideTutorial"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell"],
+
+Cell[BoxData[""]]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Spin-weighted Spheroidal Harmonics",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "SpinWeightedSpheroidalHarmonics`", 
+    "keywords" -> {"Spin-weighted", "Spheroidal", "Harmonic"}, "index" -> 
+    True, "label" -> "SpinWeightedSpheroidalHarmonics Application", 
+    "language" -> "en", "paclet" -> "SpinWeightedSpheroidalHarmonics", 
+    "status" -> "None", "summary" -> 
+    "Functions for computing spin-weighted spheroidal harmonics and related \
+functions.", 
+    "synonyms" -> {
+     "SpinWeightedSpheroidalHarmonics", "SpinWeightedSpheroidalHarmonics"}, 
+    "title" -> "Spin-weighted Spheroidal Harmonics", "windowTitle" -> 
+    "Spin-weighted Spheroidal Harmonics", "type" -> "Guide", "uri" -> 
+    "SpinWeightedSpheroidalHarmonics/guide/SpinWeightedSpheroidalHarmonics"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
+2015)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

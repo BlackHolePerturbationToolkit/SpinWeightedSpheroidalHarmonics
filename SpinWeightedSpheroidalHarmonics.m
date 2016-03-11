@@ -2,26 +2,9 @@
 
 BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
-SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic\!\(\*SubscriptBox[\(\\\ \), 
-StyleBox[\"s\",\nFontSlant->\"Italic\"]]\)\!\(\*
-StyleBox[SubsuperscriptBox[\"Y\", \"l\", \"m\"],\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"(\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Theta]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Phi]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\")\",\nFontSlant->\"Italic\"]\).";
-SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]] gives the spin-weighted spheroidal harmonic\!\(\*SubscriptBox[\(\\\ \), 
-StyleBox[\"s\",\nFontSlant->\"Italic\"]]\)\!\(\*SubsuperscriptBox[\(S\), \(l\), \(m\)]\)\!\(\*
-StyleBox[\"(\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Theta]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Phi]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\";\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Gamma]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\")\",\nFontSlant->\"Italic\"]\).";
-SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted spheroidal eigenvalue of spin-weight s, degree \!\(\*
-StyleBox[\"l\",\nFontSlant->\"Italic\"]\) and order \!\(\*
-StyleBox[\"m\",\nFontSlant->\"Italic\"]\).";
+SpinWeightedSphericalHarmonicY::usage = "\!\(\*RowBox[{\"SpinWeightedSphericalHarmonicY\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spherical harmonic \!\(\*RowBox[{SubscriptBox[\" \", StyleBox[\"s\", \"TI\"]], SubsuperscriptBox[StyleBox[\"Y\", \"TI\"], StyleBox[\"l\", \"TI\"], StyleBox[\"m\", \"TI\"]], \"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\"}], \")\"}]\).";
+SpinWeightedSpheroidalHarmonicS::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal harmonic \!\(\*RowBox[{SubscriptBox[\"\", StyleBox[\"s\", \"TI\"]], SubsuperscriptBox[StyleBox[\"S\", \"TI\"], StyleBox[\"l\", \"TI\"], StyleBox[\"m\", \"TI\"]], \"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\", \";\", \"\[Gamma]\"}], \")\"}]\).";
+SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalEigenvalue\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal eigenvalue of spin-weight \!\(\*StyleBox[\"s\", \"TI\"]\), degree \!\(\*StyleBox[\"l\", \"TI\"]\) and order \!\(\*StyleBox[\"m\", \"TI\"]\).";
 
 Begin["`Private`"];
 

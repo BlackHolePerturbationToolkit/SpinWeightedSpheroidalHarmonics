@@ -1,0 +1,50 @@
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"ParentDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"docDir", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"FileNameDrop", "[", 
+      RowBox[{
+       RowBox[{
+       "FindFile", "[", "\"\<SpinWeightedSpheroidalHarmonics`\>\"", "]"}], 
+       ",", 
+       RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
+   "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Short", "[", 
+  RowBox[{
+   RowBox[{"docFiles", "=", 
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"FileNames", "[", 
+       RowBox[{"\"\<*\>\"", ",", "docDir", ",", "Infinity"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
+   "10"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input"]
+},
+WindowSize->{740, 867},
+WindowMargins->{{Automatic, 463}, {Automatic, 3}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
+2015)",
+StyleDefinitions->"Default.nb"
+]
+

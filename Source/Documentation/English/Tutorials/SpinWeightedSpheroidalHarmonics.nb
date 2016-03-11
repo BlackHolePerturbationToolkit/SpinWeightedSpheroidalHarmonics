@@ -1,0 +1,290 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Spin-weighted spheroidal harmonics", "Title"],
+
+Cell["\<\
+The SpinWeightedSpheroidalHarmonics package provides functions for computing \
+spin-weighted spheroidal harmonics and their eigenvalues. Before using the \
+functions, first load the package\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"<<", "SpinWeightedSpheroidalHarmonics`"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["Usage", "Subsection"],
+
+Cell[CellGroupData[{
+
+Cell["Available functions", "Subsubsection"],
+
+Cell[BoxData[GridBox[{
+   {"SpinWeightedSpheroidalEigenvalue", "SpinWeightedSpheroidalHarmonicS", 
+    "SpinWeightedSphericalHarmonicY"}
+  }]], "DefinitionBox3Col"],
+
+Cell["\<\
+Main functions provided by the SpinWeightedSpheroidalHarmonics package\
+\>", "Caption"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Numerical evaluation", "Subsubsection"],
+
+Cell["Numerically evaluate a spin-weighted spheroidal harmonic", "Text"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}], ",", 
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "2"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1"}], ",", 
+     RowBox[{"\[Theta]", "=", 
+      RowBox[{"\[Pi]", "/", "4"}]}], ",", 
+     RowBox[{"\[Phi]", "=", 
+      RowBox[{"\[Pi]", "/", "3"}]}]}], "}"}], ",", 
+   RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+    RowBox[{
+    "s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "\[Theta]", ",", 
+     "\[Phi]"}], "]"}]}], "]"}]], "Input"],
+
+Cell["\<\
+Numerically evaluate the corresponding spin-weighted spheroidal eigenvalue\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}], ",", 
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "2"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1"}], ",", 
+     RowBox[{"\[Theta]", "=", 
+      RowBox[{"\[Pi]", "/", "4"}]}], ",", 
+     RowBox[{"\[Phi]", "=", 
+      RowBox[{"\[Pi]", "/", "3"}]}]}], "}"}], ",", 
+   RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+    RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], 
+  "]"}]], "Input"],
+
+Cell["\<\
+The precision of the output always matches the precision of the input\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}], ",", 
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "2"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1`32"}], ",", 
+     RowBox[{"\[Theta]", "=", 
+      RowBox[{"\[Pi]", "/", "4"}]}], ",", 
+     RowBox[{"\[Phi]", "=", 
+      RowBox[{"\[Pi]", "/", "3"}]}]}], "}"}], ",", 
+   RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+    RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], 
+  "]"}]], "Input"],
+
+Cell[TextData[{
+ "SpinWeightedSpheroidalHarmonicS can fail for sufficiently large values of \
+",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["\[Gamma]", "\[ScriptL]"], TraditionalForm]]]
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "2.", ",", 
+   RowBox[{"\[Pi]", "/", "4"}], ",", "0"}], "]"}]], "Input"],
+
+Cell["\<\
+In some cases, increading the value for MaxIterations may yield a more \
+accurate (but slower) answer\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "2.", ",", 
+   RowBox[{"\[Pi]", "/", "4"}], ",", "0", ",", 
+   RowBox[{"MaxIterations", "\[Rule]", "100"}]}], "]"}]], "Input"],
+
+Cell["\<\
+If \[Gamma] is sufficiently large, the answer will not converge for any \
+number of iterations\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "10.", ",", 
+   RowBox[{"\[Pi]", "/", "4"}], ",", "0", ",", 
+   RowBox[{"MaxIterations", "\[Rule]", "100"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Series expansion", "Subsubsection"],
+
+Cell["Series expansions can be computed for small \[Gamma]", "Text"],
+
+Cell[BoxData[
+ RowBox[{"Series", "[", 
+  RowBox[{
+   RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+    RowBox[{
+    "s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "\[Theta]", ",", 
+     "\[Phi]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Gamma]", ",", "0", ",", "2"}], "}"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Series", "[", 
+  RowBox[{
+   RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+    RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Gamma]", ",", "0", ",", "2"}], "}"}]}], "]"}]], "Input"],
+
+Cell[TextData[{
+ "High-order series can be computed efficiently when ",
+ StyleBox["s",
+  FontSlant->"Italic"],
+ ", \[ScriptL] and ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " are specifiec in advance."
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{"Series", "[", 
+  RowBox[{
+   RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+    RowBox[{
+     RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Gamma]", ",", "0", ",", "10"}], "}"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", 
+  RowBox[{"Series", "[", 
+   RowBox[{
+    RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]", ",", 
+      "\[Theta]", ",", "\[Phi]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"\[Gamma]", ",", "0", ",", "4"}], "}"}]}], "]"}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Relation to other functions", "Subsection"],
+
+Cell["\<\
+For s=0, SpinWeightedSpheroidalHarmonicS is related to SpheroidalPS\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "2"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1"}], ",", 
+     RowBox[{"\[Theta]", "=", 
+      RowBox[{"\[Pi]", "/", "4"}]}]}], "}"}], ",", 
+   RowBox[{
+    RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+     RowBox[{
+     "0", ",", "l", ",", "m", ",", "\[Gamma]", ",", "\[Theta]", ",", "0"}], 
+     "]"}], "==", 
+    RowBox[{
+     SqrtBox[
+      FractionBox[
+       RowBox[{
+        RowBox[{"2", "l"}], "+", "1"}], 
+       RowBox[{"4", "\[Pi]"}]]], 
+     SqrtBox[
+      FractionBox[
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"l", "-", "m"}], ")"}], "!"}], 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"l", "+", "m"}], ")"}], "!"}]]], 
+     RowBox[{"SpheroidalPS", "[", 
+      RowBox[{"l", ",", "m", ",", 
+       RowBox[{"I", " ", "\[Gamma]"}], ",", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "]"}]}]}]}], "]"}]], "Input"],
+
+Cell["\<\
+For \[Gamma]=0, SpinWeightedSpheroidalHarmonicS reduces to \
+SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalEigenvalue has a \
+simple analytic form\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{"s", ",", "l", ",", "m", ",", "0", ",", "\[Theta]", ",", "\[Phi]"}],
+   "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+  RowBox[{"s", ",", "l", ",", "m", ",", "0"}], "]"}]], "Input"],
+
+Cell["\<\
+SpinWeightedSphericalHarmonicY evaluates for arbitrary \[Theta] and \[Phi], \
+SpinWeightedSpheroidalHarmonicS does not\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Theta]", ",", "\[Phi]"}], 
+  "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]", ",", "\[Theta]", 
+   ",", "\[Phi]"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "0.1", ",", "\[Theta]", ",", 
+   "\[Phi]"}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]]
+},
+Saveable->True,
+WindowSize->{967, 967},
+WindowMargins->{{Automatic, 295}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
+2015)",
+StyleDefinitions->"Default.nb"
+]
+

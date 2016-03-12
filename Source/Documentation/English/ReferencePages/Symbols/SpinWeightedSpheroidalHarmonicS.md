@@ -1,7 +1,7 @@
 {
   "More Information" -> {
     "For real \[Gamma], SpinWeightedSpheroidalHarmonicS computes the oblate spin-weighted spheroidal harmonic with oblateness \[Gamma].",
-    "For \[Gamma]=0, SpinWeightedSpheroidalHarmonicS reduces the SpinWeightedSphericalHarmonicY.",
+    "For \[Gamma]=0, SpinWeightedSpheroidalHarmonicS reduces to SpinWeightedSphericalHarmonicY.",
     "For s=0 and \[Gamma]=0, SpinWeightedSpheroidalHarmonicS is equivalent to SphericalHarmonicY.",
     "For s=0, SpinWeightedSpheroidalHarmonicS[0, l, m, \[Gamma], \[Theta], \[Phi]] is equivalent to Sqrt[(2 l + 1)/(4 \[Pi])] Sqrt[(l - m)!/(l + m)!] SpheroidalPS[l, m, I \[Gamma], Cos[\[Theta]]].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalHarmonicS produces a numerical value of the same precision.",

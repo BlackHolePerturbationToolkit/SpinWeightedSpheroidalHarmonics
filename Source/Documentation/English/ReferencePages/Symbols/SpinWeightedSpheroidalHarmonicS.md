@@ -1,6 +1,7 @@
 {
   "More Information" -> {
     "For real \[Gamma], SpinWeightedSpheroidalHarmonicS computes the oblate spin-weighted spheroidal harmonic with oblateness \[Gamma].",
+    "SpinWeightedSpheroidalHarmonicS satisfies the spin-weighted spheroidal equation, D[Sin[\[Theta]] D[ SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]], \[Theta]], \[Theta]]/ Sin[\[Theta]] + (-\[Gamma]^2 Sin[\[Theta]]^2 - (m + s Cos[\[Theta]])^2/Sin[\[Theta]]^2 - 2 s \[Gamma] Cos[\[Theta]] + s + 2 m \[Gamma] + \[Lambda]) SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]] == 0.",
     "SpinWeightedSpheroidalHarmonicS is unit-normalised on the two-sphere, Integrate[SpinWeightedSpheroidalHarmonicS[s, l1, m1, \[Gamma], \[Theta], \[Phi]] Conjugate[SpinWeightedSpheroidalHarmonicS[s, l2, m2, \[Gamma], \[Theta], \[Phi]]] Sin[\[Theta]], {\[Theta], 0, \[Pi]}, {\[Phi], 0, 2 \[Pi]}] \[Equal] KroneckerDelta[l1, l2] KroneckerDelta[m1, m2]. This is consistent with the Meixner-Sch\[ADoubleDot]fke convention for the spheroidal Legendre functions in the same sense that the normalisation of SphericalHarmonicY is consistent with the Legendre functions.",
     "For \[Gamma]=0, SpinWeightedSpheroidalHarmonicS reduces to SpinWeightedSphericalHarmonicY.",
     "For s=0 and \[Gamma]=0, SpinWeightedSpheroidalHarmonicS is equivalent to SphericalHarmonicY.",

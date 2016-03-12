@@ -143,8 +143,31 @@ spherical harmonic.\
 \>", "Notes"],
 
 Cell["\<\
+SpinWeightedSphericalHarmonicY satisfies the spin-weighted spherical \
+equation, D[Sin[\[Theta]] D[ SpinWeightedSphericalHarmonicY[s, l, m, \
+\[Theta], \[Phi]], \[Theta]], \[Theta]]/ Sin[\[Theta]] + (- (m + s Cos[\
+\[Theta]])^2/Sin[\[Theta]]^2 + s + \[Lambda]) \
+SpinWeightedSphericalHarmonicY[s, l, m, \[Gamma], \[Theta], \[Phi]] == 0.\
+\>", "Notes"],
+
+Cell["\<\
+The eigenvalue, \[Lambda] for the spin-weighted spherical equation is given \
+by \[Lambda] = l(l+1) - s(s+1).\
+\>", "Notes"],
+
+Cell["\<\
 For s=0, SpinWeightedSphericalHarmonicY is equivalent to SphericalHarmonicY.\
-\>", "Notes"]
+\>", "Notes"],
+
+Cell["\<\
+SpinWeightedSphericalHarmonicY is unit-normalised on the two-sphere, \
+Integrate[SpinWeightedSphericalHarmonicY[s, l1, m1, \[Theta], \[Phi]] \
+Conjugate[SpinWeightedSphericalHarmonicY[s, l2, m2, \[Theta], \[Phi]]] Sin[\
+\[Theta]], {\[Theta], 0, \[Pi]}, {\[Phi], 0, 2 \[Pi]}] \[Equal] \
+KroneckerDelta[l1, l2] KroneckerDelta[m1, m2].\
+\>", "Notes"],
+
+Cell["Null", "Notes"]
 }, Open  ]]
 }, Open  ]],
 
@@ -350,8 +373,8 @@ m.", "synonyms" -> {
     "SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSphericalHarmonicY"}, 
   "SearchTextTranslated" -> "", "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
-2015)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

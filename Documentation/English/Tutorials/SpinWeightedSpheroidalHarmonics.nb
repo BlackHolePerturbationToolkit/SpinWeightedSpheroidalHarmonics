@@ -111,7 +111,7 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   RowBox[{"-", "0.23032053770455901`"}], "+", 
-  RowBox[{"0.3989268733308797`", " ", "\[ImaginaryI]"}]}]], "Output",
+  RowBox[{"0.3989268733308798`", " ", "\[ImaginaryI]"}]}]], "Output",
  CellLabel->"Out[2]="]
 }, Open  ]],
 
@@ -1277,8 +1277,8 @@ TaggingRules->{
 SpinWeightedSpheroidalHarmonics"}, "SearchTextTranslated" -> "", "LinkTrails" -> 
   ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
-2015)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

@@ -143,6 +143,16 @@ for the oblate spheroidal equation with oblateness \[Gamma].\
 \>", "Notes"],
 
 Cell["\<\
+SpinWeightedSpheroidalEigenvalue is the eigenvalue, \[Lambda], appearing in \
+the spin-weighted spheroidal equation, D[Sin[\[Theta]] D[ \
+SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]], \
+\[Theta]], \[Theta]]/ Sin[\[Theta]] + (-\[Gamma]^2 Sin[\[Theta]]^2 - (m + s \
+Cos[\[Theta]])^2/Sin[\[Theta]]^2 - 2 s \[Gamma] Cos[\[Theta]] + s + 2 m \
+\[Gamma] + \[Lambda]) SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \
+\[Theta], \[Phi]] == 0.\
+\>", "Notes"],
+
+Cell["\<\
 For \[Gamma]=0, SpinWeightedSpheroidalEigenvalue reduces to l(l+1) - s(s+1).\
 \>", "Notes"],
 
@@ -225,6 +235,7 @@ Cell["", "SeeAlsoSection",
            BoxData[
             InterpretationBox[
              StyleBox[
+              
               GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
                Baseline], "CacheGraphics" -> False], 
              Spacer[24]]]], "See Also"}], "SeeAlsoSection"], BaseStyle -> 
@@ -398,8 +409,8 @@ spin-weight s, degree l and order m.",
     "SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSpheroidalEigenvalue"}, 
   "SearchTextTranslated" -> "", "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 10, \
-2015)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

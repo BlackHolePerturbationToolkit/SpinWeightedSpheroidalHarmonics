@@ -76,15 +76,6 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
   Aval
 ]
 
-(* Combine spectral and Leaver's method *)
-SWSHEigenvalue[s_, l_, m_, \[Gamma]_] :=
- Module[{Aini},
-  If[\[Gamma]==0, Return[l(l+1)-s(s+1)]];
-  If[l<Abs[s], Return[0]];
-  Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
-  SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2
-]
-
 (**********************************************************)
 (* SpinWeightedSpheroidalEigenvalue                       *)
 (**********************************************************)
@@ -92,35 +83,19 @@ SWSHEigenvalue[s_, l_, m_, \[Gamma]_] :=
 SpinWeightedSpheroidalEigenvalue::ncvb = "Failed to converge after `1` iterations. SpinWeightedSpheroidalEigenvalue obtained `2` and `3` for the result and error estimates. Increasing the value of the MaxIterations option may yield a more accurate answer.";
 
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
- {"ArgumentsPattern" -> {_, _, _, _, ___}};
-Options[SpinWeightedSpheroidalEigenvalue] = {MaxIterations -> Automatic};
+ {"ArgumentsPattern" -> {_, _, _, _}};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
-SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
- Module[{\[Lambda]i, \[Lambda], maxOrder, i, j}, Internal`InheritedBlock[{d, s\[Lambda]lm},
-  maxOrder = OptionValue["MaxIterations"];
-  If[maxOrder == Automatic, maxOrder = Max[32, Precision[\[Gamma]]]];
-  \[Lambda] = 0;
-  Do[
-    Do[
-      d[s, l, m][i, j] = N[d[s, l, m][i, j], Precision[\[Gamma]]], {j, -i, i}];
-    s\[Lambda]lm[s, l, m][i] = N[s\[Lambda]lm[s, l, m][i], Precision[\[Gamma]]];
-    \[Lambda]i = s\[Lambda]lm[s, l, m][i] \[Gamma]^i;
-    \[Lambda] += \[Lambda]i;
-    Which[
-      \[Lambda]i != 0 && \[Lambda] == (\[Lambda]-\[Lambda]i),
-      Break[],
-      i == maxOrder,
-      Message[SpinWeightedSpheroidalEigenvalue::ncvb, maxOrder, \[Lambda], \[Lambda]i];
-    ];
-  ,{i, 0, maxOrder}];
-  \[Lambda]
-]];
+SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
+ Module[{Aini},
+  Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
+  SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2
+];
 
-SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, opts___:OptionsPattern[]], Nopts___] :=
-  SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
+SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ], Nopts___] :=
+  SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts]];
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.), opts___:OptionsPattern[]] :=
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.)] :=
   l(l+1) - s(s+1);
 
 SpinWeightedSpheroidalEigenvalue /: 

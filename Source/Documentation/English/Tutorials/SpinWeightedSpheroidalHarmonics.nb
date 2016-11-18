@@ -97,45 +97,7 @@ Cell[BoxData[
       RowBox[{"\[Pi]", "/", "3"}]}]}], "}"}], ",", 
    RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
     RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], 
-  "]"}]], "Input"],
-
-Cell[TextData[{
- "SpinWeightedSpheroidalHarmonicS can fail for sufficiently large values of \
-",
- Cell[BoxData[
-  FormBox[
-   FractionBox["\[Gamma]", "\[ScriptL]"], TraditionalForm]]]
-}], "Text"],
-
-Cell[BoxData[
- RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-  RowBox[{
-   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "2.", ",", 
-   RowBox[{"\[Pi]", "/", "4"}], ",", "0"}], "]"}]], "Input"],
-
-Cell["\<\
-In some cases, increading the value for MaxIterations may yield a more \
-accurate (but slower) answer\
-\>", "Text"],
-
-Cell[BoxData[
- RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-  RowBox[{
-   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "2.", ",", 
-   RowBox[{"\[Pi]", "/", "4"}], ",", "0", ",", 
-   RowBox[{"MaxIterations", "\[Rule]", "100"}]}], "]"}]], "Input"],
-
-Cell["\<\
-If \[Gamma] is sufficiently large, the answer will not converge for any \
-number of iterations\
-\>", "Text"],
-
-Cell[BoxData[
- RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-  RowBox[{
-   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "10.", ",", 
-   RowBox[{"\[Pi]", "/", "4"}], ",", "0", ",", 
-   RowBox[{"MaxIterations", "\[Rule]", "100"}]}], "]"}]], "Input"]
+  "]"}]], "Input"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -169,7 +131,7 @@ Cell[TextData[{
  ", \[ScriptL] and ",
  StyleBox["m",
   FontSlant->"Italic"],
- " are specifiec in advance."
+ " are specified in advance."
 }], "Text"],
 
 Cell[BoxData[

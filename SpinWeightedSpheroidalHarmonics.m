@@ -52,8 +52,8 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
   \[Lambda] = 0;
   Do[
     Do[
-      d[s, l, m][i, j] = Simplify[d[s, l, m][i, j]], {j, -i, i}];
-    s\[Lambda]lm[s, l, m][i] = Simplify[s\[Lambda]lm[s, l, m][i]];
+      d[s, l, m][i, j] = N[d[s, l, m][i, j], Precision[\[Gamma]]], {j, -i, i}];
+    s\[Lambda]lm[s, l, m][i] = N[s\[Lambda]lm[s, l, m][i], Precision[\[Gamma]]];
     \[Lambda]i = s\[Lambda]lm[s, l, m][i] \[Gamma]^i;
     \[Lambda] += \[Lambda]i;
     Which[

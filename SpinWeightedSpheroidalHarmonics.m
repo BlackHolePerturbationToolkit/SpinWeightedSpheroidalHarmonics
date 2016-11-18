@@ -40,6 +40,8 @@ simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta]
 
 SpinWeightedSpheroidalEigenvalue::ncvb = "Failed to converge after `1` iterations. SpinWeightedSpheroidalEigenvalue obtained `2` and `3` for the result and error estimates. Increasing the value of the MaxIterations option may yield a more accurate answer.";
 
+SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
+ {"ArgumentsPattern" -> {_, _, _, _, ___}};
 Options[SpinWeightedSpheroidalEigenvalue] = {MaxIterations -> Automatic};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
@@ -88,6 +90,8 @@ SpinWeightedSpheroidalEigenvalue /:
 
 SpinWeightedSpheroidalHarmonicS::ncvb = "Failed to converge after `1` iterations. SpinWeightedSpheroidalHarmonicS obtained `2` and `3` for the result and error estimates. Increasing the value of the MaxIterations option may yield a more accurate answer.";
 
+SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
+ {"ArgumentsPattern" -> {_, _, _, _, _, _, ___}};
 Options[SpinWeightedSpheroidalHarmonicS] = {MaxIterations -> Automatic};
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
@@ -137,6 +141,8 @@ SpinWeightedSpheroidalHarmonicS /:
 (* SpinWeightedSphericalHarmonicY                         *)
 (**********************************************************)
 
+SyntaxInformation[SpinWeightedSphericalHarmonicY] =
+ {"ArgumentsPattern" -> {_, _, _, _, _, ___}};
 SetAttributes[SpinWeightedSphericalHarmonicY, {NumericFunction, Listable}];
 
 SpinWeightedSphericalHarmonicY[s_Integer, l_Integer, m_Integer, \[Theta]_, \[Phi]_] :=

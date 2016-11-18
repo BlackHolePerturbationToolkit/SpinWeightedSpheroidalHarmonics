@@ -167,42 +167,16 @@ numerical value of the same precision.\
 \>", "Notes"],
 
 Cell["\<\
-Numerical values are computed using a series expansion about \[Gamma] = 0, \
-with the number of terms in the expansion determined automatically to ensure \
-the desired precision is reached.\
-\>", "Notes"],
-
-Cell["\<\
-The MaxIterations option controls the maximum number of terms to include in a \
-numerical approximation. For large \[Gamma]/l it may be necessary to set this \
-to a large value in order to achieve the desired accuracy.\
-\>", "Notes"],
-
-Cell["\<\
-For sufficiently large \[Gamma]/l the numerical evaluation of \
-SpinWeightedSpheroidalEigenvalue may fail to converge for any value of \
-MaxIterations.\
+Numerical values are computed using a spectral/eigenvalue approach for an \
+initial guess followed by Leaver's method to obtain an accurate answer. The \
+precision of the result will be approximately equal to the precision of \
+\[Gamma].\
 \>", "Notes"],
 
 Cell["\<\
 Series expansions about \[Gamma] = 0 can be computed to arbitrary order for \
 generic s, l and m.\
-\>", "Notes"],
-
-Cell["The following options can be given: ", "Notes"],
-
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon"], "MaxIterations", "Automatic", Cell[
-    "", "TableText"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{"Rows" -> {{True, True}}}}]
+\>", "Notes"]
 }, Open  ]]
 }, Open  ]],
 

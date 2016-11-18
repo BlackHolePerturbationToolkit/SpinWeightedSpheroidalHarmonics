@@ -72,13 +72,13 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
   nInv = l-Abs[m];
   \[Alpha] = Abs[m+s];
   \[Beta] = Abs[m-s];
-  \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n +( \[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));
-  \[Beta]n[n_,A_] := A + s(s+1)+\[Gamma]^2 -(n +(\[Alpha]+\[Beta])/2)(n +(\[Alpha]+\[Beta])/2+1)+If[s!=0,(8m s^2 \[Gamma])/((2n+\[Alpha]+\[Beta])(2n+\[Alpha]+\[Beta]+2)),0];
-  \[Gamma]n[n_] := (4\[Gamma] n(n+\[Alpha]+\[Beta])(n+( \[Alpha]+\[Beta])/2-s))/((2n+\[Alpha]+\[Beta]-1)(2n+\[Alpha]+\[Beta]));
-  RHS[Ax_] := -ContinuedFractionK[-\[Alpha]n[n- 1]\[Gamma]n[n],\[Beta]n[n,Ax],{n,nInv+1,Nmax}];
-  LHS[Ax_] := \[Beta]n[nInv,Ax]+ContinuedFractionK[-\[Alpha]n[nInv-n]\[Gamma]n[nInv-n+1],\[Beta]n[nInv-n,Ax],{n,1,nInv}];
-  Eq[A_?NumericQ] := LHS[A]-RHS[A];
-  Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal->Myprec-3, WorkingPrecision->Myprec, Method->"Secant"];
+  \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n+(\[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));
+  \[Beta]n[n_, A_] := A + s(s+1)+\[Gamma]^2 -(n +(\[Alpha]+\[Beta])/2)(n +(\[Alpha]+\[Beta])/2+1) + If[s!=0,(8m s^2 \[Gamma])/((2n+\[Alpha]+\[Beta])(2n+\[Alpha]+\[Beta]+2)),0];
+  \[Gamma]n[n_] := (4\[Gamma] n(n+\[Alpha]+\[Beta])(n+(\[Alpha]+\[Beta])/2-s))/((2n+\[Alpha]+\[Beta]-1)(2n+\[Alpha]+\[Beta]));
+  RHS[Ax_] := -ContinuedFractionK[-\[Alpha]n[n-1] \[Gamma]n[n], \[Beta]n[n,Ax], {n, nInv+1, Nmax}];
+  LHS[Ax_] := \[Beta]n[nInv, Ax] + ContinuedFractionK[-\[Alpha]n[nInv-n] \[Gamma]n[nInv-n+1], \[Beta]n[nInv-n, Ax], {n, 1, nInv}];
+  Eq[A_?NumericQ] := LHS[A] - RHS[A];
+  Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"];
   Aval
 ]
 

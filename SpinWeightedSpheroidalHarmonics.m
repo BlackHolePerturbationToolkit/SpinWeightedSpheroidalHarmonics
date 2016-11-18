@@ -86,6 +86,11 @@ SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
  {"ArgumentsPattern" -> {_, _, _, _}};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_] /; l < Abs[s] := 0;
+
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.)] :=
+  l(l+1) - s(s+1);
+
 SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
  Module[{Aini},
   Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
@@ -94,9 +99,6 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
 
 SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ], Nopts___] :=
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts]];
-
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.)] :=
-  l(l+1) - s(s+1);
 
 SpinWeightedSpheroidalEigenvalue /: 
   Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, 0, order_}] :=

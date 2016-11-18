@@ -95,6 +95,9 @@ SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
 Options[SpinWeightedSpheroidalHarmonicS] = {MaxIterations -> Automatic};
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
+  SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
+
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, OptionsPattern[]] :=
  Module[{Si, S, maxOrder, i, j}, Internal`InheritedBlock[{d, s\[Lambda]lm, SpinWeightedSphericalHarmonicY},
   maxOrder = OptionValue["MaxIterations"];
@@ -120,9 +123,6 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 
 SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]], Nopts___] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];
-
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
-  SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
 
 SpinWeightedSpheroidalHarmonicS /: 
   Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, \[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=

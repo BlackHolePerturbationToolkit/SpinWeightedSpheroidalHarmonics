@@ -12,6 +12,7 @@ Begin["`Private`"];
 (* Internal functions                                     *)
 (**********************************************************)
 
+(* Series expansion coefficients *)
 \[Alpha][s_,l_,m_]:=1/l (Sqrt[l^2-m^2] Sqrt[l^2-s^2])/(Sqrt[2l-1] Sqrt[2l+1]);
 \[Alpha][s_,l_,m_]/;l<Abs[s]=0;
 \[Alpha][0,l_,m_]:= Sqrt[l^2-m^2]/(Sqrt[2l-1] Sqrt[2l+1]);
@@ -33,6 +34,56 @@ d[s_,l_,m_][i_Integer?Positive,j_Integer]:=1/(j (1+j+2 l)) (Sum[d[s,l,m][i-k,j] 
 d[s_,l_,m_][i_Integer?Positive,j_Integer]/;l+j<Abs[s]:=0;
 
 simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta][__]]}, Simplify];
+
+(* Spectral method for seed in numerical evaluation *)
+kHat[s_,l_,M_,x_] := Which[l==0,-l (1+l)+x^2/3,l>=1,-l (1+l)+(2 M s^2 x)/(l+l^2)+1/3 (1+(2 (l+l^2-3 M^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) x^2];
+k1[s_,l_,M_,x_] := Which[l<2,0,l>=2,(Sqrt[((-1+l-M) (l-M) (-1+l+M) (l+M) (-1+l-s) (l-s) (-1+l+s) (l+s))/((-3+2 l) (1+2 l))] x^2)/((-1+l) l (-1+2 l))];
+k2[s_,l_,M_,x_] := ((-1)^(2 (2 l+M-s)) Sqrt[((1+l-M) (2+l-M) (1+l+M) (2+l+M) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] x^2)/((1+l) (2+l) (3+2 l));
+kTilde1[s_,l_,M_,x_] := Which[l==0,0,l==1,-((2 s Sqrt[((l^2-M^2) (l^2-s^2))/(-1+4 l^2)] x)/l),l>=2,-((2 s Sqrt[((l^2-M^2) (l^2-s^2))/(-1+4 l^2)] x (-1+l^2+M x))/(l (-1+l^2)))];
+kTilde2[s_,l_,M_,x_] := Which[l==0,-((2 (-1)^(2 (2 l+M-s)) s Sqrt[((1+2 l+l^2-M^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] x)/(1+l)),l>=1,-((2 (-1)^(2 (2 l+M-s)) s Sqrt[((1+2 l+l^2-M^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] x (2 l+l^2+M x))/(l (2+3 l+l^2)))];
+
+SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_] :=
+ Module[{n, Matrix, Eigens, lmin},
+  n = l - m + 15; (* FIXME: This should be dependent on \[Gamma] *)
+  lmin = Max[Abs[s], Abs[m]];
+  Matrix = SparseArray[{
+    {i_, i_} :> kHat[s, lmin+i-1, m, \[Gamma]],
+    {i_, j_} /; j-i==-2 :> k2[s, lmin+i-3, m, \[Gamma]],
+    {i_, j_} /; j-i==-1 :> kTilde1[s, lmin+i-1, m, \[Gamma]],
+    {i_, j_} /; j-i==1 :> kTilde2[s, lmin+i-1, m, \[Gamma]],
+    {i_, j_} /; j-i==2 :> k1[s, lmin+i+1, m, \[Gamma]]
+    }, {n, n}];
+
+  Eigens = Sort[-Eigenvalues[Matrix], Greater];
+  Eigens[[-(l-lmin)-1]]-s(s+1)
+];
+
+(* Leaver's Method *)
+SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
+ Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
+  Myprec = Floor[Precision[\[Gamma]]];
+  Nmax = 100;(* FIXME: This should be dependent on \[Gamma] *)
+  nInv = l-Abs[m];
+  \[Alpha] = Abs[m+s];
+  \[Beta] = Abs[m-s];
+  \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n +( \[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));
+  \[Beta]n[n_,A_] := A + s(s+1)+\[Gamma]^2 -(n +(\[Alpha]+\[Beta])/2)(n +(\[Alpha]+\[Beta])/2+1)+If[s!=0,(8m s^2 \[Gamma])/((2n+\[Alpha]+\[Beta])(2n+\[Alpha]+\[Beta]+2)),0];
+  \[Gamma]n[n_] := (4\[Gamma] n(n+\[Alpha]+\[Beta])(n+( \[Alpha]+\[Beta])/2-s))/((2n+\[Alpha]+\[Beta]-1)(2n+\[Alpha]+\[Beta]));
+  RHS[Ax_] := -ContinuedFractionK[-\[Alpha]n[n- 1]\[Gamma]n[n],\[Beta]n[n,Ax],{n,nInv+1,Nmax}];
+  LHS[Ax_] := \[Beta]n[nInv,Ax]+ContinuedFractionK[-\[Alpha]n[nInv-n]\[Gamma]n[nInv-n+1],\[Beta]n[nInv-n,Ax],{n,1,nInv}];
+  Eq[A_?NumericQ] := LHS[A]-RHS[A];
+  Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal->Myprec-3, WorkingPrecision->Myprec, Method->"Secant"];
+  Aval
+]
+
+(* Combine spectral and Leaver's method *)
+SWSHEigenvalue[s_, l_, m_, \[Gamma]_] :=
+ Module[{Aini},
+  If[\[Gamma]==0, Return[l(l+1)-s(s+1)]];
+  If[l<Abs[s], Return[0]];
+  Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
+  SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2
+]
 
 (**********************************************************)
 (* SpinWeightedSpheroidalEigenvalue                       *)

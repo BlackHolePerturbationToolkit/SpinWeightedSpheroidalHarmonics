@@ -36,17 +36,17 @@ d[s_,l_,m_][i_Integer?Positive,j_Integer]/;l+j<Abs[s]:=0;
 simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta][__]]}, Simplify];
 
 (* Spectral method for seed in numerical evaluation *)
-kHat[s_, 0, M_, x_] := -l (1+l)+x^2/3;
-kHat[s_, l_, M_, x_] := -l (1+l)+(2 M s^2 x)/(l+l^2)+1/3 (1+(2 (l+l^2-3 M^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) x^2;
-k1[s_, l_, M_, x_] /; l<2 := 0;
-k1[s_, l_, M_, x_] := (Sqrt[((-1+l-M) (l-M) (-1+l+M) (l+M) (-1+l-s) (l-s) (-1+l+s) (l+s))/((-3+2 l) (1+2 l))] x^2)/((-1+l) l (-1+2 l));
-k2[s_, l_, M_, x_] := (Sqrt[((1+l-M) (2+l-M) (1+l+M) (2+l+M) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] x^2)/((1+l) (2+l) (3+2 l));
-kTilde1[s_, 0, M_, x_] := 0;
-kTilde1[s_, 1, M_, x_] := -((2 s Sqrt[((l^2-M^2) (l^2-s^2))/(-1+4 l^2)] x)/l);
+kHat[s_, 0, m_, \[Gamma]_] := -l (1+l)+\[Gamma]^2/3;
+kHat[s_, l_, m_, \[Gamma]_] := -l (1+l)+(2 m s^2 \[Gamma])/(l+l^2)+1/3 (1+(2 (l+l^2-3 m^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) \[Gamma]^2;
+k1[s_, l_, m_, \[Gamma]_] /; l<2 := 0;
+k1[s_, l_, m_, \[Gamma]_] := (Sqrt[((-1+l-m) (l-m) (-1+l+m) (l+m) (-1+l-s) (l-s) (-1+l+s) (l+s))/((-3+2 l) (1+2 l))] \[Gamma]^2)/((-1+l) l (-1+2 l));
+k2[s_, l_, m_, \[Gamma]_] := (Sqrt[((1+l-m) (2+l-m) (1+l+m) (2+l+m) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] \[Gamma]^2)/((1+l) (2+l) (3+2 l));
+kTilde1[s_, 0, m_, \[Gamma]_] := 0;
+kTilde1[s_, 1, m_, \[Gamma]_] := -((2 s Sqrt[((l^2-m^2) (l^2-s^2))/(-1+4 l^2)] \[Gamma])/l);
 
-kTilde1[s_, l_, M_, x_] := -((2 s Sqrt[((l^2-M^2) (l^2-s^2))/(-1+4 l^2)] x (-1+l^2+M x))/(l (-1+l^2)));
-kTilde2[s_, 0, M_, x_] := -((2 s Sqrt[((1+2 l+l^2-M^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] x)/(1+l));
-kTilde2[s_, l_, M_, x_] := -((2 s Sqrt[((1+2 l+l^2-M^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] x (2 l+l^2+M x))/(l (2+3 l+l^2)));
+kTilde1[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((l^2-m^2) (l^2-s^2))/(-1+4 l^2)] \[Gamma] (-1+l^2+m \[Gamma]))/(l (-1+l^2)));
+kTilde2[s_, 0, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma])/(1+l));
+kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
 
 SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_] :=
  Module[{n, Matrix, Eigens, lmin},

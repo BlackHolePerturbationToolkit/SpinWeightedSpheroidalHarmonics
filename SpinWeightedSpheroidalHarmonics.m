@@ -38,30 +38,27 @@ simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta]
 (* Spectral method for seed in numerical evaluation *)
 kHat[s_, 0, 0, \[Gamma]_] := \[Gamma]^2/3;
 kHat[s_, l_, m_, \[Gamma]_] := -l (1+l)+(2 m s^2 \[Gamma])/(l+l^2)+1/3 (1+(2 (l+l^2-3 m^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) \[Gamma]^2;
-k1[s_, l_, m_, \[Gamma]_] /; l<2 := 0;
-k1[s_, l_, m_, \[Gamma]_] := (Sqrt[((-1+l-m) (l-m) (-1+l+m) (l+m) (-1+l-s) (l-s) (-1+l+s) (l+s))/((-3+2 l) (1+2 l))] \[Gamma]^2)/((-1+l) l (-1+2 l));
 k2[s_, l_, m_, \[Gamma]_] := (Sqrt[((1+l-m) (2+l-m) (1+l+m) (2+l+m) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] \[Gamma]^2)/((1+l) (2+l) (3+2 l));
-kTilde1[s_, 0, 0, \[Gamma]_] := 0;
-kTilde1[s_, 1, m_, \[Gamma]_] := -2 s Sqrt[((1-m^2) (1-s^2))/(-1+4)] \[Gamma];
-
-kTilde1[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((l^2-m^2) (l^2-s^2))/(-1+4 l^2)] \[Gamma] (-1+l^2+m \[Gamma]))/(l (-1+l^2)));
 kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
 
-SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_] :=
- Module[{n, Matrix, Eigens, lmin},
-  n = l - m + 15; (* FIXME: This should be dependent on \[Gamma] *)
-  lmin = Max[Abs[s], Abs[m]];
-  Matrix = SparseArray[{
-    {i_, i_} :> kHat[s, lmin+i-1, m, \[Gamma]],
-    {i_, j_} /; j-i==-2 :> k2[s, lmin+i-3, m, \[Gamma]],
-    {i_, j_} /; j-i==-1 :> kTilde1[s, lmin+i-1, m, \[Gamma]],
-    {i_, j_} /; j-i==1 :> kTilde2[s, lmin+i-1, m, \[Gamma]],
-    {i_, j_} /; j-i==2 :> k1[s, lmin+i+1, m, \[Gamma]]
-    }, {n, n}];
+SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
+ Module[{nmin,nmax,Matrix,Eigens,lmin},
+  lmin=Max[Abs[s],Abs[m]];
+  nmin=Min[l-lmin,nmax];
 
-  Eigens = Sort[-Eigenvalues[Matrix], Greater];
-  Eigens[[-(l-lmin)-1]]-s(s+1)
+  nmax=Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;(*FIXME: Improve the estimate of nmax*)
+
+  Matrix=SparseArray[
+	{{i_,i_}:>kHat[s,l-nmin-1+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-2:>k2[s,l-nmin-3+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-1:>kTilde2[s,l-nmin+i-2,m,\[Gamma]],
+	{i_,j_}/;j-i==1:>kTilde2[s,l-nmin+i-1,m,\[Gamma]],
+	{i_,j_}/;j-i==2:>k2[s,l-nmin+i+-1,m,\[Gamma]]}
+  ,{nmax+nmin+1,nmax+nmin+1}];
+Eigens=Sort[-Eigenvalues[Matrix],Greater];
+
+Eigens[[-(nmin+1)]]-s(s+1)
 ];
 
 (* Leaver's Method *)

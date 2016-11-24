@@ -44,10 +44,9 @@ kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/
 
 SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
  Module[{nmin,nmax,Matrix,Eigens,lmin},
-  lmin=Max[Abs[s],Abs[m]];
-  nmin=Min[l-lmin,nmax];
-
   nmax=Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;(*FIXME: Improve the estimate of nmax*)
+  lmin=Max[Abs[s],Abs[m]];
+  nmin=Min[nmax,l-lmin];
 
   Matrix=SparseArray[
 	{{i_,i_}:>kHat[s,l-nmin-1+i,m,\[Gamma]],

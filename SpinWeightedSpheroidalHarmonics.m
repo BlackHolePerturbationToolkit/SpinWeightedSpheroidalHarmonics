@@ -136,9 +136,10 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method->"Eigenvalue"] :=
- Module[{lmin, nmax, nmin, A, ev},
+ Module[{lmin, nmax, nmin, A, esys,evec,eval,sign,pos},
   lmin = Max[Abs[s],Abs[m]];
   nmax = Ceiling[Abs[3/2\[Gamma]-\[Gamma]^2/250]]+50;(*FIXME: Improve the estimate of nmax*)
+  If[EvenQ[nmax],nmax+=1];
   nmin = Min[l-lmin,nmax];
 
   A = -SparseArray[
@@ -148,8 +149,13 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
          {i_,j_} /; j-i==1 :> kTilde2[s, l-nmin+i-1, m, \[Gamma]],
          {i_,j_} /; j-i==2 :> k2[s, l-nmin+i+-1, m, \[Gamma]]},
         {nmax+nmin+1, nmax+nmin+1}];
-  ev = First[Eigenvectors[A, {-(nmin+1)}]];
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {ev, nmin, nmax}, Method -> "Eigenvalue"]
+  esys = Eigensystem[A,Method->If[Precision[\[Gamma]]==MachinePrecision,"Banded","Automatic"]];
+  eval = Sort[esys[[1]],Greater][[-(nmin+1)]];
+  pos  = Position[esys[[1]], eval][[1]];
+  evec = First[esys[[2,pos]]];
+
+  sign=Sign[evec[[Min[l-lmin+1,(nmax+nmin)/2+1]]]];
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign*evec, nmin, nmax}, Method -> "Eigenvalue"]
 ];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=

@@ -153,9 +153,9 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 ];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=
- Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, norm, anTab, nmin, nmax, prec=Precision[\[Gamma]]},
+ Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, norm, anTab, nmin, nmax, maxcoeff, prec=Precision[\[Gamma]]},
   nmin = 0;
-  nmax = 2l+1-Abs[m];
+  nmax = 1;
   \[Lambda] = SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]];
 
   (* Leaver's recurrence formula, Eq. 20 of Leaver 1985 *)
@@ -164,24 +164,23 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
   \[Alpha]n[n_] := -2(n+1)(n+2k1+1);
   \[Beta]n[n_] := n(n-1)+2n(k1+k2+1-2\[Gamma])-(2\[Gamma](2k1+s+1)-(k1+k2)(k1+k2+1))-(s(s+1)+\[Lambda]+2m \[Gamma]);
   \[Gamma]n[n_] := 2\[Gamma](n+k1+k2+s);
-  anTab = RecurrenceTable[{\[Alpha]n[n]an[n+1]+\[Beta]n[n]an[n]+\[Gamma]n[n]an[n-1] == 0, an[0] == 1, an[1] == -\[Beta]n[0]/\[Alpha]n[0]}, an, {n, 0, nmax}];
-  (* Compute more coefficients until we reach the desired tolerance *)
-  While[Abs[anTab[[-1]]]/Max[Abs[anTab]] > 10^-prec,
-    anTab = Join[anTab,
-      RecurrenceTable[{\[Alpha]n[n]an[n+1]+\[Beta]n[n]an[n]+\[Gamma]n[n]an[n-1] == 0, an[nmax-1] == anTab[[-2]], an[nmax] == anTab[[-1]]}, an, {n, nmax+1, 2 nmax}]];
-    nmax*=2;
+  an[nmin] = 1;
+  an[nmin+1] = -\[Beta]n[nmin]/\[Alpha]n[nmin];
+  an[n_] := an[n] = (-\[Beta]n[n-1]an[n-1]-\[Gamma]n[n-1]an[n-2])/\[Alpha]n[n-1];
+
+  (* Compute coefficients until we reach the desired tolerance *)
+  maxcoeff = Max[Abs[an[nmin]], Abs[an[nmin+1]]];
+  While[Abs[an[nmax]]/maxcoeff > 10^-prec,
+    maxcoeff = Max[maxcoeff, Abs[an[nmax++]]];
   ];
-  While[Abs[anTab[[nmax+1]]]/Max[Abs[anTab]]<10^-prec,
-    nmax--;
-  ];
-  anTab=anTab[[1;;nmax+1]];
+  anTab = Table[an[n], {n, nmin, nmax}];
 
   (* Normalisation such that \[Integral]\!\(
 \(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
 \(\*SubsuperscriptBox[\(S\), \(lm\), \(*\)]\)\)(\[Theta],\[Phi];\[Gamma])\!\(
 \(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
 \(\*SubscriptBox[\(S\), \(l'm'\)]\)\)(\[Theta],\[Phi];\[Gamma])d\[CapitalOmega] = Subscript[\[Delta], ll']Subscript[\[Delta], mm'] *)
-  norm=Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] Sum[anTab[[1;;i+1]].anTab[[i+1;;1;;-1]] 2^i Pochhammer[i+2 (1+k1+k2),-2k2-1] Hypergeometric1F1[1+i+2 k1,i+2 (1+k1+k2),4 \[Gamma]], {i, 0, nmax}])^(1/2);
+  norm = Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] Sum[anTab[[1;;i-nmin+1]].anTab[[i-nmin+1;;1;;-1]] 2^i Pochhammer[i+2 (1+k1+k2),-2k2-1] Hypergeometric1F1[1+i+2 k1,i+2 (1+k1+k2),4 \[Gamma]], {i, nmin, nmax}])^(1/2);
 
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {anTab/norm, nmin, nmax}, Method -> "Leaver"]

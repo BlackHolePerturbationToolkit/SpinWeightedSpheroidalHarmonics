@@ -4,6 +4,7 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
 SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]] gives the spin-weighted oblate spheroidal harmonic with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
+SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], data, method] represents a function for computing numerical values of spin-weighted spheroidal harmonics.";
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 Begin["`Private`"];
@@ -118,38 +119,73 @@ SpinWeightedSpheroidalEigenvalue /:
 (* SpinWeightedSpheroidalHarmonicS                        *)
 (**********************************************************)
 
-SpinWeightedSpheroidalHarmonicS::ncvb = "Failed to converge after `1` iterations. SpinWeightedSpheroidalHarmonicS obtained `2` and `3` for the result and error estimates. Increasing the value of the MaxIterations option may yield a more accurate answer.";
-
 SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
- {"ArgumentsPattern" -> {_, _, _, _, _, _, ___}};
-Options[SpinWeightedSpheroidalHarmonicS] = {MaxIterations -> Automatic};
+ {"ArgumentsPattern" -> {_, _, _, _, ___}};
+
+Options[SpinWeightedSpheroidalHarmonicS] = {Method -> "Leaver"};
+
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, OptionsPattern[]] :=
- Module[{Si, S, maxOrder, i, j}, Internal`InheritedBlock[{d, s\[Lambda]lm, SpinWeightedSphericalHarmonicY},
-  maxOrder = OptionValue["MaxIterations"];
-  If[maxOrder == Automatic, maxOrder = Max[32, Precision[\[Gamma]]]];
-  S = 0;
-  Do[
-    Do[
-      d[s, l, m][i, j] = Simplify[d[s, l, m][i, j]];
-      SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]] = SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]];
-    , {j, -i, i}];
-    s\[Lambda]lm[s, l, m][i] = Simplify[s\[Lambda]lm[s, l, m][i]];
-    Si = Sum[d[s, l, m][i, j] SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]] \[Gamma]^i, {j, -i, i}];
-    S += Si;
-    Which[
-      Si != 0 && S == (S-Si),
-        Break[],
-      i == maxOrder,
-        Message[SpinWeightedSpheroidalHarmonicS::ncvb, maxOrder, S, Si];
-    ];
-    ,{i, 0, maxOrder}];
-  S
-]];
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"]];
+
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
+
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method->"Eigenvalue"] :=
+ Module[{lmin, nmax, nmin, A, ev},
+  lmin = Max[Abs[s],Abs[m]];
+  nmax = Ceiling[Abs[3/2\[Gamma]-\[Gamma]^2/250]]+50;(*FIXME: Improve the estimate of nmax*)
+  nmin = Min[l-lmin,nmax];
+
+  A = -SparseArray[
+        {{i_,i_} :> kHat[s, l-nmin-1+i, m, \[Gamma]],
+         {i_,j_} /; j-i==-2 :> k2[s, l-nmin-3+i, m, \[Gamma]],
+         {i_,j_} /; j-i==-1 :> kTilde2[s, l-nmin+i-2, m, \[Gamma]],
+         {i_,j_} /; j-i==1 :> kTilde2[s, l-nmin+i-1, m, \[Gamma]],
+         {i_,j_} /; j-i==2 :> k2[s, l-nmin+i+-1, m, \[Gamma]]},
+        {nmax+nmin+1, nmax+nmin+1}];
+  ev = First[Eigenvectors[A, {-(nmin+1)}]];
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {ev, nmin, nmax}, Method -> "Eigenvalue"]
+];
+
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=
+ Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, norm, anTab, nmin, nmax, prec=Precision[\[Gamma]]},
+  nmin = 0;
+  nmax = 2l+1-Abs[m];
+  \[Lambda] = SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]];
+
+  (* Leaver's recurrence formula, Eq. 20 of Leaver 1985 *)
+  k1 = Abs[m-s]/2;
+  k2 = Abs[m+s]/2;
+  \[Alpha]n[n_] := -2(n+1)(n+2k1+1);
+  \[Beta]n[n_] := n(n-1)+2n(k1+k2+1-2\[Gamma])-(2\[Gamma](2k1+s+1)-(k1+k2)(k1+k2+1))-(s(s+1)+\[Lambda]+2m \[Gamma]);
+  \[Gamma]n[n_] := 2\[Gamma](n+k1+k2+s);
+  anTab = RecurrenceTable[{\[Alpha]n[n]an[n+1]+\[Beta]n[n]an[n]+\[Gamma]n[n]an[n-1] == 0, an[0] == 1, an[1] == -\[Beta]n[0]/\[Alpha]n[0]}, an, {n, 0, nmax}];
+  (* Compute more coefficients until we reach the desired tolerance *)
+  While[Abs[anTab[[-1]]]/Max[Abs[anTab]] > 10^-prec,
+    anTab = Join[anTab,
+      RecurrenceTable[{\[Alpha]n[n]an[n+1]+\[Beta]n[n]an[n]+\[Gamma]n[n]an[n-1] == 0, an[nmax-1] == anTab[[-2]], an[nmax] == anTab[[-1]]}, an, {n, nmax+1, 2 nmax}]];
+    nmax*=2;
+  ];
+  While[Abs[anTab[[nmax+1]]]/Max[Abs[anTab]]<10^-prec,
+    nmax--;
+  ];
+  anTab=anTab[[1;;nmax+1]];
+
+  (* Normalisation such that \[Integral]\!\(
+\(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
+\(\*SubsuperscriptBox[\(S\), \(lm\), \(*\)]\)\)(\[Theta],\[Phi];\[Gamma])\!\(
+\(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
+\(\*SubscriptBox[\(S\), \(l'm'\)]\)\)(\[Theta],\[Phi];\[Gamma])d\[CapitalOmega] = Subscript[\[Delta], ll']Subscript[\[Delta], mm'] *)
+  norm=Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] Sum[anTab[[1;;i+1]].anTab[[i+1;;1;;-1]] 2^i Pochhammer[i+2 (1+k1+k2),-2k2-1] Hypergeometric1F1[1+i+2 k1,i+2 (1+k1+k2),4 \[Gamma]], {i, 0, nmax}])^(1/2);
+
+  (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {anTab/norm, nmin, nmax}, Method -> "Leaver"]
+];
 
 SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]], Nopts___] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];
@@ -165,6 +201,30 @@ SpinWeightedSpheroidalHarmonicS /:
   coeffs = Table[Sum[d[s, l, m][i, j] SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]], {j, -i, i}], {i, 0, order}];
   SeriesData[\[Gamma], 0, coeffs, 0, order + 1, 1]
 ]]];
+
+
+(**********************************************************)
+(* SpinWeightedSpheroidalHarmonicSFunction                *)
+(**********************************************************)
+
+SyntaxInformation[SpinWeightedSpheroidalHarmonicSFunction] =
+ {"ArgumentsPattern" -> {_, _, _, _, {{__}, _, _}, ___}};
+
+Options[SpinWeightedSpheroidalHarmonicSFunction] = {Method -> "Leaver"};
+
+SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
+
+Format[SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, coeffs_ /;(Head[coeffs]=!=SequenceForm), Method -> method_]] :=
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], SequenceForm@@{"<<", coeffs[[2]]+coeffs[[3]]+1, ">>"}, Method -> method];
+
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, Method -> "Eigenvalue"][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
+ Sum[dn[[k+nmin+1]]SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta], 0], {k, -nmin, nmax}]Exp[I m \[Phi]];
+
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, Method -> "Leaver"][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
+  Module[{u = Cos[\[Theta]], k1 = Abs[m-s]/2, k2 = Abs[m+s]/2},
+   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
+    E^(\[Gamma] u) (1+u)^k1 (1-u)^k2 an.(1+u)^Range[0,nmax]Exp[I m \[Phi]]
+];
 
 
 (**********************************************************)

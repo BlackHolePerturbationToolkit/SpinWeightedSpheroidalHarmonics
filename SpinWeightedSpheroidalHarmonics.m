@@ -221,9 +221,11 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
  Sum[dn[[k+nmin+1]]SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta], 0], {k, -nmin, nmax}]Exp[I m \[Phi]];
 
 SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, Method -> "Leaver"][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
-  Module[{u = Cos[\[Theta]], k1 = Abs[m-s]/2, k2 = Abs[m+s]/2},
-   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
-    E^(\[Gamma] u) (1+u)^k1 (1-u)^k2 an.(1+u)^Range[0,nmax]Exp[I m \[Phi]]
+ Module[{u = Cos[\[Theta]], k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu},
+  oneplusu = 2 Cos[\[Theta]/2]^2;
+  oneminusu = 2 Sin[\[Theta]/2]^2;
+  (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
+  E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax] Exp[I m \[Phi]]
 ];
 
 

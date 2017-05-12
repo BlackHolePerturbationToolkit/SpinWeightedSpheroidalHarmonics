@@ -7,11 +7,11 @@ spinning black holes. This has recently become a hot area of physics research, f
 [detection of gravitational waves by the LIGO collaboration](http://www.ligo.org/news/detection-press-release.pdf). The 
 gravitational waves detected by LIGO were generated over a billion years ago by the merger of a pair of spinning black holes.
 
-The LIGO discovery was not the only historic breakthrough for gravitational wave detection in 2016; we also witnessed the
+The LIGO discovery was not the only historic breakthrough for gravitational wave detection in 2016. We also witnessed the
 launch of the overwhelmingly successful ESA-led mission, [LISA Pathfinder](http://sci.esa.int/lisa-pathfinder/); a mission
 dedicated to demonstrating state of the art technologies required for space-based gravitational wave detectors.
 These results together have paved the way for [LISA](https://www.elisascience.org) (Laser Interferometer Space Antenna), the 
-planned space-based gravitational wave detector as one of the ESA's planned large-size ’L3’ missions. LISA is currently in an 
+planned space-based gravitational wave detector. LISA has been proposed as as one of the ESA's planned large-size ’L3’ missions. LISA is currently in an 
 ESA Phase 0 study, with overwhelmingly positive feedback to date, so the time is ripe for the development of the tools that
 we will need to interpret the signals from the LISA mission.
 

@@ -12,10 +12,10 @@ launch of the overwhelmingly successful ESA-led mission, [LISA Pathfinder](http:
 dedicated to demonstrating state of the art technologies required for space-based gravitational wave detectors.
 These results together have paved the way for [LISA](https://www.elisascience.org) (Laser Interferometer Space Antenna), the 
 planned space-based gravitational wave detector. Following the selection of
-[The Gravitational Universe](http://sci.esa.int/cosmic-vision/58543-the-gravitational-universe/) as the science theme for an
-L-class mission in the ESA's Cosmic Vision programme, the LISA mission has stood out as the method of choice for addressing
-this science goal. LISA is currently in an ESA Phase 0 study, with overwhelmingly positive feedback to date, so the time is
-ripe for the development of the tools that we will need to interpret the signals from such a mission.
+[The Gravitational Universe](http://sci.esa.int/cosmic-vision/58543-the-gravitational-universe/) as the science theme for the
+third L-class mission in the ESA's Cosmic Vision programme, the LISA mission has stood out as the method of choice for
+addressing this science goal. LISA is currently in an ESA Phase 0 study with overwhelmingly positive feedback to date, so the
+time is ripe for the development of the tools that we will need to interpret the signals from such a mission.
 
 Up to now, the SpinWeightedSpheroidalHarmonics project has provided a robust set of tools for computing spin-weighted
 spheroidal harmonics using [Wolfram Mathematica](https://www.wolfram.com/mathematica/). This imposes several

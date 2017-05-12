@@ -10,7 +10,8 @@ gravitational waves detected by LIGO were generated over a billion years ago by 
 in a distant galaxy.
 
 The LIGO discovery was not the only historic breakthrough for gravitational wave detection in 2016. We also witnessed the
-launch of the overwhelmingly successful ESA-led mission, [LISA Pathfinder](http://sci.esa.int/lisa-pathfinder/); a mission
+launch of the overwhelmingly successful [ESA](http://www.esa.int)-led mission,
+[LISA Pathfinder](http://sci.esa.int/lisa-pathfinder/); a mission
 dedicated to demonstrating state of the art technologies required for space-based gravitational wave detectors.
 These results together have paved the way for [LISA](https://www.elisascience.org) (Laser Interferometer Space Antenna), the 
 planned space-based gravitational wave detector. Following the selection of

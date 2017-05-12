@@ -45,6 +45,7 @@ The project will rely on several key components as building blocks:
 3. Code for root finding.
 4. Code for computing eigenvalues and eigenvectors of matrices.
 5. Code for computing spin-weighted spherical harmonics.
+
 Many of these are already available as part of open-source software libraries such as the
 [GNU Scientific Library](https://www.gnu.org/software/gsl/), [Boost](http://www.boost.org) and [SciPy](https://scipy.org).
 

@@ -14,7 +14,7 @@ git clone https://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics
 
 ## Requirements
 
-* Mathematica: SpinWeightedSpheroidalHarmonics requires a recent version of Mathematica. It is typically tested with only the latest available version.
+The SpinWeightedSpheroidalHarmonics package requires a recent version of Mathematica. It is typically tested with only the latest available version.
 
 
 ## Installation
@@ -48,10 +48,10 @@ SpinWeightedSpheroidalHarmonics page in Documentation Center.
 
 Known bugs are recorded in the project bug tracker:
 
-http://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics/issues
+(http://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics/issues)
 
 
-##License
+## License
 
 This code is distributed under the University of Illinois/NCSA
 Open Source License. Details can be found in the LICENSE file.

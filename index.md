@@ -59,7 +59,7 @@ Open Source License. Details can be found in the LICENSE file.
 
 ## Authors
 
-Barry Wardell
-Niels Warburton
-Marc Casals
-Sarp Akcay
+Barry Wardell  
+Niels Warburton  
+Marc Casals  
+Sarp Akcay  

@@ -77,4 +77,4 @@ order to understand the existing code) and ideally some experience of studying G
 
 ## Contact
 
-If you are interested in participating as a student, please contact: barry (dot) wardell (at) ucd (dot) ie
+If you are interested in participating as a student, please contact: barry (dot) wardell (at) ucd (dot) ie.

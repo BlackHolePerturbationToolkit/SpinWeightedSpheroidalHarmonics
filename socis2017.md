@@ -52,13 +52,13 @@ Many of these are already available as part of open-source software libraries su
 The first phase of the project will require the student to survey existing available tools and identify the appropriate
 building blocks on which to base the project.
 
-### Phase 2: Develop Code for Computing the Spheroidal Eigenvalue (spin-0 spheroidal harmonics)
+### Phase 2: Develop Code for Computing the Spheroidal Eigenvalue (spin-0)
 
 Once suitable tools have been identified for the numerical methods which will be used in the main code, the first
 programming stage will involve the development of code for computing the so-called spheroidal eigenvalue. This would
 be implemented by adapting the existing Mathematica code, and converting it to either C/C++ or Python.
 
-### Phase 3: Develop Code for Computing the Spheroidal Harmonic (spin-0 spheroidal harmonics)
+### Phase 3: Develop Code for Computing the Spheroidal Harmonic (spin-0)
 
 With robust code for computing the spheroidal eigenvalue finished, the student will then move on to developing
 code for computing the eigenfunctions, i.e. the spin-weighted spheroidal harmonics themselves. As before, this would
@@ -66,6 +66,7 @@ be implemented by adapting the existing Mathematica code, and converting it to e
 
 ### Phase 4: Extend Code to Support Computing the Spin-Weighted Spheroidal Eigenvalue and Spin-Weighted Spheroidal Harmonics
 
-The final phase of the project will extend the existing code to support the *spin-weighted* spheroidal harmonics. This
-will involve a generalisation of the existing code, but again the Mathematica implementation can be used as a reference.
+The final phase of the project will extend the existing code to support the *spin-weighted* spheroidal harmonics on which
+gravitational-wave models are based. This will involve a generalisation of the existing code, but again the Mathematica
+implementation can be used as a reference.
 

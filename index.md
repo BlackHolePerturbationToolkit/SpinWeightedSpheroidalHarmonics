@@ -1,7 +1,6 @@
-# Spin-weighted spheroidal harmonics
-
-The SpinWeightedSpheroidalHarmonics package provides a set of functions for computing spin-weighted spherical harmonics and their associated eigenvalues.
-
+The SpinWeightedSpheroidalHarmonics package for Mathematica provides functions for computing
+spin-weighted spheroidal harmonics, spin-weighted spherical harmonics and their associated eigenvalues.
+Support is included for both arbitrary-precision numerical evaluation, and for series expansions.
 
 ## Getting the package
 

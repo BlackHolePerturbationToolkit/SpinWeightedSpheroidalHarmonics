@@ -21,10 +21,10 @@ addressing this science goal. LISA is currently in an ESA Phase 0 study with ove
 time is ripe for the development of the tools that we will need to interpret the signals from such a mission.
 
 As was demonstrated by LIGO, a crucial component in the detection and analysis of gravitational wave signals is a detailed 
-model for the expected signal (or *waveform*) from the merger of a pair of black holes. In the case of LISA, this translates
-to developing a bank of waveform templates for a particular class of binary black hole system called an Extreme Mass Ratio
-Inspiral. Black hole perturbation theory is **the** method of choice for producing these templates and spin-weighted
-spheroidal harmonics are at the heart of what makes black hole perturbation theory such an efficient tool.
+model for the expected signal --- or *waveform* --- from the merger of a pair of black holes. In the case of LISA, this
+translates to developing a bank of waveform templates for a particular class of binary black hole system called an Extreme 
+Mass Ratio Inspiral. Black hole perturbation theory is **the** method of choice for producing these templates and
+spin-weighted spheroidal harmonics are at the heart of what makes black hole perturbation theory such an efficient tool.
 
 Up to now, the SpinWeightedSpheroidalHarmonics project has provided a robust set of tools for computing spin-weighted
 spheroidal harmonics using [Wolfram Mathematica](https://www.wolfram.com/mathematica/). This imposes several

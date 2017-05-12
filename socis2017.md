@@ -70,3 +70,11 @@ The final phase of the project will extend the existing code to support the *spi
 gravitational-wave models are based. This will involve a generalisation of the existing code, but again the Mathematica
 implementation can be used as a reference.
 
+## Eligibility criteria
+
+This project requires experience with C/C++ and/or Python. It is also highly desirable to have experience with Mathematica (in
+order to understand the existing code) and ideally some experience of studying General Relativity at university level.
+
+## Contact
+
+If you are interested in participating as a student, please contact: barry (dot) wardell (at) ucd (dot) ie

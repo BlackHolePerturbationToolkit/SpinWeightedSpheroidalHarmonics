@@ -39,7 +39,7 @@ such as C/C++ or Python. Unfortunately, no such implementation exists...yet!
 The goal of the project is to develop a C/CC+ and/or Python code for computing spin-weighted spheroidal harmonics.
 
 ### Phase 1: Identify Existing Tools to be Used in the Project
-The project would rely on several key components as building blocks:
+The project will rely on several key components as building blocks:
 1. Code for evaluating continued fractions.
 2. Code for solving three-term recurrence relations.
 3. Code for root finding.

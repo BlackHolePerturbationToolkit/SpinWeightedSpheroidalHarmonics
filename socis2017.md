@@ -29,6 +29,7 @@ Mass Ratio Inspiral. Black hole perturbation theory is **the** method of choice 
 spin-weighted spheroidal harmonics are at the heart of what makes black hole perturbation theory such an efficient tool.
 
 ![S(s=-2, l=2, gamma=1.9)](swsh-theta.png)
+
 Up to now, the SpinWeightedSpheroidalHarmonics project has provided a robust set of tools for computing spin-weighted
 spheroidal harmonics using [Wolfram Mathematica](https://www.wolfram.com/mathematica/). This imposes several
 restrictions, most notably that it requires the commercial (and expensive) Wolfram Mathematica software. It also

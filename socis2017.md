@@ -27,8 +27,10 @@ model for the expected signal --- or *waveform* --- from the merger of a pair of
 translates to developing a bank of waveform templates for a particular class of binary black hole system called an Extreme 
 Mass Ratio Inspiral. Black hole perturbation theory is **the** method of choice for producing these templates and
 spin-weighted spheroidal harmonics are at the heart of what makes black hole perturbation theory such an efficient tool.
-As an added bonus, the spin-weighted spheroidal harmonics also have applications in other areas of physics such as
-electromagnetism and fluid mechanics.
+
+As well as their importance in gravitational wave physics, the spin-weighted spheroidal harmonics also have applications in
+other areas such as electromagnetism and fluid mechanics. They are also one of the 
+[Main TODO items for the GNU Scientific Library](http://git.savannah.gnu.org/cgit/gsl.git/tree/TODO).
 
 ![S(s=-2, l=2, gamma=1.9)](swsh-theta.png)
 

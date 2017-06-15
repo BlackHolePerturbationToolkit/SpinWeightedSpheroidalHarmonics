@@ -16,7 +16,8 @@ git clone https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidal
 
 ## Requirements
 
-The SpinWeightedSpheroidalHarmonics package requires a recent version of Mathematica. It is typically tested with only the latest available version.
+The SpinWeightedSpheroidalHarmonics package requires a recent version of Mathematica. It is typically
+tested with only the latest available version.
 
 
 ## Installation

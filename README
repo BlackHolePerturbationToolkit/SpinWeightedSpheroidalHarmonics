@@ -14,7 +14,7 @@ Getting the package
 The latest development version will always be available from the project git
 repository:
 
-git clone https://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics
+git clone https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics.git
 
 
 Requirements
@@ -52,7 +52,7 @@ Known problems
 --------------
 Known bugs are recorded in the project bug tracker:
 
-http://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics/issues
+https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics/issues
 
 
 License

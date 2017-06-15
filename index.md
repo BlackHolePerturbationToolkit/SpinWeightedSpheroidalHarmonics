@@ -48,7 +48,7 @@ SpinWeightedSpheroidalHarmonics page in Documentation Center.
 
 ## Known problems
 
-Known bugs are recorded in the project [bug tracker](http://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics/issues).
+Known bugs are recorded in the project [bug tracker](https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics/issues).
 
 
 ## License

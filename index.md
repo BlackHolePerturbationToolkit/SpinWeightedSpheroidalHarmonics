@@ -10,7 +10,7 @@ The latest development version will always be available from the project git
 repository:
 
 ```bash
-git clone https://bitbucket.org/barrywardell/SpinWeightedSpheroidalHarmonics
+git clone https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics.git
 ```
 
 

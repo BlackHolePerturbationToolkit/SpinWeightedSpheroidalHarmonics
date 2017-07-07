@@ -134,15 +134,20 @@ SpinWeightedSpheroidalEigenvalue /:
 SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
  {"ArgumentsPattern" -> {_, _, _, _, ___}};
 
-Options[SpinWeightedSpheroidalHarmonicS] = {Method -> "Leaver"};
+Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
 
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?MachineNumberQ] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],
+    Method -> (OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"] /. Automatic -> "Eigenvalue")];
+
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"]];
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],
+    Method -> (OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"] /. Automatic -> "Leaver")];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];

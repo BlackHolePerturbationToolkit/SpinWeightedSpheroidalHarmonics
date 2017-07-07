@@ -56,9 +56,9 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
 	{i_,j_}/;j-i==1:>kTilde2[s,l-nmin+i-1,m,\[Gamma]],
 	{i_,j_}/;j-i==2:>k2[s,l-nmin+i+-1,m,\[Gamma]]}
   ,{nmax+nmin+1,nmax+nmin+1}];
-Eigens=Sort[-Eigenvalues[Matrix],Greater];
+  Eigens=-Sort[Eigenvalues[Matrix]];
 
-Eigens[[-(nmin+1)]]-s(s+1)
+  Eigens[[-(nmin+1)]]-s(s+1)
 ];
 
 (* Leaver's Method *)

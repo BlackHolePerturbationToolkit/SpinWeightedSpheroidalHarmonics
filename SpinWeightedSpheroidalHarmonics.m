@@ -97,8 +97,6 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
 (* SpinWeightedSpheroidalEigenvalue                       *)
 (**********************************************************)
 
-SpinWeightedSpheroidalEigenvalue::ncvb = "Failed to converge after `1` iterations. SpinWeightedSpheroidalEigenvalue obtained `2` and `3` for the result and error estimates. Increasing the value of the MaxIterations option may yield a more accurate answer.";
-
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
  {"ArgumentsPattern" -> {_, _, _, _}};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];

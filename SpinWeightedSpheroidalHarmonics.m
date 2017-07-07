@@ -64,7 +64,7 @@ Eigens[[-(nmin+1)]]-s(s+1)
 (* Leaver's Method *)
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
-  Myprec = Floor[Precision[\[Gamma]]];
+  Myprec = Max[Precision[\[Gamma]], MachinePrecision];
   Nmax = 100;(* FIXME: This should be dependent on \[Gamma] *)
   nInv = l-Abs[m];
   \[Alpha] = Abs[m+s];

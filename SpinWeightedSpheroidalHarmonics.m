@@ -62,17 +62,31 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
 ];
 
 (* Leaver's Method *)
+
+CF[a_, b_, {n_, n0_}] := 
+  Module[{A, B, ak, bk, res = Indeterminate, j = n0},
+   A[n0 - 2] = 1;
+   B[n0 - 2] = 0;
+   ak[k_] := ak[k] = (a /. n -> k);
+   bk[k_] := bk[k] = (b /. n -> k);
+   A[n0 - 1] = 0(*bk[n0-1]*);
+   B[n0 - 1] = 1;
+   A[k_] := A[k] = bk[k] A[k - 1] + ak[k] A[k - 2];
+   B[k_] := B[k] = bk[k] B[k - 1] + ak[k] B[k - 2];
+   While[res =!= (res = A[j]/B[j]), j++];
+   res
+   ];
+
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
   Myprec = Max[Precision[\[Gamma]], MachinePrecision];
-  Nmax = 100;(* FIXME: This should be dependent on \[Gamma] *)
   nInv = l-Abs[m];
   \[Alpha] = Abs[m+s];
   \[Beta] = Abs[m-s];
   \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n+(\[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));
   \[Beta]n[n_, A_] := A + s(s+1)+\[Gamma]^2 -(n +(\[Alpha]+\[Beta])/2)(n +(\[Alpha]+\[Beta])/2+1) + If[s!=0,(8m s^2 \[Gamma])/((2n+\[Alpha]+\[Beta])(2n+\[Alpha]+\[Beta]+2)),0];
   \[Gamma]n[n_] := (4\[Gamma] n(n+\[Alpha]+\[Beta])(n+(\[Alpha]+\[Beta])/2-s))/((2n+\[Alpha]+\[Beta]-1)(2n+\[Alpha]+\[Beta]));
-  RHS[Ax_] := -ContinuedFractionK[-\[Alpha]n[n-1] \[Gamma]n[n], \[Beta]n[n,Ax], {n, nInv+1, Nmax}];
+  RHS[Ax_] := -CF[-\[Alpha]n[n-1] \[Gamma]n[n], \[Beta]n[n,Ax], {n, nInv+1}];
   LHS[Ax_] := \[Beta]n[nInv, Ax] + ContinuedFractionK[-\[Alpha]n[nInv-n] \[Gamma]n[nInv-n+1], \[Beta]n[nInv-n, Ax], {n, 1, nInv}];
   Eq[A_?NumericQ] := LHS[A] - RHS[A];
   Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"];

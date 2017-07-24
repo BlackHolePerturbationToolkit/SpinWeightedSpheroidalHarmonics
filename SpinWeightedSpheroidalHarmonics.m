@@ -63,6 +63,7 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
 
 (* Leaver's Method *)
 
+(*Module for computing a contined fraction. This is preferred over Mathematica's ContinedFractionK function as we can get an error estimate on the result using this function*)
 CF[a_, b_, {n_, n0_}] := 
   Module[{A, B, ak, bk, res = Indeterminate, j = n0},
    A[n0 - 2] = 1;

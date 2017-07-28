@@ -251,6 +251,22 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
   E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax] Exp[I m \[Phi]]
 ];
 
+(*Derivatives*)
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, Method -> "Eigenvalue"]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=Module[{\[Theta]1,\[Phi]1},
+  Sum[dn[[k+nmin+1]]D[SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta]1, 0],{\[Theta]1,d1}], {k, -nmin, nmax}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
+];
+
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, Method -> "Leaver"]][\[Theta]_?NumericQ, \[Phi]_?NumericQ]:=
+ Module[{\[Theta]1, \[Phi]1, u, k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu},
+  u=Cos[\[Theta]1];
+  oneplusu = 2 Cos[\[Theta]1/2]^2;
+  oneminusu = 2 Sin[\[Theta]1/2]^2;
+  (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
+  D[E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
+];
+  
+
+
 
 (**********************************************************)
 (* SpinWeightedSphericalHarmonicY                         *)

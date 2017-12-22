@@ -42,10 +42,6 @@ Examples are included in the documentation. See the
 SpinWeightedSpheroidalHarmonics page in Documentation Center.
 
 
-## Changelog
-
-11 Mar 2016: Initial version released.
-
 
 ## Known problems
 
@@ -64,3 +60,10 @@ Barry Wardell
 Niels Warburton  
 Marc Casals  
 Sarp Akcay  
+
+
+## Citation Guideline
+
+If you make use of any of the Toolkit in your research please acknowledge using:
+
+> This work makes use of the Black Hole Perturbation Toolkit.

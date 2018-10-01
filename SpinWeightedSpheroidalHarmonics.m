@@ -1,5 +1,9 @@
 (* ::Package:: *)
 
+(* ::Title:: *)
+(*SpinWeightedSpheoridalHarmonics package*)
+
+
 BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
@@ -8,6 +12,11 @@ SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonic
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 Begin["`Private`"];
+
+
+(* ::Section::Closed:: *)
+(*Useful functions*)
+
 
 (**********************************************************)
 (* Internal functions                                     *)
@@ -36,12 +45,39 @@ d[s_,l_,m_][i_Integer?Positive,j_Integer]/;l+j<Abs[s]:=0;
 
 simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta][__]]}, Simplify];
 
-(* Spectral method for seed in numerical evaluation *)
+(* Functions for spectral method for seed in numerical evaluation *)
 kHat[s_, 0, 0, \[Gamma]_] := \[Gamma]^2/3;
 kHat[s_, l_, m_, \[Gamma]_] := -l (1+l)+(2 m s^2 \[Gamma])/(l+l^2)+1/3 (1+(2 (l+l^2-3 m^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) \[Gamma]^2;
 k2[s_, l_, m_, \[Gamma]_] := (Sqrt[((1+l-m) (2+l-m) (1+l+m) (2+l+m) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] \[Gamma]^2)/((1+l) (2+l) (3+2 l));
 kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
+
+
+(*Module for computing a contined fraction. This is preferred over Mathematica's ContinedFractionK function as we can get an error estimate on the result using this function*)
+CF[a_, b_, {n_, n0_}] := 
+  Module[{A, B, ak, bk, res = Indeterminate, j = n0},
+   A[n0 - 2] = 1;
+   B[n0 - 2] = 0;
+   ak[k_] := ak[k] = (a /. n -> k);
+   bk[k_] := bk[k] = (b /. n -> k);
+   A[n0 - 1] = 0(*bk[n0-1]*);
+   B[n0 - 1] = 1;
+   A[k_] := A[k] = bk[k] A[k - 1] + ak[k] A[k - 2];
+   B[k_] := B[k] = bk[k] B[k - 1] + ak[k] B[k - 2];
+   While[res =!= (res = A[j]/B[j]), j++];
+   res
+   ];
+
+
+
+
+(* ::Section:: *)
+(*SpinWeightedSpheroidalEigenvalue*)
+
+
+(* ::Subsection::Closed:: *)
+(*Spectral and Leaver's method*)
+
 
 SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
  Module[{nmin,nmax,Matrix,Eigens,lmin},
@@ -61,23 +97,6 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
   Eigens[[-(nmin+1)]]-s(s+1)
 ];
 
-(* Leaver's Method *)
-
-(*Module for computing a contined fraction. This is preferred over Mathematica's ContinedFractionK function as we can get an error estimate on the result using this function*)
-CF[a_, b_, {n_, n0_}] := 
-  Module[{A, B, ak, bk, res = Indeterminate, j = n0},
-   A[n0 - 2] = 1;
-   B[n0 - 2] = 0;
-   ak[k_] := ak[k] = (a /. n -> k);
-   bk[k_] := bk[k] = (b /. n -> k);
-   A[n0 - 1] = 0(*bk[n0-1]*);
-   B[n0 - 1] = 1;
-   A[k_] := A[k] = bk[k] A[k - 1] + ak[k] A[k - 2];
-   B[k_] := B[k] = bk[k] B[k - 1] + ak[k] B[k - 2];
-   While[res =!= (res = A[j]/B[j]), j++];
-   res
-   ];
-
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
   Myprec = Max[Precision[\[Gamma]], MachinePrecision];
@@ -94,9 +113,19 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
   Aval
 ]
 
+
+
+(* ::Subsection::Closed:: *)
+(*SpinWeightedSpheroidalEigenvalue (uses a combination of the spectral and Leaver's method)*)
+
+
 (**********************************************************)
 (* SpinWeightedSpheroidalEigenvalue                       *)
 (**********************************************************)
+
+(*We only compute the eigenvalues/eigenfunctions when (s,l,m) are either all integers or all half-integers*)
+ValidParamQ[s_Integer,l_Integer,m_Integer]:=True
+ValidParamQ[s_,l_,m_]:=Mod[{s,l,m},1]=={1/2,1/2,1/2}
 
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
  {"ArgumentsPattern" -> {_, _, _, _}};
@@ -116,8 +145,18 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
 SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ], Nopts___] :=
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts]];
 
+
+
+
+
+
+(* ::Subsection::Closed:: *)
+(*Small-\[Gamma] expansion*)
+
+
+(*Small \[Gamma] expansions*)
 SpinWeightedSpheroidalEigenvalue /: 
-  Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, 0, order_}] :=
+  Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, 0, order_}] := 
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
   Do[
     Do[
@@ -127,6 +166,66 @@ SpinWeightedSpheroidalEigenvalue /:
   coeffs = Table[s\[Lambda]lm[s, l, m][i], {i, 0, order}];
   SeriesData[\[Gamma], 0, coeffs, 0, order + 1, 1]
 ]]];
+
+
+(* ::Subsection:: *)
+(*Large-\[Gamma] expansion*)
+
+
+(*FIXME: add references to equations once paper is published*)
+
+(*Large \[Gamma] expansions*) 
+SWSHq[s_?NumberQ, l_?NumberQ, m_?NumberQ] := Module[{slm,z0},
+	slm = Abs[m+Abs[s]] + Abs[s];
+	z0  = If[EvenQ[l+m], 0, 1];
+
+	If[l  >= slm, l+1-z0,  2l+1 - slm ]
+]
+
+(*\!\(\(Teukolsky - Starobinsky\ identities\ 
+\*SubscriptBox[\(\(imply\)\(\ \)\), \(s\)]
+\*SubscriptBox[\(\[Lambda]\), \(lm\((\(-c\))\)\)]\)
+\*SubscriptBox[\(=\), \(s\)]
+\*SubscriptBox[\(\[Lambda]\), \(l\((\(-m\))\)c\)]\)*)
+
+SpinWeightedSpheroidalEigenvalue /: 
+  Series[SpinWeightedSpheroidalEigenvalue[s_?NumberQ, l_?NumberQ, m_?NumberQ, -\[Gamma]_], {\[Gamma]_, \[Infinity], order_}]:= Series[SpinWeightedSpheroidalEigenvalue[s, l, -m, \[Gamma]], {\[Gamma], \[Infinity], order}]
+
+SpinWeightedSpheroidalEigenvalue /: 
+  Series[SpinWeightedSpheroidalEigenvalue[s_?NumberQ, l_?NumberQ, m_?NumberQ, \[Gamma]_], {\[Gamma]_, \[Infinity], order_}] :=
+Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,Asum,sElm,s\[Lambda]lm},
+  aFgen[0,_]=0;
+  aFgen[0,0]=1;
+
+  AFgen[0]=1;
+  AFgen[r_]=AFgen[0]Sum[aFgen[r,k]c^-k,{k,Abs[r], order+1}];
+  
+  Asgen=Sum[\[Delta]gen[k]c^-k, {k, 1, order+1}];
+  \[Nu]gen=1/2 (-1+SWSHq[s,l,m]-s-Abs[m+s]);
+  RecRelgen=1/2  (1+n+\[Nu]gen+Abs[m+s]) (2(1+n+\[Nu]gen+s)-Abs[m-s]+Abs[m+s])AFgen[n+1]+(-1-m-m^2-2 (n+ \[Nu]gen)+4 c n-2 (n+\[Nu]gen)^2-s-m s-2 (n+\[Nu]gen) s-4 c Asgen-(1+2 n+2 \[Nu]gen+s) Abs[m+s])AFgen[n] + 1/2  (n+\[Nu]gen) (2 (n+\[Nu]gen+s)+Abs[m-s]+Abs[m+s])AFgen[n-1];
+
+  Serngen[nn_]:=Serngen[nn]=Collect[CoefficientList[Normal[Series[RecRelgen/.n->nn,{c, \[Infinity], order+1}]],c^-1],aFgen[_,_]];
+
+  Do[
+    \[Delta]gen[p]=\[Delta]gen[p]/.Solve[Serngen[0][[p]]==0,\[Delta]gen[p]][[1]];
+    Do[If[k!=0,aFgen[k,p]=aFgen[k,p]/.Solve[Serngen[k][[p]]==0,aFgen[k,p]][[1]]],{k, -p, p}]
+  ,{p, 1, order+1}];
+  
+  Asum = 4\[Gamma] Sum[\[Delta]gen[k]\[Gamma]^-k,{k, 2, order+1}];
+
+  sElm = -\[Gamma]^2+ 2 SWSHq[s,l,m] \[Gamma]-1/2 (SWSHq[s,l,m]^2-m^2-2s^2+1)+Asum;
+
+  s\[Lambda]lm = sElm-s(s+1)+\[Gamma]^2-2m \[Gamma];
+  
+  SeriesData[\[Gamma], \[Infinity], Reverse[CoefficientList[Expand[s\[Lambda]lm \[Gamma]^order],\[Gamma]]], -1, order+1, 1]
+  
+]
+
+
+
+(* ::Section::Closed:: *)
+(*SpinWeightedSpheroidalHarmonicS*)
+
 
 (**********************************************************)
 (* SpinWeightedSpheroidalHarmonicS                        *)
@@ -226,6 +325,10 @@ SpinWeightedSpheroidalHarmonicS /:
 ]]];
 
 
+(* ::Section::Closed:: *)
+(*SpinWeightedSpheroidalHarmonicSFunction*)
+
+
 (**********************************************************)
 (* SpinWeightedSpheroidalHarmonicSFunction                *)
 (**********************************************************)
@@ -266,6 +369,10 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer
 ];
   
 
+
+
+(* ::Section::Closed:: *)
+(*SpinWeightedSphericalHarmonicY*)
 
 
 (**********************************************************)

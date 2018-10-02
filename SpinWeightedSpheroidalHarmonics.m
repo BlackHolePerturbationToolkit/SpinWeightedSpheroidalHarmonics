@@ -172,7 +172,7 @@ SpinWeightedSpheroidalEigenvalue /:
 (*Large-\[Gamma] expansion*)
 
 
-(*FIXME: add references to equations once paper is published*)
+(*For details see "High-order asymptotics for the Spin-Weighted Spheroidal Equation at large real frequency", M. Casals, A. C. Ottewill, N. Warburton, arXiv:1810.00432*)
 
 (*Large \[Gamma] expansions*) 
 SWSHq[s_?NumberQ, l_?NumberQ, m_?NumberQ] := Module[{slm,z0},

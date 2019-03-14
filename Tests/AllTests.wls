@@ -3,14 +3,12 @@
 Print["Mathematica Version: ", $Version];
 
 PrependTo[$Path, FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
-Print[$Path];
 
 << SpinWeightedSpheroidalHarmonics`
 
 testFiles = FileNames["*.wlt", 
   FileNameJoin[{$SpinWeightedSpheroidalHarmonicsInstallationDirectory, "Tests"}]];
-Print[testFiles];
-Print[$SpinWeightedSpheroidalHarmonicsInstallationDirectory];
+
 reports = TestReport /@ testFiles;
 
 numTestsSucceeded = Total[#["TestsSucceededCount"] & /@ reports];

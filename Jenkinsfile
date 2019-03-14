@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'wolfram-docker-11.3.0 '
+    }
+
+  }
   stages {
     stage('Run tests') {
       agent {

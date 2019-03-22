@@ -16,6 +16,7 @@ VerificationTest[
 ]
 
 (*complex spheroidicity tests near expected QNM values for s=0*)
+(*based on QNMs as computed with qnm package made available by Leo Stein*)
 
 Module[{testc=SetPrecision[{-0.0287516-0.161094 I,-0.149234-0.148211 I,-0.426033-0.115162 I,-0.0246915-0.993013 I},30],l=2,m=2},
 VerificationTest[N[SpheroidalEigenvalue[l, m, testc], 10], 

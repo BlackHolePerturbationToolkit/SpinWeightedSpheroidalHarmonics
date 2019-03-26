@@ -12,5 +12,5 @@ VerificationTest[
 VerificationTest[
         SpinWeightedSpheroidalEigenvalue[2, 10, 10, 1.2345],
         79.76477183487565,
-        TestID -> "SpinWeightedSpheroidalEigenvalue with positive spheroidicity",
+        TestID -> "SpinWeightedSpheroidalEigenvalue with positive spheroidicity"
 ]

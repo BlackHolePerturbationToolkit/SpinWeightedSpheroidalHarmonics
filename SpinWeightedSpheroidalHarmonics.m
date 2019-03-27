@@ -69,8 +69,6 @@ $SpinWeightedSpheroidalHarmonicsInformation :=
    "VersionNumber" -> $SpinWeightedSpheroidalHarmonicsVersionNumber,
    "ReleaseNumber" -> $SpinWeightedSpheroidalHarmonicsReleaseNumber}
 
-
-
 (* ::Section::Closed:: *)
 (*Useful functions*)
 
@@ -132,7 +130,7 @@ CF[a_, b_, {n_, n0_}] :=
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spectral and Leaver's method*)
 
 
@@ -150,7 +148,7 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
 	{i_,j_}/;j-i==2:>k2[s,l-nmin+i+-1,m,\[Gamma]]}
   ,{nmax+nmin+1,nmax+nmin+1}];
   Eigens=-Sort[Eigenvalues[Matrix]];
-Print[Eigens-s(s+1)];
+
   Eigens[[-(nmin+1)]]-s(s+1)
 ];
 
@@ -172,7 +170,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue (uses a combination of the spectral and Leaver's method)*)
 
 
@@ -225,7 +223,7 @@ SpinWeightedSpheroidalEigenvalue /:
 ]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Large-\[Gamma] expansion*)
 
 
@@ -280,7 +278,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 

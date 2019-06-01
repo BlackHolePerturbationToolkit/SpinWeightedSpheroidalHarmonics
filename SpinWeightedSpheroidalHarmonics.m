@@ -4,6 +4,10 @@
 (*SpinWeightedSpheoridalHarmonics package*)
 
 
+(* ::Section::Closed:: *)
+(*Public function definitions and preamble*)
+
+
 BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
@@ -69,6 +73,8 @@ $SpinWeightedSpheroidalHarmonicsInformation :=
    "VersionNumber" -> $SpinWeightedSpheroidalHarmonicsVersionNumber,
    "ReleaseNumber" -> $SpinWeightedSpheroidalHarmonicsReleaseNumber}
 
+
+
 (* ::Section::Closed:: *)
 (*Useful functions*)
 
@@ -126,7 +132,7 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
@@ -278,7 +284,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -295,6 +301,9 @@ SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
+  
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0] :=
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"]
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?MachineNumberQ] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],
@@ -380,7 +389,7 @@ SpinWeightedSpheroidalHarmonicS /:
 ]]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalHarmonicSFunction*)
 
 
@@ -423,7 +432,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer
   D[E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
 ];
   
-
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, 0, Method -> "SphericalExact"][\[Theta]_,\[Phi]_] := SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]
 
 
 (* ::Section::Closed:: *)

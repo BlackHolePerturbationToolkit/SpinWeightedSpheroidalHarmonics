@@ -1,6 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
- CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"07f33e3c-c2d2-41da-97af-ba96d5db45c2"],
 
 Cell[TextData[{
  ButtonBox["SpinWeightedSpheroidalHarmonics",
@@ -20,56 +21,12 @@ SpinWeightedSpheroidalHarmonics"],
   ButtonData->
    "paclet:SpinWeightedSpheroidalHarmonics/ref/\
 SpinWeightedSpheroidalEigenvalue"]
-}], "LinkTrail"],
-
-Cell[BoxData[GridBox[{
-   {Cell["SPINWEIGHTEDSPHEROIDALHARMONICS PACLET SYMBOL", "PacletNameCell"], 
-    Cell[TextData[{
-     Cell[BoxData[
-      ActionMenuBox[
-       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
-        StripOnInput->False], {"SpinWeightedSpheroidalHarmonics":>
-       Documentation`HelpLookup[
-       "paclet:SpinWeightedSpheroidalHarmonics/tutorial/\
-SpinWeightedSpheroidalHarmonics"]},
-       Appearance->None,
-       MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
-     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
-\[ThickSpace]",
-     Cell[BoxData[
-      ActionMenuBox[
-       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"SpinWeightedSpheroidalHarmonicS":>
-       Documentation`HelpLookup[
-       "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSpheroidalHarmonicS"], "SpinWeightedSphericalHarmonicY":>
-       Documentation`HelpLookup[
-       "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSphericalHarmonicY"]},
-       Appearance->None,
-       MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
-     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
-\[ThickSpace]",
-     Cell[BoxData[
-      ActionMenuBox[
-       FrameBox["\<\"More About \[RightGuillemet]\"\>",
-        StripOnInput->False], {"SpinWeightedSpheroidalHarmonics":>
-       Documentation`HelpLookup[
-       "paclet:SpinWeightedSpheroidalHarmonics/guide/\
-SpinWeightedSpheroidalHarmonics"]},
-       Appearance->None,
-       MenuAppearance->Automatic]],
-      LineSpacing->{1.4, 0}],
-     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
-\[ThickSpace]"
-    }], "AnchorBar"]}
-  }]], "AnchorBarGrid"],
-
-Cell["SpinWeightedSpheroidalEigenvalue", "ObjectName"],
+}], "LinkTrail",ExpressionUUID->"2ff74ad0-9568-4a0d-bfa9-e791efa4cccc"],
 
 Cell[CellGroupData[{
+
+Cell["SpinWeightedSpheroidalEigenvalue", \
+"ObjectName",ExpressionUUID->"7f515d97-18d0-4f55-8bc8-da9748f469d7"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -82,277 +39,19 @@ Cell[BoxData[GridBox[{
 SpinWeightedSpheroidalEigenvalue"], "[", 
        StyleBox[
         RowBox[{"s", ",", " ", "l", ",", " ", "m", ",", " ", "\[Gamma]"}], 
-        "TI"], "]"}]], "InlineFormula"],
+        "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "aa876c91-9794-43dc-8e5d-6f02e7f9d12c"],
      "\[LineSeparator]gives the spin-weighted oblate spheroidal eigenvalue \
 with spheroidicity \[Gamma], spin-weight s, degree l and order m."
-    }]]}
-  }]], "Usage"],
-
-Cell[CellGroupData[{
-
-Cell["", "NotesSection",
- CellGroupingRules->{"SectionGrouping", 50},
- CellFrameLabels->{{
-    FEPrivate`If[
-     FEPrivate`Or[
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
-     Cell[
-      TextData[
-       Cell[
-        BoxData[
-         ButtonBox[
-          FrameBox[
-           StyleBox[
-            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
-           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
-          None, ButtonFunction :> (FrontEndExecute[{
-             FrontEnd`SelectionMove[
-              FrontEnd`SelectedNotebook[], All, ButtonCell], 
-             FrontEndToken["OpenCloseGroup"], 
-             FrontEnd`SelectionMove[
-              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
-          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
-     TextData[
-      ButtonBox[
-       Cell[
-        TextData[{
-          Cell[
-           BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Details and Options"}], "NotesSection"], 
-       Appearance -> {Automatic, None}, BaseStyle -> None, 
-       ButtonFunction :> (FrontEndExecute[{
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], All, ButtonCell], 
-          FrontEndToken["OpenCloseGroup"], 
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
-       None, Method -> "Preemptive"]]], None}, {None, None}},
- CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> True],
-
-Cell["\<\
-For real \[Gamma], SpinWeightedSpheroidalEigenvalue computes the eigenvalue \
-for the oblate spheroidal equation with oblateness \[Gamma].\
-\>", "Notes"],
-
-Cell["\<\
-SpinWeightedSpheroidalEigenvalue is the eigenvalue, \[Lambda], appearing in \
-the spin-weighted spheroidal equation, D[Sin[\[Theta]] D[ \
-SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]], \
-\[Theta]], \[Theta]]/ Sin[\[Theta]] + (-\[Gamma]^2 Sin[\[Theta]]^2 - (m + s \
-Cos[\[Theta]])^2/Sin[\[Theta]]^2 - 2 s \[Gamma] Cos[\[Theta]] + s + 2 m \
-\[Gamma] + \[Lambda]) SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \
-\[Theta], \[Phi]] == 0.\
-\>", "Notes"],
-
-Cell["\<\
-For \[Gamma]=0, SpinWeightedSpheroidalEigenvalue reduces to l(l+1) - s(s+1).\
-\>", "Notes"],
-
-Cell["\<\
-For s=0, SpinWeightedSpheroidalEigenvalue[0, l, m, \[Gamma]] is equivalent to \
-SpheroidalEigenvalue[l, m, I \[Gamma]] - 2 m \[Gamma].\
-\>", "Notes"],
-
-Cell["\<\
-For numerical values of \[Gamma], SpinWeightedSpheroidalEigenvalue produces a \
-numerical value of the same precision.\
-\>", "Notes"],
-
-Cell["\<\
-Numerical values are computed using a spectral/eigenvalue approach for an \
-initial guess followed by Leaver's method to obtain an accurate answer. The \
-precision of the result will be approximately equal to the precision of \
-\[Gamma].\
-\>", "Notes"],
-
-Cell["\<\
-Series expansions about \[Gamma] = 0 can be computed to arbitrary order for \
-generic s, l and m.\
-\>", "Notes"]
-}, Open  ]]
+    }],ExpressionUUID->"8d081a39-aa92-481c-ada9-d73484d8f2ca"]}
+  }]], "Usage",ExpressionUUID->"b73659d7-43bd-475f-8dce-9d66abbf2797"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["", "SeeAlsoSection",
- CellFrameLabels->{{
-    FEPrivate`If[
-     FEPrivate`Or[
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
-     Cell[
-      TextData[
-       ButtonBox[
-       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
-        Evaluator -> None, Method -> "Preemptive", 
-        ButtonFunction :> (FrontEndExecute[{
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], All, ButtonCell], 
-           FrontEndToken["OpenCloseGroup"], 
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
-      "SeeAlsoSection"], 
-     TextData[
-      ButtonBox[
-       Cell[
-        TextData[{
-          Cell[
-           BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "See Also"}], "SeeAlsoSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
-       "Preemptive", ButtonFunction :> (FrontEndExecute[{
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], All, ButtonCell], 
-          FrontEndToken["OpenCloseGroup"], 
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
-   None, None}},
- CellFrameLabelMargins->0],
+Cell[" ", "FooterCell",ExpressionUUID->"aedb15f2-d67e-4ea8-83e8-9224680239b0"],
 
-Cell[TextData[{
- Cell[BoxData[
-  StyleBox[
-   ButtonBox["SpinWeightedSpheroidalHarmonicS",
-    BaseStyle->"Link",
-    ButtonData->
-     "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSpheroidalHarmonicS"],
-   FontFamily->"Verdana"]], "InlineFormula"],
- "\[NonBreakingSpace]",
- StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
-  "InlineSeparator"],
- " ",
- Cell[BoxData[
-  StyleBox[
-   ButtonBox["SpinWeightedSphericalHarmonicY",
-    BaseStyle->"Link",
-    ButtonData->
-     "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSphericalHarmonicY"],
-   FontFamily->"Verdana"]], "InlineFormula"]
-}], "SeeAlso"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["", "TutorialsSection",
- WholeCellGroupOpener->True,
- CellFrameLabels->{{
-    FEPrivate`If[
-     FEPrivate`Or[
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
-     Cell[
-      TextData[
-       ButtonBox[
-       "TUTORIALS", BaseStyle -> None, Appearance -> {Automatic, None}, 
-        Evaluator -> None, Method -> "Preemptive", 
-        ButtonFunction :> (FrontEndExecute[{
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], All, ButtonCell], 
-           FrontEndToken["OpenCloseGroup"], 
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
-      "TutorialsSection"], 
-     TextData[
-      ButtonBox[
-       Cell[
-        TextData[{
-          Cell[
-           BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "Tutorials"}], "TutorialsSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
-       "Preemptive", ButtonFunction :> (FrontEndExecute[{
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], All, ButtonCell], 
-          FrontEndToken["OpenCloseGroup"], 
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
-   None, None}},
- CellFrameLabelMargins->0],
-
-Cell[TextData[ButtonBox["SpinWeightedSpheroidalHarmonics",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:SpinWeightedSpheroidalHarmonics/tutorial/\
-SpinWeightedSpheroidalHarmonics"]], "Tutorials"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["", "MoreAboutSection",
- CellFrameLabels->{{
-    FEPrivate`If[
-     FEPrivate`Or[
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
-      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
-     Cell[
-      TextData[
-       ButtonBox[
-       "MORE ABOUT", BaseStyle -> None, Appearance -> {Automatic, None}, 
-        Evaluator -> None, Method -> "Preemptive", 
-        ButtonFunction :> (FrontEndExecute[{
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], All, ButtonCell], 
-           FrontEndToken["OpenCloseGroup"], 
-           FrontEnd`SelectionMove[
-            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
-      "MoreAboutSection"], 
-     TextData[
-      ButtonBox[
-       Cell[
-        TextData[{
-          Cell[
-           BoxData[
-            InterpretationBox[
-             StyleBox[
-              
-              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
-               Baseline], "CacheGraphics" -> False], 
-             Spacer[24]]]], "More About"}], "MoreAboutSection"], BaseStyle -> 
-       None, Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
-       "Preemptive", ButtonFunction :> (FrontEndExecute[{
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], All, ButtonCell], 
-          FrontEndToken["OpenCloseGroup"], 
-          FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
-   None, None}},
- CellFrameLabelMargins->0],
-
-Cell[TextData[ButtonBox["SpinWeightedSpheroidalHarmonics",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:SpinWeightedSpheroidalHarmonics/guide/\
-SpinWeightedSpheroidalHarmonics"]], "MoreAbout"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[" ", "FooterCell"],
-
-Cell[BoxData[""]]
+Cell[BoxData[""],ExpressionUUID->"165bd80d-f358-4be2-a9d4-355207a6fb9a"]
 }, Open  ]]
 },
 Saveable->False,
@@ -383,8 +82,8 @@ spin-weight s, degree l and order m.",
     "SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSpheroidalEigenvalue"}, 
   "SearchTextTranslated" -> "", "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
-2016)",
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

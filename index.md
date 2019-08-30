@@ -1,4 +1,4 @@
-<p align="center">![S(s=-2, l=2, gamma=1.9)](swsh.png)</p>
+<p align="center"><img  src="swsh.png" alt="S(s=-2, l=2, gamma=1.9)"/></p>
 
 The SpinWeightedSpheroidalHarmonics package for Mathematica provides functions for computing
 spin-weighted spheroidal harmonics, spin-weighted spherical harmonics and their associated eigenvalues.

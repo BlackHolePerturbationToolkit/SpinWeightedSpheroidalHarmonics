@@ -10,11 +10,13 @@ Support is included for both arbitrary-precision numerical evaluation, and for s
 
 <p align="center"><img width="50%" src="swsh.png" alt="S(s=-2, l=2, gamma=1.9)"/></p>
 
-Explicitly the package computes solutions to:
+Explicitly the package computes solutions to the equation
 
+$$\left[\frac{1}{\sin\theta} \frac{d}{d\theta} \left( \sin\theta \frac{d}{d\theta}\right) - \gamma^2 \sin^2\theta - \frac{(m+s\cos\theta)^2}{\sin^2\theta} - 2\gamma s \cos\theta + s+ 2m\gamma + {}_s\lambda_{lm} \right] { }_{s}S_{lm} = 0 \nonumber $$
 
 where
 
+$S$ is the spin-weighted spheroidal harmonic  
 $s$ is the spin-weight  
 $l,m$ are the multipolar indices  
 $\gamma$ is the spheroidicity   
@@ -36,7 +38,7 @@ SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 1.5`30]
 -5.5776273646788261891028539326
 ```
 
-Note the output tracks the precision of the output so it is very easy to compute high precision results.
+Note the output tracks the precision of the input so it is very easy to compute high precision results.
 
 ## Small frequency expansions
 

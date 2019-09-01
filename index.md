@@ -10,66 +10,26 @@ Support is included for both arbitrary-precision numerical evaluation, and for s
 
 <p align="center"><img  src="swsh.png" alt="S(s=-2, l=2, gamma=1.9)"/></p>
 
-## Getting the package
+Explicitly the package computes solutions to:
 
-The latest development version will always be available from the project git
-repository:
+## Numerical evaluation
 
-```bash
-git clone https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics.git
+
+## Small frequency expansions
+
+Small frequency expansions can be performed for the eigenfunctions and eigenvalues
+
+
+```
+Series[SpinWeightedSpheroidalEigenvalue[s, l, m, γ], {γ, 0, 6}]
 ```
 
+## High frequency expansions
 
-## Requirements
-
-The SpinWeightedSpheroidalHarmonics package requires a recent version of Mathematica. It is typically
-tested with only the latest available version.
-
-
-## Installation
-
-Clone the repository and place it somewhere on Mathematica's $Path.
-Typical locations are inside ${HOME}/.Mathematica/Applications/ for Linux or
-inside ${HOME}/Library/Mathematica/Applications/ for Mac OSX.
-
-
-## Usage
-
-The package may be loaded into Mathematica using the command:
-
-```Mathematica
-<< SpinWeightedSpheroidalHarmonics`
+You can easily calculate series expansions of the eigenvalue about $\gamma = \infty$. For example, for the $s=2,l=2,m=2$ case, the command:
 ```
+Series[SpinWeightedSpheroidalEigenvalue[2, 2, 2, γ], {γ, ∞, 6}]
+```
+returns  
 
-
-## Examples
-
-Examples are included in the documentation. See the
-SpinWeightedSpheroidalHarmonics page in Documentation Center.
-
-
-
-## Known problems
-
-Known bugs are recorded in the project [bug tracker](https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics/issues).
-
-
-## License
-
-This code is distributed under the University of Illinois/NCSA
-Open Source License. Details can be found in the LICENSE file.
-
-
-## Authors
-
-Barry Wardell  
-Niels Warburton  
-Marc Casals  
-Sarp Akcay  
-
-
-## Citation Guideline
-
-If you make use of any of the Toolkit in your research please acknowledge using:
-
-> This work makes use of the Black Hole Perturbation Toolkit.
+$-6 \gamma  -1 + \frac{3}{4 \gamma } -\frac{15}{64 \gamma ^3} -\frac{3}{16 \gamma ^4} +\frac{3}{512 \gamma ^5} + \frac{27}{128 \gamma ^6} +O\left[\frac{1}{\gamma}\right]^7$

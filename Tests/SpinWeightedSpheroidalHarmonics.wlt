@@ -60,12 +60,4 @@ VerificationTest[N[SpheroidalEigenvalue[l, m, testc], 10],
  TestID -> 
   "SpinWeightedSpheroidalEigenvalue with s=0 against (Mathematica) SpheroidalEigenvalue for complex (approximate QNM) spheroidicity (l=17,m=17)"]]
 
-(*general complex spheroidicity comparison branch choice SpheroidalEigenvalue for s=0*)
-
-Module[{l = 2, m = 2, c = 2.288310998002696550202017533592879772186279296875`49.74505997240401 + 5.3519509384954062625183723866939544677734375`50.11405704809964 I}, 
- VerificationTest[N[SpheroidalEigenvalue[l, m, c], 10], 
-  N[SpinWeightedSpheroidalEigenvalue[0, l, m, I*c] + 2*m*I*c, 10], 
-  TestID -> 
-   "SpinWeightedSpheroidalEigenvalue with s=0 branch choice with respect to (Mathematica) SpheroidalEigenvalue"]]
-
 

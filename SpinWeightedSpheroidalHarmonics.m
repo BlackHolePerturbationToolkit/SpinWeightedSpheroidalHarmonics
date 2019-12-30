@@ -155,7 +155,7 @@ SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
   Myprec = Max[Precision[\[Gamma]], MachinePrecision];
-  nInv = l-Abs[m];
+  nInv = l-Max[Abs[m],Abs[s]];
   \[Alpha] = Abs[m+s];
   \[Beta] = Abs[m-s];
   \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n+(\[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));

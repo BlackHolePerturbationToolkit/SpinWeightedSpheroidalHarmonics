@@ -334,7 +334,7 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 ];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=
- Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, norm, anTab, nmin, nmax, maxcoeff, prec=Precision[\[Gamma]]},
+ Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, maxcoeff, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
   \[Lambda] = SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]];
@@ -363,8 +363,11 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 \(\*SubscriptBox[\(S\), \(l'm'\)]\)\)(\[Theta],\[Phi];\[Gamma])d\[CapitalOmega] = Subscript[\[Delta], ll']Subscript[\[Delta], mm'] *)
   norm = Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] Sum[anTab[[1;;i-nmin+1]].anTab[[i-nmin+1;;1;;-1]] 2^i Pochhammer[i+2 (1+k1+k2),-2k2-1] Hypergeometric1F1[1+i+2 k1,i+2 (1+k1+k2),4 \[Gamma]], {i, nmin, nmax}])^(1/2);
 
+  (* Overall sign such that the \[Gamma]\[Rule]0 limit is continuous *)
+  sign = If[(OddQ[l]&&EvenQ[m+s])||(OddQ[l]&&OddQ[m+s]&&m>=s)||(EvenQ[l]&&OddQ[m-s]&&m<=s), -1, 1];
+  
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {anTab/norm, nmin, nmax}, Method -> "Leaver"]
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign anTab/norm, nmin, nmax}, Method -> "Leaver"]
 ];
 
 SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]], Nopts___] :=

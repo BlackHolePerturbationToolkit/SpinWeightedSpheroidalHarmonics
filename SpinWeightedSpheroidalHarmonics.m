@@ -164,7 +164,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
   RHS[Ax_] := -CF[-\[Alpha]n[n-1] \[Gamma]n[n], \[Beta]n[n,Ax], {n, nInv+1}];
   LHS[Ax_] := \[Beta]n[nInv, Ax] + ContinuedFractionK[-\[Alpha]n[nInv-n] \[Gamma]n[nInv-n+1], \[Beta]n[nInv-n, Ax], {n, 1, nInv}];
   Eq[A_?NumericQ] := LHS[A] - RHS[A];
-  Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"];
+  Aval = Avar /. Quiet[Check[FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"], Avar -> $Failed, {Power::infy, FindRoot::nlnum}], {Power::infy, FindRoot::nlnum}];
   Aval
 ]
 

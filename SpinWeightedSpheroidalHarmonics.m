@@ -334,7 +334,7 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 ];
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=
- Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, maxcoeff, prec=Precision[\[Gamma]]},
+ Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
   \[Lambda] = SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]];
@@ -349,10 +349,11 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
   an[nmin+1] = -\[Beta]n[nmin]/\[Alpha]n[nmin];
   an[n_] := an[n] = (-\[Beta]n[n-1]an[n-1]-\[Gamma]n[n-1]an[n-2])/\[Alpha]n[n-1];
 
-  (* Compute coefficients until we reach the desired tolerance *)
-  maxcoeff = Max[Abs[an[nmin]], Abs[an[nmin+1]]];
-  While[Abs[an[nmax]]/maxcoeff > 10^-prec,
-    maxcoeff = Max[maxcoeff, Abs[an[nmax++]]];
+  (* Compute coefficients until we reach the desired tolerance for computing the norm *)
+  normterm[i_] := 2^i Pochhammer[i+2 (1+k1+k2), -2k2-1] Hypergeometric1F1[1+i+2 k1, i+2 (1+k1+k2), 4 \[Gamma]] Sum[an[j]an[i-nmin-j], {j, 0, i-nmin}];
+  norm = normterm[nmin];
+  While[norm != (norm += normterm[nmax]),
+    nmax++;
   ];
   anTab = Table[an[n], {n, nmin, nmax}];
 
@@ -361,7 +362,7 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 \(\*SubsuperscriptBox[\(S\), \(lm\), \(*\)]\)\)(\[Theta],\[Phi];\[Gamma])\!\(
 \(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
 \(\*SubscriptBox[\(S\), \(l'm'\)]\)\)(\[Theta],\[Phi];\[Gamma])d\[CapitalOmega] = Subscript[\[Delta], ll']Subscript[\[Delta], mm'] *)
-  norm = Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] Sum[anTab[[1;;i-nmin+1]].anTab[[i-nmin+1;;1;;-1]] 2^i Pochhammer[i+2 (1+k1+k2),-2k2-1] Hypergeometric1F1[1+i+2 k1,i+2 (1+k1+k2),4 \[Gamma]], {i, nmin, nmax}])^(1/2);
+  norm = Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] norm)^(1/2);
 
   (* Overall sign such that the \[Gamma]\[Rule]0 limit is continuous *)
   sign = If[(OddQ[l]&&EvenQ[m+s])||(OddQ[l]&&OddQ[m+s]&&m>=s)||(EvenQ[l]&&OddQ[m-s]&&m<=s), -1, 1];

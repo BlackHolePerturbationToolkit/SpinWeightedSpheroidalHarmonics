@@ -6,14 +6,17 @@ Paclet[
   Description -> "A set of functions for computing spin-weighted spheroidal harmonics.",
   Extensions -> {
     { "Kernel",
-	  "Context" -> {"SpinWeightedSpheroidalHarmonics`"}
-	},
-
-    {"Documentation",
-     Language -> "English", 
-     MainPage -> "Guides/SpinWeightedSpheroidalHarmonics",
-     Resources -> 
-     	{"Guides/SpinWeightedSpheroidalHarmonics"}
+      "Context" -> {"SpinWeightedSpheroidalHarmonics`"}
+    },
+    { "Documentation",
+       Language -> "English", 
+       MainPage -> "Guides/SpinWeightedSpheroidalHarmonics",
+       Resources -> 
+         {"Guides/SpinWeightedSpheroidalHarmonics"}
+    },
+    {"Resource", Root -> "Tests", Resources -> {
+        "SlmLeaverData.m"
+      }
     }
   }
 ]

@@ -20,8 +20,21 @@ EndTestSection[]
 
 BeginTestSection["SpinWeightedSpheroidalHarmonicS"]
 
+Get[PacletResource["SpinWeightedSpheroidalHarmonics", "SlmLeaverData.m"]];
+
 idString[s_, l_, m_, \[Gamma]_, method_:""] :=
   "SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma]]<>"]";
+
+Table[
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],  Method -> "Leaver"][0.3`20, 0.4`20]
+    ,
+    SlmLeaverData[s, l, m, \[Gamma]]
+    ,
+    TestID -> idString[s, l, m, \[Gamma], "Leaver"]
+  ],
+  {\[Gamma], {0.000001`20}}, {s, -3, 3}, {l, Abs[s], 4}, {m, -l, l}
+]
 
 Module[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0}, 
   VerificationTest[
@@ -70,8 +83,8 @@ Module[{testc = {-0.028664-0.849146 I,-0.0860387-0.848094 I,-0.426033-0.115162 I
   ]
 ]
 
-VerificationTest[
-    Module[{testc = {-0.0286038 - 1.1459*I, -0.0860387 - 0.848094*I, -0.637869 - 3.03133*I, -1.10607 - 3.0076*I}, l = 17, m = 17},
+Module[{testc = {-0.0286038 - 1.1459*I, -0.0860387 - 0.848094*I, -0.637869 - 3.03133*I, -1.10607 - 3.0076*I}, l = 17, m = 17},
+  VerificationTest[
     SpinWeightedSpheroidalEigenvalue[0, l, m, I testc] + 2 m I testc
     ,
     {307.2767705582399 - 0.06377931094717815*I, 306.6926124407844 - 0.14198975395701074*I, 314.5435916995019 - 3.7614072964319583*I, 313.61055899767786 - 6.471497169350965*I}

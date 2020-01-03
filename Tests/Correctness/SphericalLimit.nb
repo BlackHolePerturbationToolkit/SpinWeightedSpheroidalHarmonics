@@ -1,0 +1,566 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     23279,        558]
+NotebookOptionsPosition[     21046,        510]
+NotebookOutlinePosition[     21387,        525]
+CellTagsIndexPosition[     21344,        522]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"<<", "SpinWeightedSpheroidalHarmonics`"}]], "Input",
+ CellChangeTimes->{{3.786653472904933*^9, 3.786653478367545*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"c5d9971f-a57c-4b6e-9ecf-be023658e877"],
+
+Cell[CellGroupData[{
+
+Cell["Check signs are consistent in spherical limit", "Section",
+ CellChangeTimes->{{3.7870630986392603`*^9, 
+  3.787063108157839*^9}},ExpressionUUID->"7cac7b10-a59a-4e13-83da-\
+c53af8b20a36"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a\[Omega]", "=", "0.000001`30"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"DeleteDuplicates", "[", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Slm", "=", 
+         RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+          RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+           RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Sign", "[", 
+         RowBox[{
+          RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+           RowBox[{"s", ",", "l", ",", "m", ",", "0.3`80", ",", "0"}], "]"}], 
+          "/", 
+          RowBox[{"Slm", "[", 
+           RowBox[{"0.3`30", ",", "0"}], "]"}]}], "]"}]}], 
+       "\[IndentingNewLine]", ",", 
+       RowBox[{"{", 
+        RowBox[{"s", ",", 
+         RowBox[{"-", "3"}], ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"l", ",", 
+         RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"m", ",", 
+         RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.786393982334548*^9, 3.7863940312847548`*^9}, {
+  3.787082554916368*^9, 3.787082559232574*^9}, {3.787082597396126*^9, 
+  3.7870826032009993`*^9}, {3.787083272369165*^9, 3.787083302587308*^9}, {
+  3.7870834406924*^9, 3.7870834889708967`*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"7b65f542-3a08-41f9-80a8-6aabaef3bb44"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Plot harmonic in low \[Gamma] limit", "Section",
+ CellChangeTimes->{{3.7870631649618387`*^9, 3.787063177568336*^9}, 
+   3.787075405671648*^9, 
+   3.787079245576086*^9},ExpressionUUID->"b9aed0a2-31f9-4a8a-be56-\
+bd39e24ca9fa"],
+
+Cell[CellGroupData[{
+
+Cell["s=0", "Subsection",
+ CellChangeTimes->{{3.7870631804320498`*^9, 
+  3.78706318078006*^9}},ExpressionUUID->"386ea44f-65b0-41eb-8d91-\
+056c2fb654ac"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", "0"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SphericalHarmonicY", "[", 
+            RowBox[{"l", ",", "m", ",", "\[Theta]", ",", "0"}], "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.786389810848379*^9, 3.786389815631349*^9}, {
+   3.786390883122005*^9, 3.7863908844232073`*^9}, {3.786393828187508*^9, 
+   3.786393860304974*^9}, {3.786394208474978*^9, 3.786394211915574*^9}, {
+   3.786560719336113*^9, 3.786560719791947*^9}, 3.786560758316627*^9, {
+   3.786561216834795*^9, 3.786561220054655*^9}, {3.78656125854147*^9, 
+   3.786561276146708*^9}, {3.78708352449688*^9, 3.787083552163498*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"d6aaff35-2f21-4139-886d-2d961cc25868"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=1", "Subsection",
+ CellChangeTimes->{{3.7870632179396267`*^9, 
+  3.787063219515706*^9}},ExpressionUUID->"159a01a4-5a70-4ea7-a11b-\
+4aaa889c402d"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", "1"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390889927723*^9, 3.786390891533255*^9}, 3.786394218122931*^9, {
+   3.786561329082519*^9, 3.78656132955278*^9}, {3.7865613908583727`*^9, 
+   3.786561392151874*^9}, {3.787083541301401*^9, 3.787083542307394*^9}, {
+   3.787083583613105*^9, 3.7870835839638853`*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"83a2bdaf-821a-47f4-b9ac-1c8107cce7ac"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=-1", "Subsection",
+ CellChangeTimes->{{3.7870631869329967`*^9, 
+  3.787063188217495*^9}},ExpressionUUID->"5d4b5705-0b34-4d36-ade6-\
+256e90aca3d8"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", 
+      RowBox[{"-", "1"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390750718368*^9, 3.786390753178957*^9}, {3.7863908997135353`*^9, 
+   3.7863909021968937`*^9}, {3.786393008926929*^9, 3.786393012258749*^9}, {
+   3.786393638433069*^9, 3.786393639246393*^9}, 3.786394224634598*^9, {
+   3.786561470066163*^9, 3.7865615014771976`*^9}, {3.787083624068454*^9, 
+   3.787083626507386*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"00c427ce-e6f5-46be-85ee-9bbf39497f3a"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=2", "Subsection",
+ CellChangeTimes->{{3.787063191209403*^9, 
+  3.78706319366192*^9}},ExpressionUUID->"ad14d73a-4449-42a4-b8d7-\
+870de4d207fa"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", "2"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390750718368*^9, 3.7863907602828207`*^9}, {3.786390906014254*^9, 
+   3.78639090718887*^9}, {3.786393703402254*^9, 3.7863937201245823`*^9}, {
+   3.7863938109166727`*^9, 3.786393821875787*^9}, 3.786394231801079*^9, {
+   3.786563471794116*^9, 3.786563476212686*^9}, {3.787083655651417*^9, 
+   3.787083658161875*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"75d40a09-c6c5-4492-a7fd-83ae74ba47df"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=-2", "Subsection",
+ CellChangeTimes->{{3.787063196665704*^9, 
+  3.787063197610894*^9}},ExpressionUUID->"a0d81eb8-e32e-4d16-b433-\
+85d30de0fae6"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390750718368*^9, 3.786390763352104*^9}, {3.7863909122551928`*^9, 
+   3.786390915060623*^9}, 3.7863942498746967`*^9, {3.786563485363413*^9, 
+   3.78656348837035*^9}, {3.7870836776931467`*^9, 3.787083679857382*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"c034c0d8-1f99-4d93-aab7-c24370ca05fb"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=3", "Subsection",
+ CellChangeTimes->{{3.787063199938924*^9, 
+  3.787063200299501*^9}},ExpressionUUID->"3cbfb58b-0f85-4c8f-a6d4-\
+45ac0aee22c7"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", "3"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390750718368*^9, 3.7863907602828207`*^9}, {3.786390906014254*^9, 
+   3.78639090718887*^9}, {3.786393703402254*^9, 3.7863937201245823`*^9}, {
+   3.7863938109166727`*^9, 3.786393821875787*^9}, 3.786394231801079*^9, {
+   3.786563471794116*^9, 3.786563476212686*^9}, {3.786565368806732*^9, 
+   3.786565368948696*^9}, {3.786565479798278*^9, 3.78656548122546*^9}, {
+   3.786565520804957*^9, 3.786565521020381*^9}, 3.786565667137694*^9, 
+   3.7865657008922873`*^9, 3.786565736032411*^9, {3.7870836851199827`*^9, 
+   3.787083686983014*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"f1c3ff49-e279-419c-ab82-ab06aa7aa9cf"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["s=-3", "Subsection",
+ CellChangeTimes->{{3.787063202808736*^9, 
+  3.787063203247315*^9}},ExpressionUUID->"cd009409-0bce-434d-aac7-\
+d24dd971f972"],
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a\[Omega]", "=", "0.000001`30"}], ",", 
+     RowBox[{"s", "=", 
+      RowBox[{"-", "3"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Slm", "=", 
+        RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+         RowBox[{"s", ",", "l", ",", "m", ",", "a\[Omega]", ",", 
+          RowBox[{"Method", "\[Rule]", "\"\<Leaver\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
+            RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "0"}], 
+            "]"}], ",", 
+           RowBox[{"Slm", "[", 
+            RowBox[{"\[Theta]", ",", "0"}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Dashed"}], "}"}]}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"l", ",", 
+        RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"m", ",", 
+        RowBox[{"-", "l"}], ",", "l"}], "}"}]}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7863883097898607`*^9, 3.786388309829842*^9}, {
+   3.7863883522934217`*^9, 3.7863884864834547`*^9}, {3.786388666855598*^9, 
+   3.786388784315611*^9}, {3.786388845177787*^9, 3.786388845231085*^9}, {
+   3.786388933496902*^9, 3.786388933631649*^9}, {3.786389409318163*^9, 
+   3.786389444323139*^9}, {3.7863896573994703`*^9, 3.786389657716468*^9}, {
+   3.786389711438768*^9, 3.7863897149170713`*^9}, {3.78638974520181*^9, 
+   3.786389802867071*^9}, 3.786389907154995*^9, {3.786390077692523*^9, 
+   3.786390116630164*^9}, {3.7863905460746403`*^9, 3.786390549535571*^9}, {
+   3.786390750718368*^9, 3.786390763352104*^9}, {3.7863909122551928`*^9, 
+   3.786390915060623*^9}, 3.7863942498746967`*^9, {3.786563485363413*^9, 
+   3.78656348837035*^9}, {3.786565370213966*^9, 3.786565370276081*^9}, {
+   3.787083691368022*^9, 3.787083693727022*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"33842731-ad04-44f2-a96d-bbd407314e7d"]
+}, Closed]]
+}, Closed]]
+},
+WindowSize->{1426, 794},
+WindowMargins->{{Automatic, -14}, {-119, Automatic}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 220, 3, 30, "Input",ExpressionUUID->"c5d9971f-a57c-4b6e-9ecf-be023658e877"],
+Cell[CellGroupData[{
+Cell[803, 27, 192, 3, 67, "Section",ExpressionUUID->"7cac7b10-a59a-4e13-83da-c53af8b20a36"],
+Cell[998, 32, 1591, 38, 115, "Input",ExpressionUUID->"7b65f542-3a08-41f9-80a8-6aabaef3bb44"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2626, 75, 231, 4, 53, "Section",ExpressionUUID->"b9aed0a2-31f9-4a8a-be56-bd39e24ca9fa"],
+Cell[CellGroupData[{
+Cell[2882, 83, 152, 3, 54, "Subsection",ExpressionUUID->"386ea44f-65b0-41eb-8d91-056c2fb654ac"],
+Cell[3037, 88, 1951, 44, 115, "Input",ExpressionUUID->"d6aaff35-2f21-4139-886d-2d961cc25868"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5025, 137, 153, 3, 38, "Subsection",ExpressionUUID->"159a01a4-5a70-4ea7-a11b-4aaa889c402d"],
+Cell[5181, 142, 2414, 51, 115, "Input",ExpressionUUID->"83a2bdaf-821a-47f4-b9ac-1c8107cce7ac"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[7632, 198, 154, 3, 38, "Subsection",ExpressionUUID->"5d4b5705-0b34-4d36-ade6-256e90aca3d8"],
+Cell[7789, 203, 2489, 53, 115, "Input",ExpressionUUID->"00c427ce-e6f5-46be-85ee-9bbf39497f3a"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[10315, 261, 150, 3, 38, "Subsection",ExpressionUUID->"ad14d73a-4449-42a4-b8d7-870de4d207fa"],
+Cell[10468, 266, 2466, 52, 115, "Input",ExpressionUUID->"75d40a09-c6c5-4492-a7fd-83ae74ba47df"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[12971, 323, 152, 3, 38, "Subsection",ExpressionUUID->"a0d81eb8-e32e-4d16-b433-85d30de0fae6"],
+Cell[13126, 328, 2388, 51, 115, "Input",ExpressionUUID->"c034c0d8-1f99-4d93-aab7-c24370ca05fb"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15551, 384, 151, 3, 38, "Subsection",ExpressionUUID->"3cbfb58b-0f85-4c8f-a6d4-45ac0aee22c7"],
+Cell[15705, 389, 2685, 55, 115, "Input",ExpressionUUID->"f1c3ff49-e279-419c-ab82-ab06aa7aa9cf"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[18427, 449, 152, 3, 38, "Subsection",ExpressionUUID->"cd009409-0bce-434d-aac7-d24dd971f972"],
+Cell[18582, 454, 2436, 52, 115, "Input",ExpressionUUID->"33842731-ad04-44f2-a96d-bbd407314e7d"]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+

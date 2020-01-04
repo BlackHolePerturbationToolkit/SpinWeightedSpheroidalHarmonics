@@ -23,7 +23,7 @@
   "Option Descriptions" -> {
     "Method" -> "The method to use to numerically evaluate the harmonic. Possible choices are \"Leaver\" and \"SphericalExpansion\"."
    },
-  "See Also" -> {"SpinWeightedSpheroidalEigenvalue", "SpinWeightedSphericalHarmonicY"},
+  "See Also" -> {"SpinWeightedSpheroidalEigenvalue", "SpinWeightedSpheroidalHarmonicSFunction", "SpinWeightedSphericalHarmonicY"},
   "More About" -> {"SpinWeightedSpheroidalHarmonics"},
   "Tutorials" -> {"SpinWeightedSpheroidalHarmonics"}
 }

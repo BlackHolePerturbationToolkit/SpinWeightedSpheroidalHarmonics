@@ -6,12 +6,15 @@
     "For \[Gamma]=0, SpinWeightedSpheroidalEigenvalue reduces to l(l+1) - s(s+1).",
     "For s=0, SpinWeightedSpheroidalEigenvalue[0, l, m, \[Gamma]] is equivalent to SpheroidalEigenvalue[l, m, I \[Gamma]] - 2 m \[Gamma].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalEigenvalue produces a numerical value of the same precision.",
-    "Numerical values are computed using an expansion based on spin-weighted spherical harmonics for an initial guess followed by Leaver's method to obtain an accurate answer. The precision of the result will be approximately equal to the precision of \[Gamma].",
+    "Numerical values are computed using an expansion based on spin-weighted spherical harmonics for an initial guess followed by Leaver's method to obtain an accurate answer.",
+    "The precision of the result will be approximately equal to the precision of \[Gamma].",
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
     "Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary order for generic s, l and m."
     },
   "Numerical Evaluation" -> {
     "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1]",
+    "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1, Method -> "Leaver"]",
+    "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1, Method -> "SphericalExpansion"]",
     "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1`32]",
     },
   "Series Expansion" -> {
@@ -19,6 +22,10 @@
     "Series[SpinWeightedSpheroidalEigenvalue[-2, 2, 2, \[Gamma]], {\[Gamma], 0, 2}]",
     "Series[SpinWeightedSpheroidalEigenvalue[-2, 2, 2, \[Gamma]], {\[Gamma], \[Infinity], 2}]"
     },
+  "Option Descriptions" -> {
+    "Method" -> "The method to use to numerically evaluate the harmonic. Possible choices are \"Leaver\" and \"SphericalExpansion\"."
+    },
+
   "See Also" -> {"SpinWeightedSpheroidalHarmonicS", "SpinWeightedSphericalHarmonicY"},
   "More About" -> {"SpinWeightedSpheroidalHarmonics"},
   "Tutorials" -> {"SpinWeightedSpheroidalHarmonics"}

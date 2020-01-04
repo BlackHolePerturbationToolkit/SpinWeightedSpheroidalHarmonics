@@ -179,22 +179,36 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
 (**********************************************************)
 
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
- {"ArgumentsPattern" -> {_, _, _, _}};
+ {"ArgumentsPattern" -> {_, _, _, _, OptionsPattern[]}};
+
+Options[SpinWeightedSpheroidalEigenvalue] = {Method -> Automatic};
+
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_] /; l < Abs[s] := 0;
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] := 0;
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.)] :=
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.), OptionsPattern[]] :=
   l(l+1) - s(s+1);
 
-SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
+SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
  Module[{Aini},
-  Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
-  SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2
+  Switch[OptionValue[Method],
+    "SphericalExpansion",
+      \[Lambda] = SWSHEigenvalueSpectral[s, l, m, \[Gamma]] - 2 m \[Gamma] + \[Gamma]^2,
+    {"Leaver", "InitialGuess" -> _},
+      Aini = OptionValue[Method][[2,2]];
+      \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2;,
+    Automatic | "Leaver",
+      Aini = SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]];
+      \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2;,
+      _,
+      \[Lambda] = $Failed;
+  ];
+  \[Lambda]
 ];
 
-SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ], Nopts___] :=
-  SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts]];
+SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, opts:OptionsPattern[]], Nopts___] :=
+  SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
 
 
 

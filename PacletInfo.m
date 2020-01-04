@@ -15,7 +15,8 @@ Paclet[
          {"Guides/SpinWeightedSpheroidalHarmonics"}
     },
     {"Resource", Root -> "Tests", Resources -> {
-        "SlmLeaverData.m"
+        "SlmLeaverData.m",
+        "EigenvalueLeaverData.m"
       }
     }
   }

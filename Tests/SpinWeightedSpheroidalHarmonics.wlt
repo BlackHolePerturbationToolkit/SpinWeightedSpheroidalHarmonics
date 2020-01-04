@@ -16,6 +16,30 @@ VerificationTest[
   TestID->"SpinWeightedSpheroidalEigenvalue with positive machine-precision spheroidicity"
 ]
 
+idStringEigenvalue[s_, l_, m_, \[Gamma]_, method_:""] :=
+  "SpinWeightedSpheroidalEigenvalue["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma]]<>"]";
+
+Get[PacletResource["SpinWeightedSpheroidalHarmonics", "EigenvalueLeaverData.m"]];
+
+Table[
+  VerificationTest[
+    SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]]
+    ,
+    EigenvalueLeaverData[s, l, m, \[Gamma]]
+    ,
+    TestID -> idStringEigenvalue[s, l, m, \[Gamma], "Leaver"]
+  ],
+  {\[Gamma], {0.000000001`32}}, {s, -3, 3}, {l, Abs[s], 4}, {m, -l, l}
+]
+
+VerificationTest[
+    SpinWeightedSpheroidalEigenvalue[2, 2, 1, 0.000000001],
+    -3.333333442653828*^-9,
+    SameTest -> withinRoundoff,
+    TestID -> "SpinWeightedSpheroidalEigenvalue with machine precision near-zero spheroidicity."
+    
+]
+
 EndTestSection[]
 
 BeginTestSection["SpinWeightedSpheroidalHarmonicS"]

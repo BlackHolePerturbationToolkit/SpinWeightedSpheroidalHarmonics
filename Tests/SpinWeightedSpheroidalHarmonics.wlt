@@ -40,6 +40,24 @@ VerificationTest[
     
 ]
 
+Module[{s = -2, l = 2, m = 1, \[Gamma] = 0.1 I}, 
+  VerificationTest[
+    SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] + 2 m \[Gamma] - \[Gamma]^2,
+    4.005766385035429 - 0.13328628274049953*I,
+    SameTest -> withinRoundoff,
+    TestID -> idStringEigenvalue[s, l, m, \[Gamma]]
+  ]
+]
+
+Module[{s = 0, l = 2, m = 1, \[Gamma] = 0.1 + 0.2 I}, 
+  VerificationTest[
+    SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] + 2 m \[Gamma] - \[Gamma]^2,
+    6.012859862254978 - 0.01713352832954182 I,
+    SameTest -> withinRoundoff,
+    TestID -> idStringEigenvalue[s, l, m, \[Gamma]]
+  ]
+]
+
 EndTestSection[]
 
 BeginTestSection["SpinWeightedSpheroidalHarmonicS"]
@@ -79,6 +97,16 @@ Module[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0},
     TestID -> idString[s, l, m, \[Gamma]]
   ]
 ]
+
+Module[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4}, 
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    -0.010529405169055157 - 0.02355597401012832*I,
+    SameTest -> withinRoundoff,
+    TestID -> idString[s, l, m, \[Gamma]]
+  ]
+]
+
 
 EndTestSection[]
 

@@ -116,6 +116,15 @@ Module[{s = 1, l = 2, m = 2, \[Gamma] = 2.12`20, \[Theta] = \[Pi]/3., \[Phi] = 0
   ]
 ]
 
+Module[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0}, 
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    -0.17001322692047803109041563873499247769`26.19971750849647,
+    SameTest -> withinRoundoff,
+    TestID -> idString[s, l, m, \[Gamma]]
+  ]
+]
+
 
 EndTestSection[]
 

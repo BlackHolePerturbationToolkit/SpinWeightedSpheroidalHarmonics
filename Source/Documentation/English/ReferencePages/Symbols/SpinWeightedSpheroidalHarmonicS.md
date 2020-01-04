@@ -8,6 +8,7 @@
     "For s=0, SpinWeightedSpheroidalHarmonicS[0, l, m, \[Gamma], \[Theta], 0] is equivalent to Sqrt[(2 l + 1)/(4 \[Pi])] Sqrt[(l - m)!/(l + m)!] SpheroidalPS[l, m, I \[Gamma], Cos[\[Theta]]].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalHarmonicS produces a numerical value of the same precision.",
     "Numerical values are computed using either Leaver's method or an expansion in terms of spin-weighted spherical harmonics.",
+    "The number of terms used for numerical evaluation is such that the normalisation is determined as accuratel as possible given the precision of the input \[Gamma].",
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
     "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] produces a SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated for multiple values of \[Theta] and \[Phi]."
     },

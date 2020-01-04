@@ -11,6 +11,10 @@ SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, 
 SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], data, method] represents a function for computing numerical values of spin-weighted spheroidal harmonics.";
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
+(* Messages *)
+SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
+
+(* Global variables *)
 $SpinWeightedSpheroidalHarmonicsInformation::usage = "$SpinWeightedSpheroidalHarmonicsInformation is a list of rules that gives information about the version of the SpinWeightedSpheroidalHarmonics package you are running.";
 $SpinWeightedSpheroidalHarmonicsInstallationDirectory::usage = "$SpinWeightedSpheroidalHarmonicsInstallationDirectory gives the top-level directory in which the SpinWeightedSpheroidalHarmonics package is installed.";
 
@@ -373,6 +377,10 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 \(\*SubscriptBox[\(\[InvisiblePrefixScriptBase]\), \(s\)]\)
 \(\*SubscriptBox[\(S\), \(l'm'\)]\)\)(\[Theta],\[Phi];\[Gamma])d\[CapitalOmega] = Subscript[\[Delta], ll']Subscript[\[Delta], mm'] *)
   norm = Sqrt[2\[Pi]] (2^(1+2 k1+2 k2) E^(-2 \[Gamma]) Gamma[1+2 k2] norm)^(1/2);
+  If[Precision[norm] == 0.,
+    Message[SpinWeightedSpheroidalHarmonicS::normprec];
+    norm = 1;
+  ];
 
   (* Overall sign such that the \[Gamma]\[Rule]0 limit is continuous *)
   sign = If[(OddQ[l]&&EvenQ[m+s])||(OddQ[l]&&OddQ[m+s]&&m>=s)||(EvenQ[l]&&OddQ[m-s]&&m<=s), -1, 1];

@@ -178,10 +178,6 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
 (* SpinWeightedSpheroidalEigenvalue                       *)
 (**********************************************************)
 
-(*We only compute the eigenvalues/eigenfunctions when (s,l,m) are either all integers or all half-integers*)
-ValidParamQ[s_Integer,l_Integer,m_Integer]:=True
-ValidParamQ[s_,l_,m_]:=Mod[{s,l,m},1]=={1/2,1/2,1/2}
-
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
  {"ArgumentsPattern" -> {_, _, _, _}};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];

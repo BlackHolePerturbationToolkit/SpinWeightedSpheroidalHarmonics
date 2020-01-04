@@ -409,7 +409,7 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
   oneplusu = 2 Cos[\[Theta]/2]^2;
   oneminusu = 2 Sin[\[Theta]/2]^2;
   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
-  E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax] Exp[I m \[Phi]]
+  E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] an.oneplusu^Range[0,nmax] Exp[I m \[Phi]]
 ];
 
 (*Derivatives*)
@@ -423,7 +423,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer
   oneplusu = 2 Cos[\[Theta]1/2]^2;
   oneminusu = 2 Sin[\[Theta]1/2]^2;
   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
-  D[E^(\[Gamma] u) oneplusu^k1 oneminusu^k2 an.oneplusu^Range[0,nmax],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
+  D[E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] an.oneplusu^Range[0,nmax],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
 ];
   
 SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, 0, Method -> "SphericalExact"][\[Theta]_,\[Phi]_] :=

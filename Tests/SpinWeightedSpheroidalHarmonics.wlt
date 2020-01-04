@@ -17,7 +17,7 @@ VerificationTest[
 ]
 
 idStringEigenvalue[s_, l_, m_, \[Gamma]_, method_:""] :=
-  "SpinWeightedSpheroidalEigenvalue["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma]]<>"]";
+  "SpinWeightedSpheroidalEigenvalue["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"]";
 
 Get[PacletResource["SpinWeightedSpheroidalHarmonics", "EigenvalueLeaverData.m"]];
 
@@ -65,7 +65,7 @@ BeginTestSection["SpinWeightedSpheroidalHarmonicS"]
 Get[PacletResource["SpinWeightedSpheroidalHarmonics", "SlmLeaverData.m"]];
 
 idString[s_, l_, m_, \[Gamma]_, method_:""] :=
-  "SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma]]<>"]";
+  "SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"]";
 
 Table[
   VerificationTest[

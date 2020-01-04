@@ -40,7 +40,7 @@ VerificationTest[
     
 ]
 
-Module[{s = -2, l = 2, m = 1, \[Gamma] = 0.1 I}, 
+With[{s = -2, l = 2, m = 1, \[Gamma] = 0.1 I}, 
   VerificationTest[
     SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] + 2 m \[Gamma] - \[Gamma]^2,
     4.005766385035429 - 0.13328628274049953*I,
@@ -49,7 +49,7 @@ Module[{s = -2, l = 2, m = 1, \[Gamma] = 0.1 I},
   ]
 ]
 
-Module[{s = 0, l = 2, m = 1, \[Gamma] = 0.1 + 0.2 I}, 
+With[{s = 0, l = 2, m = 1, \[Gamma] = 0.1 + 0.2 I}, 
   VerificationTest[
     SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] + 2 m \[Gamma] - \[Gamma]^2,
     6.012859862254978 - 0.01713352832954182 I,
@@ -78,7 +78,7 @@ Table[
   {\[Gamma], {0.000001`20}}, {s, -3, 3}, {l, Abs[s], 4}, {m, -l, l}
 ]
 
-Module[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0}, 
+With[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]]
     ,
@@ -88,7 +88,7 @@ Module[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0},
   ]
 ]
 
-Module[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0}, 
+With[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]]
     ,
@@ -98,7 +98,7 @@ Module[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0},
   ]
 ]
 
-Module[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4}, 
+With[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
     -0.010529405169055157 - 0.02355597401012832*I,
@@ -107,7 +107,7 @@ Module[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4},
   ]
 ]
 
-Module[{s = 1, l = 2, m = 2, \[Gamma] = 2.12`20, \[Theta] = \[Pi]/3., \[Phi] = 0}, 
+With[{s = 1, l = 2, m = 2, \[Gamma] = 2.12`20, \[Theta] = \[Pi]/3., \[Phi] = 0}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"][\[Theta], \[Phi]],
     0.053503866650272916,
@@ -116,7 +116,7 @@ Module[{s = 1, l = 2, m = 2, \[Gamma] = 2.12`20, \[Theta] = \[Pi]/3., \[Phi] = 0
   ]
 ]
 
-Module[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0}, 
+With[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
     -0.17001322692047803109041563873499247769`26.19971750849647,
@@ -132,7 +132,7 @@ BeginTestSection["Complex spheroidicity near expected QNM values"]
 
 (* Based on QNMs as computed with qnm package made available by Leo Stein *)
 
-Module[{testc = {-0.0287516-0.161094 I,-0.149234-0.148211 I,-0.426033-0.115162 I,-0.0246915-0.993013 I}, l=2, m=2},
+With[{testc = {-0.0287516-0.161094 I,-0.149234-0.148211 I,-0.426033-0.115162 I,-0.0246915-0.993013 I}, l=2, m=2},
   VerificationTest[
     SpinWeightedSpheroidalEigenvalue[0, l, m, I testc] + 2 m I testc
     ,
@@ -143,7 +143,7 @@ Module[{testc = {-0.0287516-0.161094 I,-0.149234-0.148211 I,-0.426033-0.115162 I
   ]
 ]
 
-Module[{testc = {-0.028664-0.849146 I,-0.0860387-0.848094 I,-0.426033-0.115162 I,-1.15863-1.82117 I}, l=14, m=1}, 
+With[{testc = {-0.028664-0.849146 I,-0.0860387-0.848094 I,-0.426033-0.115162 I,-1.15863-1.82117 I}, l=14, m=1}, 
   VerificationTest[
     SpinWeightedSpheroidalEigenvalue[0, l, m, I testc] + 2 m I testc
     ,
@@ -153,7 +153,7 @@ Module[{testc = {-0.028664-0.849146 I,-0.0860387-0.848094 I,-0.426033-0.115162 I
   ]
 ]
 
-Module[{testc = {-0.0286038 - 1.1459*I, -0.0860387 - 0.848094*I, -0.637869 - 3.03133*I, -1.10607 - 3.0076*I}, l = 17, m = 17},
+With[{testc = {-0.0286038 - 1.1459*I, -0.0860387 - 0.848094*I, -0.637869 - 3.03133*I, -1.10607 - 3.0076*I}, l = 17, m = 17},
   VerificationTest[
     SpinWeightedSpheroidalEigenvalue[0, l, m, I testc] + 2 m I testc
     ,

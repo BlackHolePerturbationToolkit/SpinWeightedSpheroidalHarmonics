@@ -7,21 +7,21 @@
     "For s=0 and \[Gamma]=0, SpinWeightedSpheroidalHarmonicS is equivalent to SphericalHarmonicY.",
     "For s=0, SpinWeightedSpheroidalHarmonicS[0, l, m, \[Gamma], \[Theta], 0] is equivalent to Sqrt[(2 l + 1)/(4 \[Pi])] Sqrt[(l - m)!/(l + m)!] SpheroidalPS[l, m, I \[Gamma], Cos[\[Theta]]].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalHarmonicS produces a numerical value of the same precision.",
-    "Numerical values are computed using a series expansion about \[Gamma] = 0, with the number of terms in the expansion determined automatically to ensure the desired precision is reached.",
-    "The MaxIterations option controls the maximum number of terms to include in a numerical approximation. For large \[Gamma]/l it may be necessary to set this to a large value in order to achieve the desired accuracy.",
-    "For sufficiently large \[Gamma]/l the numerical evaluation of SpinWeightedSpheroidalHarmonicS may fail to converge for any value of MaxIterations.",
-    "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m."
+    "Numerical values are computed using either Leaver's method or an expansion in terms of spin-weighted spherical harmonics.",
+    "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
+    "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] produces a SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated for multiple values of \[Theta] and \[Phi]."
     },
   "Numerical Evaluation" -> {
     "SpinWeightedSpheroidalHarmonicS[-2, 2, 2, 0.1, \[Pi]/4, 0]",
     "SpinWeightedSpheroidalHarmonicS[-2, 2, 2, 0.1`32, \[Pi]/4, 0]",
+    "Slm = SpinWeightedSpheroidalHarmonicS[-2, 2, 2, 0.1`32]; Slm[\[Pi]/4, 0]"
     },
   "Series Expansion" -> {
     "Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]], {\[Gamma], 0, 2}]",
     "Series[SpinWeightedSpheroidalHarmonicS[-2, 2, 2, \[Gamma], \[Theta], \[Phi]], {\[Gamma], 0, 2}]",
     },
   "Option Descriptions" -> {
-    "MaxIterations" -> "The maximum number of iterations to use when computing numerical values."
+    "Method" -> "The method to use to numerically evaluate the harmonic. Possible choices are \"Leaver\" and \"SphericalExpansion\"."
    },
   "See Also" -> {"SpinWeightedSpheroidalEigenvalue", "SpinWeightedSphericalHarmonicY"},
   "More About" -> {"SpinWeightedSpheroidalHarmonics"},

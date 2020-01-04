@@ -6,7 +6,7 @@
     "For \[Gamma]=0, SpinWeightedSpheroidalEigenvalue reduces to l(l+1) - s(s+1).",
     "For s=0, SpinWeightedSpheroidalEigenvalue[0, l, m, \[Gamma]] is equivalent to SpheroidalEigenvalue[l, m, I \[Gamma]] - 2 m \[Gamma].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalEigenvalue produces a numerical value of the same precision.",
-    "Numerical values are computed using a spectral/eigenvalue approach for an initial guess followed by Leaver's method to obtain an accurate answer. The precision of the result will be approximately equal to the precision of \[Gamma].",
+    "Numerical values are computed using an expansion based on spin-weighted spherical harmonics for an initial guess followed by Leaver's method to obtain an accurate answer. The precision of the result will be approximately equal to the precision of \[Gamma].",
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
     "Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary order for generic s, l and m."
     },

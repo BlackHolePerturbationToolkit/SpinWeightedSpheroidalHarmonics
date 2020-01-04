@@ -125,6 +125,15 @@ With[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0},
   ]
 ]
 
+With[{s = 0, l = 1, m = 0, \[Gamma] = 0.01`30, \[Theta] = 0, \[Phi] = 0}, 
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    0.48860446631177094306032408791530492821`27.827288196470665,
+    SameTest -> withinRoundoff,
+    TestID -> idString[s, l, m, \[Gamma]]
+  ]
+]
+
 
 EndTestSection[]
 

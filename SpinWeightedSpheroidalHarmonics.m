@@ -308,24 +308,22 @@ Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, opts___] :=
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, OptionsPattern[]] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
 
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0] :=
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"];
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0, OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?MachineNumberQ] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],
-    Method -> (OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"] /. Automatic -> "SphericalExpansion")];
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?MachineNumberQ, OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"] /; OptionValue[Method] == Automatic ;
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],
-    Method -> (OptionValue[SpinWeightedSpheroidalHarmonicS, "Method"] /. Automatic -> "Leaver")];
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]]:=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]  /; OptionValue[Method] == Automatic;
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]] :=
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method->("Eigenvalue"|"SphericalExpansion")] :=
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
  Module[{lmin, nmax, nmin, A, esys,evec,eval,sign,pos},
   lmin = Max[Abs[s],Abs[m]];
   nmax = Ceiling[Abs[3/2\[Gamma]-\[Gamma]^2/250]]+50;(*FIXME: Improve the estimate of nmax*)
@@ -346,9 +344,9 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 
   sign=Sign[evec[[Min[l-lmin+1,(nmax+nmin)/2+1]]]];
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign*evec, nmin, nmax}, Method -> "SphericalExpansion"]
-];
+]  /; MatchQ[OptionValue[Method], ("Eigenvalue"|"SphericalExpansion")] ;
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, Method -> "Leaver"] :=
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
  Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
@@ -388,9 +386,9 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
   
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign anTab/norm, nmin, nmax}, Method -> "Leaver"]
-];
+] /; MatchQ[OptionValue[Method], "Leaver"];
 
-SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts___:OptionsPattern[]], Nopts___] :=
+SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];
 
 SpinWeightedSpheroidalHarmonicS /: 
@@ -415,19 +413,19 @@ SpinWeightedSpheroidalHarmonicS /:
 (**********************************************************)
 
 SyntaxInformation[SpinWeightedSpheroidalHarmonicSFunction] =
- {"ArgumentsPattern" -> {_, _, _, _, {{__}, _, _}, ___}};
+ {"ArgumentsPattern" -> {_, _, _, _, {{__}, _, _}, OptionsPattern[]}};
 
 Options[SpinWeightedSpheroidalHarmonicSFunction] = {Method -> "Leaver"};
 
 SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
 
-Format[SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, coeffs_ /;(Head[coeffs]=!=SequenceForm), Method -> method_]] :=
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], SequenceForm@@{"<<", coeffs[[2]]+coeffs[[3]]+1, ">>"}, Method -> method];
+Format[SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, coeffs_ /;(Head[coeffs]=!=SequenceForm), opts:OptionsPattern[]]] :=
+ SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], SequenceForm@@{"<<", coeffs[[2]]+coeffs[[3]]+1, ">>"}, opts];
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, Method -> ("Eigenvalue"|"SphericalExpansion")][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Sum[dn[[k+nmin+1]]SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta], 0], {k, -nmin, nmax}]Exp[I m \[Phi]];
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, OptionsPattern[]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
+  Sum[dn[[k+nmin+1]]SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta], 0], {k, -nmin, nmax}]Exp[I m \[Phi]] /; MatchQ[OptionValue[Method], ("Eigenvalue"|"SphericalExpansion")];
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, Method -> "Leaver"][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, OptionsPattern[]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
  Module[{u = Cos[\[Theta]], k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu, res},
   oneplusu = 2 Cos[\[Theta]/2]^2;
   oneminusu = 2 Sin[\[Theta]/2]^2;
@@ -438,24 +436,25 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
   If[Precision[res] == 0., Message[SpinWeightedSpheroidalHarmonicS::prec]];
 
   res
-];
+] /; MatchQ[OptionValue[Method], "Leaver"];
 
 (*Derivatives*)
-Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, Method -> ("Eigenvalue"|"SphericalExpansion")]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=Module[{\[Theta]1,\[Phi]1},
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {dn_List, nmin_Integer, nmax_Integer}, OptionsPattern[]]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
+ Module[{\[Theta]1,\[Phi]1},
   Sum[dn[[k+nmin+1]]D[SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta]1, 0],{\[Theta]1,d1}], {k, -nmin, nmax}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
-];
+] /; MatchQ[OptionValue[SpinWeightedSpheroidalHarmonicSFunction, Method], ("Eigenvalue"|"SphericalExpansion")];
 
-Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, Method -> "Leaver"]][\[Theta]_?NumericQ, \[Phi]_?NumericQ]:=
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {an_List, nmin_Integer, nmax_Integer}, OptionsPattern[]]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
  Module[{\[Theta]1, \[Phi]1, u, k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu},
   u=Cos[\[Theta]1];
   oneplusu = 2 Cos[\[Theta]1/2]^2;
   oneminusu = 2 Sin[\[Theta]1/2]^2;
   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
   D[E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] an.oneplusu^Range[0,nmax],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
-];
+] /; MatchQ[OptionValue[SpinWeightedSpheroidalHarmonicSFunction, Method], "Leaver"];
   
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, 0, Method -> "SphericalExact"][\[Theta]_,\[Phi]_] :=
-  SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]];
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, 0,  OptionsPattern[]][\[Theta]_, \[Phi]_] :=
+  SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]] /; MatchQ[OptionValue[Method], "SphericalExact"];
 
 
 (* ::Section::Closed:: *)

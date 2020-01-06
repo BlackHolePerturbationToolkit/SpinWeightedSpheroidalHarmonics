@@ -113,7 +113,7 @@ kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
 
 
-(*Module for computing a contined fraction. This is preferred over Mathematica's ContinedFractionK function as we can get an error estimate on the result using this function*)
+(* Module for computing a continued fraction. This is preferred over Mathematica's ContinedFractionK function as we can get an error estimate on the result using this function*)
 CF[a_, b_, {n_, n0_}] := 
   Module[{A, B, ak, bk, res = Indeterminate, j = n0},
    A[n0 - 2] = 1;

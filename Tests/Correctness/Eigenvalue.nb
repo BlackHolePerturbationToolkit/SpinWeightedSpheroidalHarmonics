@@ -1,0 +1,633 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     25313,        625]
+NotebookOptionsPosition[     22304,        570]
+NotebookOutlinePosition[     22644,        585]
+CellTagsIndexPosition[     22601,        582]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Compare eigenvalue compute using both methods", "Section",
+ CellChangeTimes->{{3.787063206294779*^9, 3.787063207499942*^9}, {
+  3.78708377627743*^9, 3.787083777669244*^9}, {3.787084252693399*^9, 
+  3.787084273420897*^9}},ExpressionUUID->"ea704545-58ea-4eda-8b69-\
+ec76a01dc700"],
+
+Cell["For some reason, \[Gamma]=1 fails, but other values succeed.", "Text",
+ CellChangeTimes->{{3.7870843433716707`*^9, 
+  3.787084361658777*^9}},ExpressionUUID->"194930ad-a694-4e90-8c79-\
+903d7f796daf"],
+
+Cell[BoxData[
+ RowBox[{"Monitor", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"relerr", "=", 
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Lambda]S", "=", 
+         RowBox[{
+         "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", 
+          "[", 
+          RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\[Lambda]L", "=", 
+         RowBox[{
+         "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaver", "[", 
+          
+          RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]", ",", 
+           RowBox[{
+            RowBox[{"1000001", "/", "1000000"}], "\[Lambda]S"}]}], "]"}]}], 
+        ";", 
+        RowBox[{"1", "-", 
+         RowBox[{"\[Lambda]L", "/", "\[Lambda]S"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"s", ",", 
+         RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"l", ",", 
+         RowBox[{"Abs", "[", "s", "]"}], ",", "10"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"m", ",", 
+         RowBox[{"-", "l"}], ",", "l"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Gamma]", ",", 
+         RowBox[{"N", "[", 
+          RowBox[{
+           RowBox[{"Complement", "[", 
+            RowBox[{
+             SuperscriptBox["10", 
+              RowBox[{"Range", "[", 
+               RowBox[{
+                RowBox[{"-", "10"}], ",", "1"}], "]"}]], ",", 
+             RowBox[{"{", "1", "}"}]}], "]"}], ",", "80"}], "]"}]}], "}"}]}], 
+      "]"}]}], ";"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.786649224168707*^9, 3.78664924011124*^9}, {
+   3.7866493421933823`*^9, 3.786649430306666*^9}, {3.786650963609351*^9, 
+   3.786651097347238*^9}, {3.786651656597185*^9, 3.7866516999885197`*^9}, {
+   3.7866522945064573`*^9, 3.786652296669736*^9}, {3.78665240181279*^9, 
+   3.786652407625917*^9}, {3.786652741525275*^9, 3.786652743714834*^9}, {
+   3.786653690468006*^9, 3.7866537262242823`*^9}, {3.787084054120631*^9, 
+   3.787084068109168*^9}, {3.78708416275428*^9, 3.78708417858637*^9}, 
+   3.787084229122569*^9, {3.78708431732742*^9, 
+   3.787084340867484*^9}},ExpressionUUID->"1173e755-bf51-47fc-b091-\
+de0def4fa73e"],
+
+Cell[BoxData[
+ RowBox[{"Max", "[", "relerr", "]"}]], "Input",
+ CellChangeTimes->{{3.786652808015933*^9, 3.786652809430805*^9}, {
+  3.786653753202607*^9, 3.786653754191057*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"89174794-1365-40a4-a10f-e585c610f3ac"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Arbitrary complex \[Gamma]", "Section",
+ CellChangeTimes->{{3.708238907440612*^9, 
+  3.708238916917955*^9}},ExpressionUUID->"f6dcec9d-03ad-4edd-a269-\
+5421ce8f9bcf"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Gamma]", "=", 
+   RowBox[{"0.1", "+", 
+    RowBox[{"0.2", "\[ImaginaryI]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.708183598265381*^9, 3.7081836003520317`*^9}, {
+  3.708238866731168*^9, 3.708238868595352*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"27a4afce-7ef5-428c-8c67-fc915f9cfb79"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+   RowBox[{"0", ",", "2", ",", "1", ",", "\[Gamma]"}], "]"}], "+", 
+  RowBox[{"2", " ", "1", " ", "\[Gamma]"}], "-", 
+  SuperscriptBox["\[Gamma]", "2"]}]], "Input",
+ CellChangeTimes->{{3.708182793909615*^9, 3.7081828070046988`*^9}, {
+   3.708182901042976*^9, 3.708182904641314*^9}, {3.708183055980194*^9, 
+   3.70818305802526*^9}, 3.7081834873331327`*^9, {3.70818360480235*^9, 
+   3.708183606890085*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"4236ac86-4445-466d-a4ae-2a0c0912a2cc"],
+
+Cell[BoxData[
+ RowBox[{"6.012859862254978`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954182`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellChangeTimes->{
+  3.708182807404727*^9, {3.708182901823036*^9, 3.708182905195052*^9}, 
+   3.708183058353972*^9, 3.708183488293867*^9, 3.7081836219496193`*^9, 
+   3.708183665757827*^9, {3.7081852588301563`*^9, 3.708185281579597*^9}, 
+   3.7082388704196587`*^9, 3.708411620104026*^9, 3.708411876163685*^9, 
+   3.787128335451797*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"cea799fd-b4c3-4dae-a065-49aef275b8ae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"6.012859862254978", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954182", "I"}]}]], "Input",
+ CellChangeTimes->{{3.7871282981477127`*^9, 3.787128307387506*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"3bfa3579-da57-4cc8-ab59-82b763be3863"],
+
+Cell[BoxData[
+ RowBox[{"6.012859862254978`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954182`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellChangeTimes->{3.787128335460463*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"34436601-9f58-42e3-b65c-53e5230bd8a6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", 
+  "[", 
+  RowBox[{"0", ",", "2", ",", "1", ",", "\[Gamma]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.708182793909615*^9, 3.7081828070046988`*^9}, {
+   3.708182851403018*^9, 3.708182874002962*^9}, 3.708182928050682*^9, {
+   3.7081829821972847`*^9, 3.708183015540699*^9}, {3.708183062554154*^9, 
+   3.708183067873472*^9}, 3.7081836081707582`*^9},
+ CellLabel->"In[9]:=",ExpressionUUID->"7324d64d-78e3-444a-8eb0-5955881ebb09"],
+
+Cell[BoxData[
+ RowBox[{"6.012859862254978`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954186`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellChangeTimes->{
+  3.708182874577958*^9, {3.7081829071067343`*^9, 3.708183015956287*^9}, {
+   3.708183048109318*^9, 3.7081830683677*^9}, 3.708183489469823*^9, 
+   3.708183621983989*^9, 3.708183665810565*^9, {3.7081852596156054`*^9, 
+   3.708185282151964*^9}, 3.708238872293948*^9, 3.708411628824708*^9, 
+   3.70841187696637*^9, 3.787128335496291*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"792d46f5-0cd7-449e-80a0-beaafc7cb3be"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaver", "[", 
+  
+  RowBox[{"0", ",", "2", ",", "1", ",", "\[Gamma]", ",", "%"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.708182793909615*^9, 3.7081828070046988`*^9}, {
+   3.708182851403018*^9, 3.708182874002962*^9}, 3.708182928050682*^9, {
+   3.7081829821972847`*^9, 3.708183015540699*^9}, {3.708183062554154*^9, 
+   3.708183067873472*^9}, 3.7081836081707582`*^9, {3.7081852489355793`*^9, 
+   3.708185278989533*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"3ffeee00-ca30-4d9a-b74d-00c30f931d63"],
+
+Cell[BoxData[
+ RowBox[{"6.012859862254978`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954186`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellChangeTimes->{{3.708185260411759*^9, 3.7081852828867207`*^9}, 
+   3.7082388731906843`*^9, 3.708411630416525*^9, 3.708411877672853*^9, 
+   3.7871283355046263`*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"1d6d7b78-a379-4a9d-9f48-eb8cbb6c52a3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SpheroidalEigenvalue", "[", 
+   RowBox[{"2", ",", "1", ",", 
+    RowBox[{"\[ImaginaryI]", " ", "\[Gamma]"}]}], "]"}], "-", 
+  SuperscriptBox["\[Gamma]", "2"]}]], "Input",
+ CellChangeTimes->{{3.708182793909615*^9, 3.708182846921898*^9}, 
+   3.7081831729094048`*^9, {3.708183541050661*^9, 3.70818354496542*^9}, {
+   3.708183610682119*^9, 3.7081836180323677`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"c69ec2e7-96ab-4661-9c1d-5eb53583d0bd"],
+
+Cell[BoxData[
+ RowBox[{"6.012859862254976`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.01713352832954247`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellChangeTimes->{{3.708182816655607*^9, 3.7081828474969053`*^9}, 
+   3.708183084961254*^9, 3.708183173587693*^9, {3.7081835311315727`*^9, 
+   3.708183545494802*^9}, 3.708183622100178*^9, 3.708183665908968*^9, {
+   3.70818526334758*^9, 3.708185283607909*^9}, 3.70823887404527*^9, 
+   3.708411638267582*^9, 3.708411878213633*^9, 3.787128335545845*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"63ea8e22-660c-486f-b060-28f6a99d5254"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Number of inversions", "Section",
+ CellChangeTimes->{{3.787083837023779*^9, 
+  3.7870838402337103`*^9}},ExpressionUUID->"f99903a5-5191-4c4d-bb92-\
+76bb85a853f4"],
+
+Cell["\<\
+The following was run with a modified version of the code including a \
+SWSHEigenvalueLeaverEq function\
+\>", "Text",
+ CellChangeTimes->{{3.7870839239747477`*^9, 
+  3.787083943566724*^9}},ExpressionUUID->"096e186b-1950-4931-a9d5-\
+793abd8e017a"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}], ",", 
+     RowBox[{"l", "=", "9"}], ",", 
+     RowBox[{"m", "=", "1"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1`80"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Lambda]S", "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"lhs", ",", "rhs"}], "}"}], "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaverEq", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "8"}], "]"}]}], 
+    ";"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7866545215280313`*^9, 3.786654533566012*^9}, {
+  3.786822007786487*^9, 3.786822103337185*^9}, {3.786822285098865*^9, 
+  3.786822308575068*^9}, {3.786822363417263*^9, 3.786822363572484*^9}, {
+  3.786822400013872*^9, 3.786822430380299*^9}, {3.7868224737260523`*^9, 
+  3.786822655206665*^9}, {3.7868238672917624`*^9, 3.786823937047414*^9}, {
+  3.7868241439482203`*^9, 3.7868241478408957`*^9}, {3.786824190307355*^9, 
+  3.7868241905449953`*^9}, {3.7870838602907763`*^9, 3.787083866841235*^9}, {
+  3.78708395625482*^9, 
+  3.787083956438673*^9}},ExpressionUUID->"0f6b959c-1647-44ab-97aa-\
+a574be18101c"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lhs", "[", "\[Lambda]", "]"}], ",", 
+       RowBox[{"rhs", "[", "\[Lambda]", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Lambda]", ",", "60", ",", 
+       RowBox[{"\[Lambda]S", "+", "1"}]}], "}"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", 
+         RowBox[{"-", "200"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", "20"}], "}"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Black", ",", "Dashed"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<s=-2, l=9, m=1, \[Gamma]=0.1, nInv=8\>\""}]}],
+   "]"}]], "Input",
+ CellChangeTimes->{{3.786654534856735*^9, 3.786654588700377*^9}, {
+  3.786822236602985*^9, 3.7868222577856417`*^9}, {3.786823946712352*^9, 
+  3.786824126875731*^9}, {3.786824187763669*^9, 3.786824188008099*^9}},
+ CellLabel->
+  "In[105]:=",ExpressionUUID->"fab6cfe4-b6ce-4b26-b10f-4805db541ffc"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", 
+      RowBox[{"-", "2"}]}], ",", 
+     RowBox[{"l", "=", "9"}], ",", 
+     RowBox[{"m", "=", "1"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.1`80"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Lambda]S", "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"lhs", ",", "rhs"}], "}"}], "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaverEq", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "7"}], "]"}]}], 
+    ";"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7866545215280313`*^9, 3.786654533566012*^9}, {
+  3.786822007786487*^9, 3.786822103337185*^9}, {3.786822285098865*^9, 
+  3.786822308575068*^9}, {3.786822363417263*^9, 3.786822363572484*^9}, {
+  3.786822400013872*^9, 3.786822430380299*^9}, {3.7868224737260523`*^9, 
+  3.786822655206665*^9}, {3.7868238672917624`*^9, 3.786823937047414*^9}, {
+  3.7868241439482203`*^9, 3.7868241478408957`*^9}, {3.786824190307355*^9, 
+  3.7868241905449953`*^9}, {3.7870838602907763`*^9, 3.787083886192711*^9}, {
+  3.787083958174573*^9, 
+  3.787083958310606*^9}},ExpressionUUID->"f2938205-7663-4d23-ad8a-\
+47b5c471e5c1"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lhs", "[", "\[Lambda]", "]"}], ",", 
+       RowBox[{"rhs", "[", "\[Lambda]", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Lambda]", ",", "60", ",", 
+       RowBox[{"\[Lambda]S", "+", "1"}]}], "}"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", 
+         RowBox[{"-", "200"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", "20"}], "}"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Black", ",", "Dashed"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<s=-2, l=9, m=1, \[Gamma]=0.1, nInv=7\>\""}]}],
+   "]"}]], "Input",
+ CellChangeTimes->{{3.786654534856735*^9, 3.786654588700377*^9}, {
+  3.786822236602985*^9, 3.7868222577856417`*^9}, {3.786823946712352*^9, 
+  3.7868241836828012`*^9}},
+ CellLabel->
+  "In[103]:=",ExpressionUUID->"3fc343c5-7d43-43f8-a067-af0e11351c8e"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", "2"}], ",", 
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "0"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.000001`120"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Lambda]S", "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"lhs", ",", "rhs"}], "}"}], "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaverEq", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "2"}], "]"}]}], 
+    ";"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7866545215280313`*^9, 3.786654533566012*^9}, {
+  3.786822007786487*^9, 3.786822103337185*^9}, {3.786822285098865*^9, 
+  3.786822308575068*^9}, {3.786822363417263*^9, 3.786822363572484*^9}, {
+  3.786822400013872*^9, 3.786822430380299*^9}, {3.7868224737260523`*^9, 
+  3.786822655206665*^9}, {3.7868238672917624`*^9, 3.786823937047414*^9}, {
+  3.7868241439482203`*^9, 3.7868241478408957`*^9}, {3.786824190307355*^9, 
+  3.7868241905449953`*^9}, {3.7868242520576553`*^9, 3.786824269687858*^9}, {
+  3.786824300890278*^9, 3.786824301038142*^9}, {3.786824585641307*^9, 
+  3.786824585952179*^9}, {3.787083960727832*^9, 
+  3.787083961078589*^9}},ExpressionUUID->"c3f69ae4-1647-4e4e-8cf1-\
+b26ba85e849a"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lhs", "[", "\[Lambda]", "]"}], ",", 
+       RowBox[{"rhs", "[", "\[Lambda]", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Lambda]", ",", 
+       RowBox[{"-", "1"}], ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", 
+         RowBox[{"-", "200"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", "20"}], "}"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Black", ",", "Dashed"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<s=2, l=2, m=0, \[Gamma]=0.000001, nInv=2\>\""}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.786654534856735*^9, 3.786654588700377*^9}, {
+  3.786822236602985*^9, 3.7868222577856417`*^9}, {3.786823946712352*^9, 
+  3.786824126875731*^9}, {3.786824187763669*^9, 3.786824188008099*^9}, {
+  3.786824273673506*^9, 3.786824322606929*^9}},
+ CellLabel->
+  "In[165]:=",ExpressionUUID->"40e69db0-da5d-48f3-b871-daec97068c9c"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lhs", "[", 
+        RowBox[{"\[Lambda]S", "+", "\[CapitalDelta]\[Lambda]"}], "]"}], ",", 
+       RowBox[{"rhs", "[", 
+        RowBox[{"\[Lambda]S", "+", "\[CapitalDelta]\[Lambda]"}], "]"}]}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[CapitalDelta]\[Lambda]", ",", 
+       RowBox[{"-", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "25"}]]}], ",", 
+       RowBox[{"+", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "25"}]]}]}], "}"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"WorkingPrecision", "\[Rule]", "100"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "100"}], ",", "100"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", 
+         RowBox[{"-", "1000"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1000"}], "}"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Black", ",", "Dashed"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", 
+    "\"\<s=2, l=2, m=0, \[Gamma]=0.000001, nInv=2\>\""}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.786824459963792*^9, 3.786824509146965*^9}, {
+  3.786824569755863*^9, 3.786824729020542*^9}},
+ CellLabel->
+  "In[163]:=",ExpressionUUID->"a5eb0eef-b914-493e-800c-112aba33bba5"],
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"s", "=", "2"}], ",", 
+     RowBox[{"l", "=", "2"}], ",", 
+     RowBox[{"m", "=", "0"}], ",", 
+     RowBox[{"\[Gamma]", "=", "0.000001`80"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Lambda]S", "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueSpectral", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"lhs", ",", "rhs"}], "}"}], "=", 
+     RowBox[{
+     "SpinWeightedSpheroidalHarmonics`Private`SWSHEigenvalueLeaverEq", "[", 
+      RowBox[{"s", ",", "l", ",", "m", ",", "\[Gamma]", ",", "0"}], "]"}]}], 
+    ";"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7866545215280313`*^9, 3.786654533566012*^9}, {
+  3.786822007786487*^9, 3.786822103337185*^9}, {3.786822285098865*^9, 
+  3.786822308575068*^9}, {3.786822363417263*^9, 3.786822363572484*^9}, {
+  3.786822400013872*^9, 3.786822430380299*^9}, {3.7868224737260523`*^9, 
+  3.786822655206665*^9}, {3.7868238672917624`*^9, 3.786823937047414*^9}, {
+  3.7868241439482203`*^9, 3.7868241478408957`*^9}, {3.786824190307355*^9, 
+  3.7868241905449953`*^9}, {3.7868242520576553`*^9, 3.786824269687858*^9}, {
+  3.786824300890278*^9, 3.786824301038142*^9}, {3.7868243462473288`*^9, 
+  3.786824346453121*^9}, {3.787083967775573*^9, 
+  3.78708396811841*^9}},ExpressionUUID->"c1d28b90-9abb-4042-873c-\
+fe1efa995e86"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lhs", "[", "\[Lambda]", "]"}], ",", 
+       RowBox[{"rhs", "[", "\[Lambda]", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Lambda]", ",", 
+       RowBox[{"-", "1"}], ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", 
+         RowBox[{"-", "200"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Lambda]S", ",", "20"}], "}"}]}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", 
+       RowBox[{"Black", ",", "Dashed"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<s=-2, l=9, m=1, \[Gamma]=0.1, nInv=0\>\""}]}],
+   "]"}]], "Input",
+ CellChangeTimes->{{3.786654534856735*^9, 3.786654588700377*^9}, {
+  3.786822236602985*^9, 3.7868222577856417`*^9}, {3.786823946712352*^9, 
+  3.7868241836828012`*^9}, {3.786824331103318*^9, 3.7868243370967503`*^9}},
+ CellLabel->
+  "In[115]:=",ExpressionUUID->"25b994d2-a0b8-4db3-91fa-25e71aec7247"]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{286, Automatic}, {-141, Automatic}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 284, 4, 67, "Section",ExpressionUUID->"ea704545-58ea-4eda-8b69-ec76a01dc700"],
+Cell[867, 28, 204, 3, 35, "Text",ExpressionUUID->"194930ad-a694-4e90-8c79-903d7f796daf"],
+Cell[1074, 33, 2326, 57, 140, "Input",ExpressionUUID->"1173e755-bf51-47fc-b091-de0def4fa73e"],
+Cell[3403, 92, 255, 4, 30, "Input",ExpressionUUID->"89174794-1365-40a4-a10f-e585c610f3ac"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3695, 101, 171, 3, 67, "Section",ExpressionUUID->"f6dcec9d-03ad-4edd-a269-5421ce8f9bcf"],
+Cell[3869, 106, 329, 7, 30, "Input",ExpressionUUID->"27a4afce-7ef5-428c-8c67-fc915f9cfb79"],
+Cell[CellGroupData[{
+Cell[4223, 117, 558, 10, 30, "Input",ExpressionUUID->"4236ac86-4445-466d-a4ae-2a0c0912a2cc"],
+Cell[4784, 129, 554, 9, 34, "Output",ExpressionUUID->"cea799fd-b4c3-4dae-a065-49aef275b8ae"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5375, 143, 267, 4, 30, "Input",ExpressionUUID->"3bfa3579-da57-4cc8-ab59-82b763be3863"],
+Cell[5645, 149, 261, 4, 34, "Output",ExpressionUUID->"34436601-9f58-42e3-b65c-53e5230bd8a6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5943, 158, 512, 8, 30, "Input",ExpressionUUID->"7324d64d-78e3-444a-8eb0-5955881ebb09"],
+Cell[6458, 168, 573, 9, 34, "Output",ExpressionUUID->"792d46f5-0cd7-449e-80a0-beaafc7cb3be"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7068, 182, 576, 10, 30, "Input",ExpressionUUID->"3ffeee00-ca30-4d9a-b74d-00c30f931d63"],
+Cell[7647, 194, 388, 6, 34, "Output",ExpressionUUID->"1d6d7b78-a379-4a9d-9f48-eb8cbb6c52a3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8072, 205, 475, 9, 30, "Input",ExpressionUUID->"c69ec2e7-96ab-4661-9c1d-5eb53583d0bd"],
+Cell[8550, 216, 572, 8, 34, "Output",ExpressionUUID->"63ea8e22-660c-486f-b060-28f6a99d5254"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9171, 230, 167, 3, 67, "Section",ExpressionUUID->"f99903a5-5191-4c4d-bb92-76bb85a853f4"],
+Cell[9341, 235, 255, 6, 35, "Text",ExpressionUUID->"096e186b-1950-4931-a9d5-793abd8e017a"],
+Cell[9599, 243, 1422, 32, 94, "Input",ExpressionUUID->"0f6b959c-1647-44ab-97aa-a574be18101c"],
+Cell[11024, 277, 1297, 33, 73, "Input",ExpressionUUID->"fab6cfe4-b6ce-4b26-b10f-4805db541ffc"],
+Cell[12324, 312, 1423, 32, 94, "Input",ExpressionUUID->"f2938205-7663-4d23-ad8a-47b5c471e5c1"],
+Cell[13750, 346, 1253, 33, 73, "Input",ExpressionUUID->"3fc343c5-7d43-43f8-a067-af0e11351c8e"],
+Cell[15006, 381, 1506, 33, 94, "Input",ExpressionUUID->"c3f69ae4-1647-4e4e-8cf1-b26ba85e849a"],
+Cell[16515, 416, 1338, 34, 73, "Input",ExpressionUUID->"40e69db0-da5d-48f3-b871-daec97068c9c"],
+Cell[17856, 452, 1633, 45, 100, "Input",ExpressionUUID->"a5eb0eef-b914-493e-800c-112aba33bba5"],
+Cell[19492, 499, 1506, 33, 94, "Input",ExpressionUUID->"c1d28b90-9abb-4042-873c-fe1efa995e86"],
+Cell[21001, 534, 1287, 33, 73, "Input",ExpressionUUID->"25b994d2-a0b8-4db3-91fa-25e71aec7247"]
+}, Open  ]]
+}
+]
+*)
+

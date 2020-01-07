@@ -8,6 +8,7 @@ withinRoundoff[a_, b_] :=
     SameQ[a,b]];
 
 PrependTo[$Path, FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
+PacletDirectoryAdd[FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
 
 << SpinWeightedSpheroidalHarmonics`
 

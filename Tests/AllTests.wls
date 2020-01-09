@@ -13,7 +13,7 @@ PacletDirectoryAdd[FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
 << SpinWeightedSpheroidalHarmonics`
 
 testFiles = FileNames["*.wlt", 
-  FileNameJoin[{$SpinWeightedSpheroidalHarmonicsInstallationDirectory, "Tests"}]];
+ FileNameJoin[{Lookup[PacletInformation["SpinWeightedSpheroidalHarmonics"], "Location"], "Tests"}]];
 
 reports = TestReport /@ testFiles;
 

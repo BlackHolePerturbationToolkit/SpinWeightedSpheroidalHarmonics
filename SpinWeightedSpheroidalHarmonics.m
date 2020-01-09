@@ -15,64 +15,8 @@ SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 
-(* Global variables *)
-$SpinWeightedSpheroidalHarmonicsInformation::usage = "$SpinWeightedSpheroidalHarmonicsInformation is a list of rules that gives information about the version of the SpinWeightedSpheroidalHarmonics package you are running.";
-$SpinWeightedSpheroidalHarmonicsInstallationDirectory::usage = "$SpinWeightedSpheroidalHarmonicsInstallationDirectory gives the top-level directory in which the SpinWeightedSpheroidalHarmonics package is installed.";
-
-$SpinWeightedSpheroidalHarmonicsVersionNumber::usage = "$SpinWeightedSpheroidalHarmonicsVersionNumber is a real number which gives the current version number for the SpinWeightedSpheroidalHarmonics package.";
-$SpinWeightedSpheroidalHarmonicsReleaseNumber::usage = "$SpinWeightedSpheroidalHarmonicsReleaseNumber is an integer which gives the current release number for the SpinWeightedSpheroidalHarmonics package.";
-$SpinWeightedSpheroidalHarmonicsVersion::usage = "$SpinWeightedSpheroidalHarmonicsVersionNumber is a string that gives the version of the SpinWeightedSpheroidalHarmonics package you are running.";
 
 Begin["`Private`"];
-
-(**********************************************************)
-(* Package version information                            *)
-(**********************************************************)
-
-$SpinWeightedSpheroidalHarmonicsInstallationDirectory = FileNameDrop[FindFile["SpinWeightedSpheroidalHarmonics`"], -2];
-
-$SpinWeightedSpheroidalHarmonicsVersionNumber        = 1.0;
-$SpinWeightedSpheroidalHarmonicsReleaseNumber        = 0;
-
-$SpinWeightedSpheroidalHarmonicsVersion :=
- Module[{path, version, release, buildid, gitrev, gitdir},
-  path = $SpinWeightedSpheroidalHarmonicsInstallationDirectory;
-  version = ToString[NumberForm[$SpinWeightedSpheroidalHarmonicsVersionNumber, {Infinity, 1}]];
-  release = ToString[$SpinWeightedSpheroidalHarmonicsReleaseNumber];
-
-  buildid = Quiet@ReadList[FileNameJoin[{path, "BUILD_ID"}], "String"];
-  If[SameQ[buildid, $Failed],
-    buildid = "";
-  ,
-    buildid = " (" <> First[buildid] <> ")";
-  ];
-
-  (* First, check for a GIT_REVISION file. If it exists, use its contents as the revision. *)
-  gitrev = Quiet@ReadList[FileNameJoin[{path, "GIT_REVISION"}],"String"];
-
-  (* Otherwise, try to determine the git revision directly *)
-  If[SameQ[gitrev, $Failed],
-    gitdir = FileNameJoin[{path, ".git"}];
-    If[FileType[gitdir] === Directory,
-      gitrev = Quiet@ReadList["!git --git-dir "<>gitdir<>" rev-parse HEAD", String];
-      If[gitrev === {}, gitrev = $Failed];
-    ];
-  ];
-
-  (* If it worked, ReadList returns a list but we just want the first element (line) *)
-  If[Head[gitrev] === List, gitrev = First[gitrev]];
-
-  (* Check we have a git revision and otherwise give up trying *)
-  If[Head[gitrev] === String && StringMatchQ[gitrev, RegularExpression["[0-9a-f]{5,40}"]], gitrev = " (" <> gitrev <> ")", gitrev = ""];
-
-  version <> "." <> release <> buildid <> gitrev
-]
-
-$SpinWeightedSpheroidalHarmonicsInformation :=
-  {"InstallationDirectory" -> $SpinWeightedSpheroidalHarmonicsInstallationDirectory,
-   "Version" -> $SpinWeightedSpheroidalHarmonicsVersion,
-   "VersionNumber" -> $SpinWeightedSpheroidalHarmonicsVersionNumber,
-   "ReleaseNumber" -> $SpinWeightedSpheroidalHarmonicsReleaseNumber}
 
 (* ::Section::Closed:: *)
 (*Useful functions*)

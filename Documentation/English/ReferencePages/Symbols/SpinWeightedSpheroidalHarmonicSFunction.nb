@@ -15,10 +15,11 @@ SpinWeightedSpheroidalHarmonics"],
    "paclet:SpinWeightedSpheroidalHarmonics/guide/\
 SpinWeightedSpheroidalHarmonics"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["SpinWeightedSphericalHarmonicY",
+ ButtonBox["SpinWeightedSpheroidalHarmonicSFunction",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->
-   "paclet:SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSphericalHarmonicY"]
+   "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalHarmonicSFunction"]
 }], "LinkTrail"],
 
 Cell[BoxData[GridBox[{
@@ -39,10 +40,7 @@ SpinWeightedSpheroidalHarmonics"]},
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"SpinWeightedSpheroidalEigenvalue":>
-       Documentation`HelpLookup[
-       "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSpheroidalEigenvalue"], "SpinWeightedSpheroidalHarmonicS":>
+        StripOnInput->False], {"SpinWeightedSpheroidalHarmonicS":>
        Documentation`HelpLookup[
        "paclet:SpinWeightedSpheroidalHarmonics/ref/\
 SpinWeightedSpheroidalHarmonicS"]},
@@ -66,7 +64,7 @@ SpinWeightedSpheroidalHarmonics"]},
     }], "AnchorBar"]}
   }]], "AnchorBarGrid"],
 
-Cell["SpinWeightedSphericalHarmonicY", "ObjectName"],
+Cell["SpinWeightedSpheroidalHarmonicSFunction", "ObjectName"],
 
 Cell[CellGroupData[{
 
@@ -74,17 +72,17 @@ Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
-       ButtonBox["SpinWeightedSphericalHarmonicY",
+       ButtonBox["SpinWeightedSpheroidalHarmonicSFunction",
         BaseStyle->"Link",
         ButtonData->
          "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSphericalHarmonicY"], "[", 
+SpinWeightedSpheroidalHarmonicSFunction"], "[", 
        StyleBox[
         RowBox[{
-        "s", ",", " ", "l", ",", " ", "m", ",", " ", "\[Theta]", ",", " ", 
-         "\[Phi]"}], "TI"], "]"}]], "InlineFormula"],
-     "\[LineSeparator]gives the spin-weighted spherical harmonic with of \
-spin-weight s, degree l and order m."
+        "s", ",", " ", "l", ",", " ", "m", ",", " ", "\[Gamma]", ",", " ", 
+         "data", ",", " ", "method"}], "TI"], "]"}]], "InlineFormula"],
+     "\[LineSeparator]represents a function for computing numerical values of \
+spin-weighted spheroidal harmonics."
     }]]}
   }]], "Usage"],
 
@@ -137,35 +135,39 @@ Cell["", "NotesSection",
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> True],
 
-Cell["\<\
-For real \[Gamma], SpinWeightedSphericalHarmonicY computes the spin-weighted \
-spherical harmonic.\
-\>", "Notes"],
+Cell[BoxData[
+ BoxData["A SpinSpinWeightedSpheroidalHarmonicSFunction may be treated as a \
+numeric function of two arguments, \[Theta] and \[Phi]." 
+  "Numerical Evaluation", "Numerical Evaluation" 
+  "The parameters s, l, m and \[Gamma] and pre-computed expansion \
+coefficients are stored inside the \
+SpinSpinWeightedSpheroidalHarmonicSFunction.", "Numerical Evaluation" 
+  "Numerical evaluation for specific \[Theta] and \[Phi] is done by summing \
+the pre-computed expansion coefficients times the basis functions (the \
+particular basis depends on the Method)."]], "Notes"],
 
-Cell["\<\
-SpinWeightedSphericalHarmonicY satisfies the spin-weighted spherical \
-equation, D[Sin[\[Theta]] D[ SpinWeightedSphericalHarmonicY[s, l, m, \
-\[Theta], \[Phi]], \[Theta]], \[Theta]]/ Sin[\[Theta]] + (- (m + s Cos[\
-\[Theta]])^2/Sin[\[Theta]]^2 + s + \[Lambda]) \
-SpinWeightedSphericalHarmonicY[s, l, m, \[Gamma], \[Theta], \[Phi]] == 0.\
-\>", "Notes"],
+Cell[BoxData[
+ FormBox[
+  RowBox[{"Slm", " ", "=", " ", 
+   RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+    RowBox[{
+     RowBox[{"-", "2"}], ",", " ", "2", ",", " ", "2", ",", " ", "0.1`32"}], 
+    "]"}]}], Slm[\:03C0/4, 0]]], "Notes"],
 
-Cell["\<\
-The eigenvalue, \[Lambda] for the spin-weighted spherical equation is given \
-by \[Lambda] = l(l+1) - s(s+1).\
-\>", "Notes"],
+Cell["The following options can be given: ", "Notes"],
 
-Cell["\<\
-For s=0, SpinWeightedSphericalHarmonicY is equivalent to SphericalHarmonicY.\
-\>", "Notes"],
-
-Cell["\<\
-SpinWeightedSphericalHarmonicY is unit-normalised on the two-sphere, \
-Integrate[SpinWeightedSphericalHarmonicY[s, l1, m1, \[Theta], \[Phi]] \
-Conjugate[SpinWeightedSphericalHarmonicY[s, l2, m2, \[Theta], \[Phi]]] Sin[\
-\[Theta]], {\[Theta], 0, \[Pi]}, {\[Phi], 0, 2 \[Pi]}] \[Equal] \
-KroneckerDelta[l1, l2] KroneckerDelta[m1, m2].\
-\>", "Notes"]
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon"], "Method", "Leaver", Cell[
+    "", "TableText"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{"Rows" -> {{True, True}}}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -215,24 +217,16 @@ Cell["", "SeeAlsoSection",
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
-   ButtonBox["SpinWeightedSpheroidalEigenvalue",
-    BaseStyle->"Link",
-    ButtonData->
-     "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSpheroidalEigenvalue"],
-   FontFamily->"Verdana"]], "InlineFormula"],
- "\[NonBreakingSpace]",
- StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
-  "InlineSeparator"],
- " ",
- Cell[BoxData[
-  StyleBox[
    ButtonBox["SpinWeightedSpheroidalHarmonicS",
     BaseStyle->"Link",
     ButtonData->
      "paclet:SpinWeightedSpheroidalHarmonics/ref/\
 SpinWeightedSpheroidalHarmonicS"],
-   FontFamily->"Verdana"]], "InlineFormula"]
+   FontFamily->"Verdana"]], "InlineFormula"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " "
 }], "SeeAlso"]
 }, Open  ]],
 
@@ -348,7 +342,7 @@ Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{725, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"SpinWeightedSphericalHarmonicY",
+WindowTitle->"SpinWeightedSpheroidalHarmonicSFunction",
 Visible->True,
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
@@ -356,20 +350,24 @@ TaggingRules->{
   "Metadata" -> {
    "context" -> "SpinWeightedSpheroidalHarmonics`", 
     "keywords" -> {
-     "SpinWeightedSphericalHarmonicY", "SPINWEIGHTEDSPHERICALHARMONICY", 
-      "spinweightedsphericalharmonicy"}, "index" -> True, "label" -> 
+     "SpinWeightedSpheroidalHarmonicSFunction", 
+      "SPINWEIGHTEDSPHEROIDALHARMONICSFUNCTION", 
+      "spinweightedspheroidalharmonicsfunction"}, "index" -> True, "label" -> 
     "SpinWeightedSpheroidalHarmonics/SpinWeightedSpheroidalHarmonics Symbol", 
     "language" -> "en", "paclet" -> "SpinWeightedSpheroidalHarmonics", 
     "status" -> "None", "summary" -> 
-    "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the \
-spin-weighted spherical harmonic with of spin-weight s, degree l and order \
-m.", "synonyms" -> {
-     "SpinWeightedSphericalHarmonicY", "SPINWEIGHTEDSPHERICALHARMONICY", 
-      "spinweightedsphericalharmonicy"}, "title" -> 
-    "SpinWeightedSphericalHarmonicY", "windowTitle" -> 
-    "SpinWeightedSphericalHarmonicY", "type" -> "Symbol", "uri" -> 
-    "SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSphericalHarmonicY"}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+    "SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], data, method] \
+represents a function for computing numerical values of spin-weighted \
+spheroidal harmonics.", 
+    "synonyms" -> {
+     "SpinWeightedSpheroidalHarmonicSFunction", 
+      "SPINWEIGHTEDSPHEROIDALHARMONICSFUNCTION", 
+      "spinweightedspheroidalharmonicsfunction"}, "title" -> 
+    "SpinWeightedSpheroidalHarmonicSFunction", "windowTitle" -> 
+    "SpinWeightedSpheroidalHarmonicSFunction", "type" -> "Symbol", "uri" -> 
+    "SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalHarmonicSFunction"}, "SearchTextTranslated" -> "", 
+  "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
 FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",

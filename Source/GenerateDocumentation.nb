@@ -48,7 +48,7 @@ SpinWeightedSpheroidalHarmonics.nb\"\>",
     ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
 SpinWeightedSpheroidalHarmonics/Documentation/English/Index/_0.cfs\"\>", ",", 
     
-    RowBox[{"\[LeftSkeleton]", "7", "\[RightSkeleton]"}], 
+    RowBox[{"\[LeftSkeleton]", "8", "\[RightSkeleton]"}], 
     ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
 SpinWeightedSpheroidalHarmonics/Documentation/English/SpellIndex/segments.gen\
 \"\>", ",", \
@@ -77,18 +77,20 @@ Cell[BoxData["\<\"SpinWeightedSpheroidalEigenvalue\"\>"], "Print"],
 
 Cell[BoxData["\<\"SpinWeightedSpheroidalHarmonicS\"\>"], "Print"],
 
+Cell[BoxData["\<\"SpinWeightedSpheroidalHarmonicSFunction\"\>"], "Print"],
+
 Cell[BoxData["\<\"Building guides\"\>"], "Print"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Creating \"\>", 
    "\[InvisibleSpace]", \
-"\<\"/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
-English/Guides\"\>"}],
+"\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/Guides\"\>"}],
   SequenceForm[
   "Creating ", 
-   "/Users/barry/Research/Code/SpinWeightedSpheroidalHarmonics/Documentation/\
-English/Guides"],
+   "/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/Guides"],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"Building tutorials\"\>"], "Print"],
@@ -119,7 +121,7 @@ PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",
 StyleDefinitions->"Default.nb"
 ]

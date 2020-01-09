@@ -43,7 +43,10 @@ SpinWeightedSpheroidalHarmonics"]},
         StripOnInput->False], {"SpinWeightedSpheroidalEigenvalue":>
        Documentation`HelpLookup[
        "paclet:SpinWeightedSpheroidalHarmonics/ref/\
-SpinWeightedSpheroidalEigenvalue"], "SpinWeightedSphericalHarmonicY":>
+SpinWeightedSpheroidalEigenvalue"], "SpinWeightedSpheroidalHarmonicSFunction":>
+       Documentation`HelpLookup[
+       "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalHarmonicSFunction"], "SpinWeightedSphericalHarmonicY":>
        Documentation`HelpLookup[
        "paclet:SpinWeightedSpheroidalHarmonics/ref/\
 SpinWeightedSphericalHarmonicY"]},
@@ -174,8 +177,8 @@ SphericalHarmonicY.\
 \>", "Notes"],
 
 Cell["\<\
-For s=0, SpinWeightedSpheroidalHarmonicS[0, l, m, \[Gamma], \[Theta], \[Phi]] \
-is equivalent to Sqrt[(2 l + 1)/(4 \[Pi])] Sqrt[(l - m)!/(l + m)!] \
+For s=0, SpinWeightedSpheroidalHarmonicS[0, l, m, \[Gamma], \[Theta], 0] is \
+equivalent to Sqrt[(2 l + 1)/(4 \[Pi])] Sqrt[(l - m)!/(l + m)!] \
 SpheroidalPS[l, m, I \[Gamma], Cos[\[Theta]]].\
 \>", "Notes"],
 
@@ -185,21 +188,14 @@ numerical value of the same precision.\
 \>", "Notes"],
 
 Cell["\<\
-Numerical values are computed using a series expansion about \[Gamma] = 0, \
-with the number of terms in the expansion determined automatically to ensure \
-the desired precision is reached.\
+Numerical values are computed using either Leaver's method or an expansion in \
+terms of spin-weighted spherical harmonics.\
 \>", "Notes"],
 
 Cell["\<\
-The MaxIterations option controls the maximum number of terms to include in a \
-numerical approximation. For large \[Gamma]/l it may be necessary to set this \
-to a large value in order to achieve the desired accuracy.\
-\>", "Notes"],
-
-Cell["\<\
-For sufficiently large \[Gamma]/l the numerical evaluation of \
-SpinWeightedSpheroidalHarmonicS may fail to converge for any value of \
-MaxIterations.\
+The number of terms used for numerical evaluation is such that the \
+normalisation is determined as accurately as possible given the precision of \
+the input \[Gamma].\
 \>", "Notes"],
 
 Cell["\<\
@@ -207,10 +203,16 @@ Series expansions about \[Gamma] = 0 can be computed to arbitrary order for \
 generic s, l and m.\
 \>", "Notes"],
 
+Cell["\<\
+SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] produces a \
+SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated \
+for multiple values of \[Theta] and \[Phi].\
+\>", "Notes"],
+
 Cell["The following options can be given: ", "Notes"],
 
 Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon"], "MaxIterations", "Automatic", Cell[
+   {Cell["      ", "TableRowIcon"], "Method", "Automatic", Cell[
     "", "TableText"]}
   },
   GridBoxAlignment->{
@@ -275,6 +277,18 @@ Cell[TextData[{
     ButtonData->
      "paclet:SpinWeightedSpheroidalHarmonics/ref/\
 SpinWeightedSpheroidalEigenvalue"],
+   FontFamily->"Verdana"]], "InlineFormula"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["SpinWeightedSpheroidalHarmonicSFunction",
+    BaseStyle->"Link",
+    ButtonData->
+     "paclet:SpinWeightedSpheroidalHarmonics/ref/\
+SpinWeightedSpheroidalHarmonicSFunction"],
    FontFamily->"Verdana"]], "InlineFormula"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
@@ -427,7 +441,7 @@ gives the spin-weighted oblate spheroidal harmonic with spheroidicity \
     "SpinWeightedSpheroidalHarmonics/ref/SpinWeightedSpheroidalHarmonicS"}, 
   "SearchTextTranslated" -> "", "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]

@@ -110,8 +110,8 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"-", "0.23032053770455901`"}], "+", 
-  RowBox[{"0.3989268733308798`", " ", "\[ImaginaryI]"}]}]], "Output",
+  RowBox[{"-", "0.23032053770455904`"}], "+", 
+  RowBox[{"0.39892687333087984`", " ", "\[ImaginaryI]"}]}]], "Output",
  CellLabel->"Out[2]="]
 }, Open  ]],
 
@@ -140,7 +140,7 @@ Cell[BoxData[
   "]"}]], "Input",
  CellLabel->"In[3]:="],
 
-Cell[BoxData["3.3359203780062385`"], "Output",
+Cell[BoxData["3.335920378006238`"], "Output",
  CellLabel->"Out[3]="]
 }, Open  ]],
 
@@ -169,7 +169,7 @@ Cell[BoxData[
   "]"}]], "Input",
  CellLabel->"In[4]:="],
 
-Cell[BoxData["3.3359203780062382158004998125573388197650702244760731968346`31.\
+Cell[BoxData["3.3359203780062382158004998125573388197650327166698980758561`31.\
 905594719061607"], "Output",
  CellLabel->"Out[4]="]
 }, Open  ]]
@@ -1177,7 +1177,7 @@ TaggingRules->{
 SpinWeightedSpheroidalHarmonics"}, "SearchTextTranslated" -> "", "LinkTrails" -> 
   ""},
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
 2016)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
   CharacterEncoding -> "UTF-8"]

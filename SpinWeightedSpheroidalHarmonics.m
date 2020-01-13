@@ -90,7 +90,7 @@ Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
 
 SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
  Module[{nDown, nUp, Matrix, Eigens, lmin},
-  (*FIXME: Improve the estimate of nmax*)
+  (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
   If[OptionValue["NumTerms"] === Automatic,
     nUp = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;,
     nUp = OptionValue["NumTerms"];

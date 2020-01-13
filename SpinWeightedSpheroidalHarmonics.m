@@ -12,6 +12,7 @@ SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonic
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 (* Messages *)
+SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 
@@ -83,9 +84,15 @@ CF[a_, b_, {n_, n0_}] :=
 (*Spectral and Leaver's method*)
 
 
-SWSHEigenvalueSpectral[s_,l_,m_,\[Gamma]_]:=
+Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
+
+SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
  Module[{nmin,nmax,Matrix,Eigens,lmin},
-  nmax=Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;(*FIXME: Improve the estimate of nmax*)
+  (*FIXME: Improve the estimate of nmax*)
+  If[OptionValue["NumTerms"] === Automatic,
+    nmax = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;,
+    nmax = OptionValue["NumTerms"];
+  ];
   lmin=Max[Abs[s],Abs[m]];
   nmin=Min[nmax,l-lmin];
 
@@ -140,10 +147,16 @@ SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.), OptionsPattern[]] :=
   l(l+1) - s(s+1);
 
 SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
- Module[{Aini},
+ Module[{Aini, opts},
   Switch[OptionValue[Method],
     "SphericalExpansion",
       \[Lambda] = SWSHEigenvalueSpectral[s, l, m, \[Gamma]] - 2 m \[Gamma] + \[Gamma]^2,
+    {"SphericalExpansion", Rule[_,_]...},
+      opts = FilterRules[Rest[OptionValue[Method]], Options[SWSHEigenvalueSpectral]];
+      If[opts =!= Rest[OptionValue[Method]],
+        Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> OptionValue[Method]];
+      ];
+      \[Lambda] = SWSHEigenvalueSpectral[s, l, m, \[Gamma], opts] - 2 m \[Gamma] + \[Gamma]^2,
     {"Leaver", "InitialGuess" -> _},
       Aini = OptionValue[Method][[2,2]];
       \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], SetPrecision[Aini, Precision[\[Gamma]]]] - 2 m \[Gamma] + \[Gamma]^2;,

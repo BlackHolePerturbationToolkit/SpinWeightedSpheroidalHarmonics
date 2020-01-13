@@ -12,6 +12,7 @@ SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonic
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted oblate spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 (* Messages *)
+SpinWeightedSpheroidalEigenvalue::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
@@ -93,7 +94,8 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
  Module[{nDown, nUp, Matrix, Eigens, lmin},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
   If[OptionValue["NumTerms"] === Automatic,
-    nUp = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;,
+    nUp = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;
+    Message[SpinWeightedSpheroidalEigenvalue::numterms, nUp];,
     nUp = OptionValue["NumTerms"];
   ];
   lmin=Max[Abs[s],Abs[m]];
@@ -177,7 +179,7 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
       ];
       \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], opts] - 2 m \[Gamma] + \[Gamma]^2,
     Automatic | "Leaver",
-      Aini = SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]];
+      Aini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
       \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], "InitialGuess" -> Aini] - 2 m \[Gamma] + \[Gamma]^2;,
       _,
       \[Lambda] = $Failed;

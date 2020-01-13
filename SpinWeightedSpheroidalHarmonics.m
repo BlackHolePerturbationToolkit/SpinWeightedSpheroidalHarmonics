@@ -111,7 +111,7 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
 
   (* To choose the eigenvalue corrsponding to the desired l, we assume that the real
      part of eigenvalue is a monotonic function of l. *)
-  Eigens=-Sort[Eigenvalues[Matrix]];
+  Eigens=-Sort[Quiet[Eigenvalues[Matrix],Eigenvalues::arhm]];
 
   Eigens[[-(nDown+1)]]-s(s+1)
 ];

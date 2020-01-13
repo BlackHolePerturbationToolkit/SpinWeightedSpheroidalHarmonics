@@ -121,11 +121,14 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
 (*Leaver's method*)
 
 
-Options[SWSHEigenvalueLeaver] = {"InitialGuess" -> Indeterminate};
+Options[SWSHEigenvalueLeaver] = {"InitialGuess" -> "SphericalExpansion"};
 
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, OptionsPattern[]] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar, Aini},
   Aini = OptionValue["InitialGuess"];
+  If[Aini === "SphericalExpansion",
+    Aini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
+  ];
   Myprec = Max[Precision[\[Gamma]], 3];
   nInv = l-Max[Abs[m],Abs[s]];
   \[Alpha] = Abs[m+s];
@@ -172,15 +175,14 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
         Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> OptionValue[Method]];
       ];
       \[Lambda] = SWSHEigenvalueSpectral[s, l, m, \[Gamma], opts] - 2 m \[Gamma] + \[Gamma]^2,
+    Automatic | "Leaver",
+      \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma]] - 2 m \[Gamma] + \[Gamma]^2;,
     {"Leaver", Rule[_,_]...},
       opts = FilterRules[Rest[OptionValue[Method]], Options[SWSHEigenvalueLeaver]];
       If[opts =!= Rest[OptionValue[Method]],
         Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> OptionValue[Method]];
       ];
       \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], opts] - 2 m \[Gamma] + \[Gamma]^2,
-    Automatic | "Leaver",
-      Aini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
-      \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], "InitialGuess" -> Aini] - 2 m \[Gamma] + \[Gamma]^2;,
       _,
       \[Lambda] = $Failed;
   ];

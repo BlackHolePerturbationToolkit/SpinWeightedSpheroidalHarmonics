@@ -19,6 +19,8 @@ SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic canno
 
 Begin["`Private`"];
 
+
+
 (* ::Section::Closed:: *)
 (*Useful functions*)
 
@@ -76,12 +78,12 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
 (* ::Subsection::Closed:: *)
-(*Spectral and Leaver's method*)
+(*Spherical expansion method*)
 
 
 Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
@@ -111,6 +113,11 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
   Eigens[[-(nDown+1)]]-s(s+1)
 ];
 
+
+(* ::Subsection::Closed:: *)
+(*Leaver's method*)
+
+
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar},
   Myprec = Max[Precision[\[Gamma]], 3];
@@ -125,8 +132,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=
   Eq[A_?NumericQ] := LHS[A] - RHS[A];
   Aval = Avar /. Quiet[Check[FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"], Avar -> $Failed, {Power::infy, FindRoot::nlnum}], {Power::infy, FindRoot::nlnum}];
   Aval
-]
-
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -176,10 +182,6 @@ SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
 
 
-
-
-
-
 (* ::Subsection::Closed:: *)
 (*Small-\[Gamma] expansion*)
 
@@ -198,7 +200,7 @@ SpinWeightedSpheroidalEigenvalue /:
 ]]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Large-\[Gamma] expansion*)
 
 
@@ -254,6 +256,10 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 
 (* ::Section::Closed:: *)
+(*SpinWeightedSpheroidalHarmonicS*)
+
+
+(* ::Subsection::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -350,6 +356,11 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 
 SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];
+
+
+(* ::Subsection::Closed:: *)
+(*Small-\[Gamma] expansion*)
+
 
 SpinWeightedSpheroidalHarmonicS /: 
   Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, \[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=

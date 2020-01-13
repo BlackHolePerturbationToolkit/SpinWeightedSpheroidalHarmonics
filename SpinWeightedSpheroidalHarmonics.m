@@ -13,6 +13,7 @@ SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l
 
 (* Messages *)
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
+SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 
@@ -260,33 +261,10 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 
 (* ::Subsection::Closed:: *)
-(*SpinWeightedSpheroidalHarmonicS*)
+(*Spherical expansion method*)
 
 
-(**********************************************************)
-(* SpinWeightedSpheroidalHarmonicS                        *)
-(**********************************************************)
-
-SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
- {"ArgumentsPattern" -> {_, _, _, _, ___}};
-
-Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
-
-SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
-
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, OptionsPattern[]] :=
-  SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
-
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0, OptionsPattern[]] :=
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
-
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]]:=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]  /; OptionValue[Method] == Automatic;
-
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
-
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
+SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
  Module[{lmin, nmax, nmin, A, esys,evec,eval,sign,pos},
   lmin = Max[Abs[s],Abs[m]];
   nmax = Ceiling[Abs[3/2\[Gamma]-\[Gamma]^2/250]]+50;(*FIXME: Improve the estimate of nmax*)
@@ -307,9 +285,14 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 
   sign=Sign[evec[[Min[l-lmin+1,(nmax+nmin)/2+1]]]];
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign*evec, nmin, nmax}, Method -> "SphericalExpansion"]
-]  /; MatchQ[OptionValue[Method], ("Eigenvalue"|"SphericalExpansion")] ;
+];
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
+
+(* ::Subsection::Closed:: *)
+(*Leaver's method*)
+
+
+SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
  Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
@@ -349,7 +332,57 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
   
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign anTab/norm, nmin, nmax}, Method -> "Leaver"]
-] /; MatchQ[OptionValue[Method], "Leaver"];
+];
+
+
+(* ::Subsection::Closed:: *)
+(*SpinWeightedSpheroidalHarmonicS*)
+
+
+(**********************************************************)
+(* SpinWeightedSpheroidalHarmonicS                        *)
+(**********************************************************)
+
+SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
+ {"ArgumentsPattern" -> {_, _, _, _, ___}};
+
+Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
+
+SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
+
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, OptionsPattern[]] :=
+  SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
+
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0, OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
+
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
+
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
+ Module[{opts, Slm},
+  Switch[OptionValue[Method],
+    "Eigenvalue"|"SphericalExpansion",
+      Slm = SWSHSSpectral[s, l, m, \[Gamma]],
+    {"Eigenvalue"|"SphericalExpansion", Rule[_,_]...},
+      opts = FilterRules[Rest[OptionValue[Method]], Options[SWSHSSpectral]];
+      If[opts =!= Rest[OptionValue[Method]],
+        Message[SpinWeightedSpheroidalHarmonicS::optx, Method -> OptionValue[Method]];
+      ];
+      Slm = SWSHSSpectral[s, l, m, \[Gamma], opts],
+    Automatic | "Leaver",
+      Slm = SWSHSLeaver[s, l, m, \[Gamma]];,
+    {"Leaver", Rule[_,_]...},
+      opts = FilterRules[Rest[OptionValue[Method]], Options[SWSHSLeaver]];
+      If[opts =!= Rest[OptionValue[Method]],
+        Message[SpinWeightedSpheroidalHarmonicS::optx, Method -> OptionValue[Method]];
+      ];
+      Slm = SWSHSLeaver[s, l, m, \[Gamma], opts],
+    _,
+     Slm = $Failed;
+  ];
+  Slm
+];
 
 SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];

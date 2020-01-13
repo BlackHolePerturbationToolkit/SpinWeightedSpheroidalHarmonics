@@ -157,7 +157,7 @@ SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.), OptionsPattern[]] :=
   l(l+1) - s(s+1);
 
 SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
- Module[{Aini, opts},
+ Module[{opts, Aini, \[Lambda]},
   Switch[OptionValue[Method],
     "SphericalExpansion",
       \[Lambda] = SWSHEigenvalueSpectral[s, l, m, \[Gamma]] - 2 m \[Gamma] + \[Gamma]^2,

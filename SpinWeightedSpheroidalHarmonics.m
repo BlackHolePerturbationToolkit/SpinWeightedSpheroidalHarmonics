@@ -87,25 +87,25 @@ CF[a_, b_, {n_, n0_}] :=
 Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
 
 SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
- Module[{nmin,nmax,Matrix,Eigens,lmin},
+ Module[{nDown, nUp, Matrix, Eigens, lmin},
   (*FIXME: Improve the estimate of nmax*)
   If[OptionValue["NumTerms"] === Automatic,
-    nmax = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;,
-    nmax = OptionValue["NumTerms"];
+    nUp = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;,
+    nUp = OptionValue["NumTerms"];
   ];
   lmin=Max[Abs[s],Abs[m]];
-  nmin=Min[nmax,l-lmin];
+  nDown = Min[nUp, l-lmin];
 
   Matrix=SparseArray[
-	{{i_,i_}:>kHat[s,l-nmin-1+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-2:>k2[s,l-nmin-3+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-1:>kTilde2[s,l-nmin+i-2,m,\[Gamma]],
-	{i_,j_}/;j-i==1:>kTilde2[s,l-nmin+i-1,m,\[Gamma]],
-	{i_,j_}/;j-i==2:>k2[s,l-nmin+i+-1,m,\[Gamma]]}
-  ,{nmax+nmin+1,nmax+nmin+1}];
+	{{i_,i_}:>kHat[s,l-nDown-1+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-2:>k2[s,l-nDown-3+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-1:>kTilde2[s,l-nDown+i-2,m,\[Gamma]],
+	{i_,j_}/;j-i==1:>kTilde2[s,l-nDown+i-1,m,\[Gamma]],
+	{i_,j_}/;j-i==2:>k2[s,l-nDown+i+-1,m,\[Gamma]]}
+  ,{nUp+nDown+1,nUp+nDown+1}];
   Eigens=-Sort[Eigenvalues[Matrix]];
 
-  Eigens[[-(nmin+1)]]-s(s+1)
+  Eigens[[-(nDown+1)]]-s(s+1)
 ];
 
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, Aini_] :=

@@ -280,9 +280,6 @@ SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, OptionsP
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0, OptionsPattern[]] :=
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?MachineNumberQ, OptionsPattern[]] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"] /; OptionValue[Method] == Automatic ;
-
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]]:=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]  /; OptionValue[Method] == Automatic;
 

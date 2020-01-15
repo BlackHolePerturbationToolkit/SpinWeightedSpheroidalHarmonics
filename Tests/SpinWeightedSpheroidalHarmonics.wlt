@@ -58,6 +58,70 @@ With[{s = 0, l = 2, m = 1, \[Gamma] = 0.1 + 0.2 I},
   ]
 ]
 
+(* Suboptions *)
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32],
+  -0.66407962199376178419950018744266,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[...]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> "Leaver"],
+  -0.66407962199376178419950018744266,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> \"Leaver\"]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"Leaver"}],
+  -0.66407962199376178419950018744266,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"Leaver\"}]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"Leaver", "InitialGuess" -> 0.1}],
+  -0.66407962199376178419950018744266,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"Leaver\", <<valid suboption>>}]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"Leaver", "NumTerms" -> 1}],
+  -0.66407962199376178419950018744266,
+  {SpinWeightedSpheroidalEigenvalue::optx},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"Leaver\", <<invalid suboption>>}]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> "SphericalExpansion"],
+  -0.664079621993761784199500178632,
+  {SpinWeightedSpheroidalEigenvalue::numterms},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> \"SphericalExpansion\"]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"SphericalExpansion"}],
+  -0.664079621993761784199500178632,
+  {SpinWeightedSpheroidalEigenvalue::numterms},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"SphericalExpansion\"}]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"SphericalExpansion", "InitialGuess" -> 0.1}],
+  -0.664079621993761784199500178632,
+  {SpinWeightedSpheroidalEigenvalue::optx, SpinWeightedSpheroidalEigenvalue::numterms},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"SphericalExpansion\", <<invalid subobtion>>}]"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"SphericalExpansion", "NumTerms" -> 4}],
+  -0.664079621993761781254003787957,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., {\"SphericalExpansion\", <<valid suboption>>}]"
+]
+
 EndTestSection[]
 
 BeginTestSection["SpinWeightedSpheroidalHarmonicS"]

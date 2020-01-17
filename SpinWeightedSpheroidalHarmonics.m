@@ -306,7 +306,7 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]]
          {i_,j_} /; j-i==1 :> kTilde2[s, l-nDown+i-1, m, \[Gamma]],
          {i_,j_} /; j-i==2 :> k2[s, l-nDown+i+-1, m, \[Gamma]]},
         {nUp+nDown+1, nUp+nDown+1}];
-  esys = Eigensystem[A];
+  esys = Quiet[Eigensystem[A], Eigenvalues::arhm];
   eval = -Sort[esys[[1]]][[-(nDown+1)]];
   pos  = Position[esys[[1]], -eval][[1]];
   evec = First[esys[[2,pos]]];

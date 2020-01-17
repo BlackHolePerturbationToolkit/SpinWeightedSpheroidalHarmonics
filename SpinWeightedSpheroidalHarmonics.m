@@ -380,14 +380,11 @@ Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), \[Theta]_, \[Phi]_, OptionsPattern[]] :=
-  SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]];
-
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, 0, OptionsPattern[]] :=
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
-
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]] :=
+SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_, \[Theta]_, \[Phi]_, opts:OptionsPattern[]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
+
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), OptionsPattern[]] :=
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, Method->"SphericalExact"] /; OptionValue[Method] == Automatic;
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
  Module[{opts, Slm},

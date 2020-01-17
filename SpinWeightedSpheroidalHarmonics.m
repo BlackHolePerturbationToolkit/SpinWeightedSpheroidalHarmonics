@@ -281,7 +281,7 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
  Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
   If[OptionValue["NumTerms"] === Automatic,
-    nUp = Ceiling[Abs[3/2\[Gamma]]]+50;
+    nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
     Message[SpinWeightedSpheroidalHarmonicS::numterms, nUp];,
     nUp = OptionValue["NumTerms"];
   ];

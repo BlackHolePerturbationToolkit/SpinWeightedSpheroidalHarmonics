@@ -6,10 +6,13 @@
     "For \[Gamma]=0, SpinWeightedSpheroidalEigenvalue reduces to l(l+1) - s(s+1).",
     "For s=0, SpinWeightedSpheroidalEigenvalue[0, l, m, \[Gamma]] is equivalent to SpheroidalEigenvalue[l, m, I \[Gamma]] - 2 m \[Gamma].",
     "For numerical values of \[Gamma], SpinWeightedSpheroidalEigenvalue produces a numerical value of the same precision.",
-    "Numerical values are computed using an expansion based on spin-weighted spherical harmonics for an initial guess followed by Leaver's method to obtain an accurate answer.",
+    "By default, numerical values are computed using an expansion based on spin-weighted spherical harmonics for an initial guess followed by Leaver's method to obtain an accurate answer.",
     "The precision of the result will be approximately equal to the precision of \[Gamma].",
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
-    "Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary order for generic s, l and m."
+    "Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary order for generic s, l and m.",
+    "For Methods that support suboptions, they may be passed as a list. For example Method \[Rule] {\"Leaver\", \"InitialGuess\" \[Rule] 0.1} sets the \"InitialGuess\" suboption to have value 0.1.",
+    "The possible suboptions that the \"Lever\" method accepts are \"InitialGuess\" \[Rule] \[lambda]g and \"NumInversions\" \[Rule] n.",
+    "The possible suboptions that the \"SphericalExpansion\" method accepts are \"NumTerms\" \[Rule] n."
     },
   "Numerical Evaluation" -> {
     "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1]",

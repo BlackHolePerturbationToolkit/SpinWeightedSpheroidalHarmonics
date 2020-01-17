@@ -10,7 +10,10 @@
     "Numerical values are computed using either Leaver's method or an expansion in terms of spin-weighted spherical harmonics.",
     "The number of terms used for numerical evaluation is such that the normalisation is determined as accurately as possible given the precision of the input \[Gamma].",
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
-    "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] produces a SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated for multiple values of \[Theta] and \[Phi]."
+    "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] produces a SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated for multiple values of \[Theta] and \[Phi].",
+    "For Methods that support suboptions, they may be passed as a list. For example Method \[Rule] {\"Leaver\", \"InitialGuess\" \[Rule] 0.1} sets the \"InitialGuess\" suboption to have value 0.1.",
+    "The possible suboptions that the \"Lever\" method accepts are: \"NumTerms\" \[Rule] n.",
+    "The possible suboptions that the \"SphericalExpansion\" method accepts are: \"NumTerms\" \[Rule] n."
     },
   "Numerical Evaluation" -> {
     "SpinWeightedSpheroidalHarmonicS[-2, 2, 2, 0.1, \[Pi]/4, 0]",

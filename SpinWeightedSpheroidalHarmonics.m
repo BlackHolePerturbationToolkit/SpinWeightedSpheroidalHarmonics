@@ -275,26 +275,26 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 
 SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
- Module[{lmin, nmax, nmin, A, esys,evec,eval,sign,pos},
+ Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
   lmin = Max[Abs[s],Abs[m]];
-  nmax = Ceiling[Abs[3/2\[Gamma]]]+50;(*FIXME: Improve the estimate of nmax*)
-  If[EvenQ[nmax],nmax+=1];
-  nmin = Min[l-lmin,nmax];
+  nUp = Ceiling[Abs[3/2\[Gamma]]]+50;(*FIXME: Improve the estimate of nmax*)
+  If[EvenQ[nUp],nUp+=1];
+  nDown = Min[l-lmin,nUp];
 
   A = -SparseArray[
-        {{i_,i_} :> kHat[s, l-nmin-1+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-2 :> k2[s, l-nmin-3+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-1 :> kTilde2[s, l-nmin+i-2, m, \[Gamma]],
-         {i_,j_} /; j-i==1 :> kTilde2[s, l-nmin+i-1, m, \[Gamma]],
-         {i_,j_} /; j-i==2 :> k2[s, l-nmin+i+-1, m, \[Gamma]]},
-        {nmax+nmin+1, nmax+nmin+1}];
+        {{i_,i_} :> kHat[s, l-nDown-1+i, m, \[Gamma]],
+         {i_,j_} /; j-i==-2 :> k2[s, l-nDown-3+i, m, \[Gamma]],
+         {i_,j_} /; j-i==-1 :> kTilde2[s, l-nDown+i-2, m, \[Gamma]],
+         {i_,j_} /; j-i==1 :> kTilde2[s, l-nDown+i-1, m, \[Gamma]],
+         {i_,j_} /; j-i==2 :> k2[s, l-nDown+i+-1, m, \[Gamma]]},
+        {nUp+nDown+1, nUp+nDown+1}];
   esys = Eigensystem[A,Method->If[Precision[\[Gamma]]==MachinePrecision,"Banded","Automatic"]];
-  eval = Sort[esys[[1]],Greater][[-(nmin+1)]];
+  eval = Sort[esys[[1]],Greater][[-(nDown+1)]];
   pos  = Position[esys[[1]], eval][[1]];
   evec = First[esys[[2,pos]]];
 
-  sign=Sign[evec[[Min[l-lmin+1,(nmax+nmin)/2+1]]]];
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign*evec, nmin, nmax}, Method -> "SphericalExpansion"]
+  sign=Sign[evec[[Min[l-lmin+1,(nUp+nDown)/2+1]]]];
+  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {sign*evec, nDown, nUp}, Method -> "SphericalExpansion"]
 ];
 
 

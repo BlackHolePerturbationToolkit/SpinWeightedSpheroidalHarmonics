@@ -1,18 +1,18 @@
 Paclet[
   Name -> "SpinWeightedSpheroidalHarmonics",
-  Version -> "0.1.0",
+  Version -> "1.0.0",
   MathematicaVersion -> "8+",
-  Creator -> "Barry Wardell",
+  Creator -> "Black Hole Perturbation Toolkit",
   Description -> "A set of functions for computing spin-weighted spheroidal harmonics.",
+  URL -> "https://bhptoolkit.org/SpinWeightedSpheroidalHarmonics/",
+  License -> "MIT License",
   Extensions -> {
     { "Kernel",
-      "Context" -> {"SpinWeightedSpheroidalHarmonics`"}
+      "Context" -> "SpinWeightedSpheroidalHarmonics`"
     },
     { "Documentation",
        Language -> "English", 
-       MainPage -> "Guides/SpinWeightedSpheroidalHarmonics",
-       Resources -> 
-         {"Guides/SpinWeightedSpheroidalHarmonics"}
+       MainPage -> "Guides/SpinWeightedSpheroidalHarmonics"
     },
     {"Resource", Root -> "Tests", Resources -> {
         "SlmLeaverData.m",

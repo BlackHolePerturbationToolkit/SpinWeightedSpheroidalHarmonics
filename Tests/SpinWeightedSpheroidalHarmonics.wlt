@@ -132,10 +132,10 @@ idString[s_, l_, m_, \[Gamma]_, method_:""] :=
   "SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"]";
 
 idStringThetaDeriv[s_, l_, m_, \[Gamma]_, method_:""] :=
-  "D[SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"], \[Theta]]";
+  "D[SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>method<>"], \[Theta]]";
 
 idStringPhiDeriv[s_, l_, m_, \[Gamma]_, method_:""] :=
-  "D[SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"], \[Phi]]";
+  "D[SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>method<>"], \[Phi]]";
 
 Table[
   VerificationTest[
@@ -211,7 +211,7 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001, \[Theta] = 0.3, \[Phi] = 0.2},
     Derivative[1, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> Automatic]][\[Theta], \[Phi]],
     0.20088968520084047 + 0.0849347966173594*I,
     SameTest -> withinRoundoff,
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> Automatic"]
   ]
 
   VerificationTest[
@@ -219,14 +219,14 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001, \[Theta] = 0.3, \[Phi] = 0.2},
     0.20088968520084047 + 0.0849347966173594*I,
     {SpinWeightedSpheroidalHarmonicS::numterms},
     SameTest -> withinRoundoff,
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> \"SphericalExpansion\""]
   ]
 
   VerificationTest[
     Derivative[1, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]][\[Theta], \[Phi]],
     0.20088968520084058 + 0.08493479661735945*I,
     SameTest -> withinRoundoff,
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> \"Leaver\""]
   ]
 
   VerificationTest[
@@ -240,7 +240,7 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001, \[Theta] = 0.3, \[Phi] = 0.2},
     Derivative[0, 1][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> Automatic]][\[Theta], \[Phi]],
     -0.026273411446970076 + 0.062142461805285834*I,
     SameTest -> withinRoundoff,
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> Automatic"]
   ]
 
   VerificationTest[
@@ -248,14 +248,14 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001, \[Theta] = 0.3, \[Phi] = 0.2},
     -0.026273411446970076 + 0.062142461805285834*I,
     {SpinWeightedSpheroidalHarmonicS::numterms},
     SameTest -> withinRoundoff,
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> \"SphericalExpansion\""]
   ]
 
   VerificationTest[
     Derivative[0, 1][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]][\[Theta], \[Phi]],
     -0.026273411446970086 + 0.062142461805285855*I,
     SameTest -> withinRoundoff,
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> \"Leaver\""]
   ]
 ]
 
@@ -270,26 +270,26 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001`32, \[Theta] = 0.3`32, \[Phi] =
   VerificationTest[
     Derivative[1, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> Automatic]][\[Theta], \[Phi]],
     0.2008896852008405311614794231142 + 0.08493479661735942846637968004680 I,
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> Automatic"]
   ]
 
   VerificationTest[
     Derivative[1, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"]][\[Theta], \[Phi]],
     0.2008896852008405311614794231142 + 0.08493479661735942846637968004680 I,
     {SpinWeightedSpheroidalHarmonicS::numterms},
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> \"SphericalExpansion\""]
   ]
 
   VerificationTest[
     Derivative[1, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]][\[Theta], \[Phi]],
     0.2008896852008405311614794231142 + 0.08493479661735942846637968004680 I,
-    TestID -> idStringThetaDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringThetaDeriv[s, l, m, \[Gamma], ", Method -> \"Leaver\""]
   ]
 
   VerificationTest[
     Derivative[0, 1][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]][\[Theta], \[Phi]],
     -0.02627341144697007921403373259026 + 0.06214246180528584097100501520202 I,
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> Automatic"]
   ]
 
   VerificationTest[
@@ -302,13 +302,13 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001`32, \[Theta] = 0.3`32, \[Phi] =
     Derivative[0, 1][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"]][\[Theta], \[Phi]],
     -0.02627341144697007921403373259026 + 0.06214246180528584097100501520202 I,
     {SpinWeightedSpheroidalHarmonicS::numterms},
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> \"SphericalExpansion\""]
   ]
 
   VerificationTest[
     Derivative[0, 1][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"]][\[Theta], \[Phi]],
     -0.02627341144697007921403373259026 + 0.06214246180528584097100501520202 I,
-    TestID -> idStringPhiDeriv[s, l, m, \[Gamma]]
+    TestID -> idStringPhiDeriv[s, l, m, \[Gamma], ", Method -> \"Leaver\""]
   ]
 ]
 

@@ -372,6 +372,19 @@ With[{s = 2, l = 2, m = 2, \[Gamma] = 0.1`32, \[Theta] = 0.3`32, \[Phi] = 0.4`32
 
 ]
 
+(* Zero spheroidicity *)
+VerificationTest[
+  SpinWeightedSpheroidalHarmonicS[2, 2, 2, 0.0][\[Theta], \[Phi]],
+  1/2 E^(2 I \[Phi]) Sqrt[5/\[Pi]] Sin[\[Theta]/2]^4,
+  TestID->"SpinWeightedSpheroidalHarmonicS[...] with 0.0 spheroidicity"
+]
+
+VerificationTest[
+  SpinWeightedSpheroidalHarmonicS[2, 2, 2, 0][\[Theta], \[Phi]],
+  1/2 E^(2 I \[Phi]) Sqrt[5/\[Pi]] Sin[\[Theta]/2]^4,
+  TestID->"SpinWeightedSpheroidalHarmonicS[...] with 0 spheroidicity"
+]
+
 EndTestSection[]
 
 BeginTestSection["Complex spheroidicity near expected QNM values"]

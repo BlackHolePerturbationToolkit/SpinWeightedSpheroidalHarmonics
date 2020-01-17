@@ -11,8 +11,8 @@
     "Series expansions about \[Gamma] = 0 can be computed to arbitrary order for generic s, l and m.",
     "Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary order for generic s, l and m.",
     "For Methods that support suboptions, they may be passed as a list. For example Method \[Rule] {\"Leaver\", \"InitialGuess\" \[Rule] 0.1} sets the \"InitialGuess\" suboption to have value 0.1.",
-    "The possible suboptions that the \"Lever\" method accepts are \"InitialGuess\" \[Rule] \[lambda]g and \"NumInversions\" \[Rule] n.",
-    "The possible suboptions that the \"SphericalExpansion\" method accepts are \"NumTerms\" \[Rule] n."
+    "The possible suboptions that the \"Lever\" method accepts are: \"InitialGuess\" \[Rule] \[lambda]g and \"NumInversions\" \[Rule] n.",
+    "The possible suboptions that the \"SphericalExpansion\" method accepts are: \"NumTerms\" \[Rule] n."
     },
   "Numerical Evaluation" -> {
     "SpinWeightedSpheroidalEigenvalue[-2, 2, 2, 0.1]",

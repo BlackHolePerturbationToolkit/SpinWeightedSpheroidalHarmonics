@@ -94,7 +94,7 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
  Module[{nDown, nUp, Matrix, Eigens, lmin},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
   If[OptionValue["NumTerms"] === Automatic,
-    nUp = Ceiling[Abs[1.5\[Gamma]-\[Gamma]^2/250]]+5;
+    nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
     Message[SpinWeightedSpheroidalEigenvalue::numterms, nUp];,
     nUp = OptionValue["NumTerms"];
   ];
@@ -277,7 +277,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
  Module[{lmin, nmax, nmin, A, esys,evec,eval,sign,pos},
   lmin = Max[Abs[s],Abs[m]];
-  nmax = Ceiling[Abs[3/2\[Gamma]-\[Gamma]^2/250]]+50;(*FIXME: Improve the estimate of nmax*)
+  nmax = Ceiling[Abs[3/2\[Gamma]]]+50;(*FIXME: Improve the estimate of nmax*)
   If[EvenQ[nmax],nmax+=1];
   nmin = Min[l-lmin,nmax];
 

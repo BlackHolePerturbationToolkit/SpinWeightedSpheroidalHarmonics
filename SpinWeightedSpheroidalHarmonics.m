@@ -328,9 +328,9 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]]
 (*Leaver's method*)
 
 
-Options[SWSHSLeaver] = {};
+Options[SWSHSLeaver] = {"NumTerms" -> Automatic};
 
-SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
+SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
@@ -348,10 +348,18 @@ SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
 
   (* Compute coefficients until we reach the desired tolerance for computing the norm *)
   normterm[i_] := 2^i Pochhammer[i+2 (1+k1+k2), -2k2-1] Hypergeometric1F1[1+i+2 k1, i+2 (1+k1+k2), 4 \[Gamma]] Sum[an[j]an[i-nmin-j], {j, 0, i-nmin}];
-  norm = normterm[nmin];
-  While[norm != (norm += normterm[nmax]),
-    nmax++;
+  Switch[OptionValue["NumTerms"],
+   Automatic,
+    norm = normterm[nmin];
+    While[norm != (norm += normterm[nmax]), nmax++];,
+   _Integer,
+    nmax = OptionValue["NumTerms"] - 1;
+    norm = Sum[normterm[i], {i, nmin, nmax}];,
+   _,
+    Message[SpinWeightedSpheroidalHarmonicS::optx, Method -> {"Leaver", opts}];
+    Return[$Failed];
   ];
+  
   anTab = Table[an[n], {n, nmin, nmax}];
 
   (* Normalisation such that \[Integral]\!\(

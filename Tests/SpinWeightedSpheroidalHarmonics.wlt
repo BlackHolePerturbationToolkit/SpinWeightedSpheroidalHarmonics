@@ -352,7 +352,7 @@ With[{s = 2, l = 2, m = 2, \[Gamma] = 0.1`32, \[Theta] = 0.3`32, \[Phi] = 0.4`32
   ]
 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"Leaver", "NumTerms" -> 1}][\[Theta], \[Phi]],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"Leaver", "Invalid" -> 1}][\[Theta], \[Phi]],
     0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
     {SpinWeightedSpheroidalHarmonicS::optx},
     TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"Leaver\", <<invalid suboption>>}]"

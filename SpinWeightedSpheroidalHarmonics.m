@@ -127,16 +127,24 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
 (*Leaver's method*)
 
 
-Options[SWSHEigenvalueLeaver] = {"InitialGuess" -> "SphericalExpansion"};
+Options[SWSHEigenvalueLeaver] = {"InitialGuess" -> "SphericalExpansion", "NumInversions" -> Automatic};
 
-SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, OptionsPattern[]] :=
+SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar, Aini},
   Aini = OptionValue["InitialGuess"];
   If[Aini === "SphericalExpansion",
     Aini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
   ];
+  Switch[OptionValue["NumInversions"],
+   Automatic,
+    nInv = l-Max[Abs[m],Abs[s]];,
+   _Integer,
+    nInv = OptionValue["NumInversions"];,
+   _,
+    Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> {"Leaver", opts}];
+    Return[$Failed];
+  ];
   Myprec = Max[Precision[\[Gamma]], 3];
-  nInv = l-Max[Abs[m],Abs[s]];
   \[Alpha] = Abs[m+s];
   \[Beta] = Abs[m-s];
   \[Alpha]n[n_] := (-4\[Gamma](n+\[Alpha]+1)(n+\[Beta]+1)(n+(\[Alpha]+\[Beta])/2+1+s ))/((2n+\[Alpha]+\[Beta]+2)(2n+\[Alpha]+\[Beta]+3));

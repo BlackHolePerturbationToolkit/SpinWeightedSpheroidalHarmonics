@@ -167,7 +167,7 @@ SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
 SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] := 0;
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, (0|0.), OptionsPattern[]] :=
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
   l(l+1) - s(s+1);
 
 SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
@@ -383,7 +383,7 @@ SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_, \[Theta]_, \[Phi]_, opts:OptionsPattern[]] :=
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, (0|0.), OptionsPattern[]] :=
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, {"SphericalExact", {}, 0, 0}] /; OptionValue[Method] == Automatic;
 
 SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=

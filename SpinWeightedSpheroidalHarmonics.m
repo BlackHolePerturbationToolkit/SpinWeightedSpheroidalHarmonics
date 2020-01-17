@@ -286,7 +286,6 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
     nUp = OptionValue["NumTerms"];
   ];
   lmin = Max[Abs[s],Abs[m]];
-  If[EvenQ[nUp],nUp+=1];
   nDown = Min[l-lmin,nUp];
 
   A = -SparseArray[

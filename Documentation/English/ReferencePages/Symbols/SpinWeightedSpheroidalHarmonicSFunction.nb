@@ -135,39 +135,28 @@ Cell["", "NotesSection",
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> True],
 
-Cell[BoxData[
- BoxData["A SpinSpinWeightedSpheroidalHarmonicSFunction may be treated as a \
-numeric function of two arguments, \[Theta] and \[Phi]." 
-  "Numerical Evaluation", "Numerical Evaluation" 
-  "The parameters s, l, m and \[Gamma] and pre-computed expansion \
-coefficients are stored inside the \
-SpinSpinWeightedSpheroidalHarmonicSFunction.", "Numerical Evaluation" 
-  "Numerical evaluation for specific \[Theta] and \[Phi] is done by summing \
-the pre-computed expansion coefficients times the basis functions (the \
-particular basis depends on the Method)."]], "Notes"],
+Cell["\<\
+A SpinSpinWeightedSpheroidalHarmonicSFunction is created when using \
+SpinSpinWeightedSpheroidalHarmonicS without specifying values for \[Theta] \
+and \[Phi].\
+\>", "Notes"],
 
-Cell[BoxData[
- FormBox[
-  RowBox[{"Slm", " ", "=", " ", 
-   RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-    RowBox[{
-     RowBox[{"-", "2"}], ",", " ", "2", ",", " ", "2", ",", " ", "0.1`32"}], 
-    "]"}]}], Slm[\:03C0/4, 0]]], "Notes"],
+Cell["\<\
+A SpinSpinWeightedSpheroidalHarmonicSFunction may be treated as a numeric \
+function of two arguments, \[Theta] and \[Phi].\
+\>", "Notes"],
 
-Cell["The following options can be given: ", "Notes"],
+Cell["\<\
+The parameters s, l, m and \[Gamma], the method used, and and pre-computed \
+expansion coefficients are stored inside the \
+SpinSpinWeightedSpheroidalHarmonicSFunction.\
+\>", "Notes"],
 
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon"], "Method", "Leaver", Cell[
-    "", "TableText"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{"Rows" -> {{True, True}}}}]
+Cell["\<\
+Numerical evaluation for specific \[Theta] and \[Phi] is done by summing the \
+pre-computed expansion coefficients times the basis functions (the particular \
+basis depends on the Method).\
+\>", "Notes"]
 }, Open  ]]
 }, Open  ]],
 

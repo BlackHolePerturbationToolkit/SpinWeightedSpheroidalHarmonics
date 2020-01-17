@@ -174,9 +174,9 @@ numerical value of the same precision.\
 \>", "Notes"],
 
 Cell["\<\
-Numerical values are computed using an expansion based on spin-weighted \
-spherical harmonics for an initial guess followed by Leaver's method to \
-obtain an accurate answer.\
+By default, numerical values are computed using an expansion based on \
+spin-weighted spherical harmonics for an initial guess followed by Leaver's \
+method to obtain an accurate answer.\
 \>", "Notes"],
 
 Cell["\<\
@@ -192,6 +192,22 @@ generic s, l and m.\
 Cell["\<\
 Series expansions about \[Gamma] = \[Infinity] can be computed to arbitrary \
 order for generic s, l and m.\
+\>", "Notes"],
+
+Cell["\<\
+For Methods that support suboptions, they may be passed as a list. For \
+example Method \[Rule] {\"Leaver\", \"InitialGuess\" \[Rule] 0.1} sets the \
+\"InitialGuess\" suboption to have value 0.1.\
+\>", "Notes"],
+
+Cell["\<\
+The possible suboptions that the \"Lever\" method accepts are: \"InitialGuess\
+\" \[Rule] \\[lambda]g and \"NumInversions\" \[Rule] n.\
+\>", "Notes"],
+
+Cell["\<\
+The possible suboptions that the \"SphericalExpansion\" method accepts are: \
+\"NumTerms\" \[Rule] n.\
 \>", "Notes"],
 
 Cell["The following options can be given: ", "Notes"],

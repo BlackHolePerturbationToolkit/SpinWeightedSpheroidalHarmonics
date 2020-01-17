@@ -110,8 +110,8 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"-", "0.23032053770455904`"}], "+", 
-  RowBox[{"0.39892687333087984`", " ", "\[ImaginaryI]"}]}]], "Output",
+  RowBox[{"-", "0.2303205377045589`"}], "+", 
+  RowBox[{"0.39892687333087956`", " ", "\[ImaginaryI]"}]}]], "Output",
  CellLabel->"Out[2]="]
 }, Open  ]],
 
@@ -845,117 +845,11 @@ Cell[BoxData[
  CellLabel->"In[8]:="],
 
 Cell[BoxData[
- InterpretationBox[
-  RowBox[{
+ RowBox[{
+  RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
    RowBox[{
-    FractionBox["1", "2"], " ", 
-    SuperscriptBox["\[ExponentialE]", 
-     RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Phi]"}]], " ", 
-    SqrtBox[
-     FractionBox["5", "\[Pi]"]], " ", 
-    SuperscriptBox[
-     RowBox[{"Cos", "[", 
-      FractionBox["\[Theta]", "2"], "]"}], "4"]}], "+", 
-   RowBox[{
-    FractionBox["1", "9"], " ", 
-    SuperscriptBox["\[ExponentialE]", 
-     RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Phi]"}]], " ", 
-    SqrtBox[
-     FractionBox["5", "\[Pi]"]], " ", 
-    SuperscriptBox[
-     RowBox[{"Cos", "[", 
-      FractionBox["\[Theta]", "2"], "]"}], "4"], " ", 
-    RowBox[{"(", 
-     RowBox[{
-      RowBox[{"-", "2"}], "+", 
-      RowBox[{"3", " ", 
-       RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], " ", "\[Gamma]"}], 
-   "+", 
-   FractionBox[
-    RowBox[{
-     SuperscriptBox["\[ExponentialE]", 
-      RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Phi]"}]], " ", 
-     SqrtBox[
-      FractionBox["5", "\[Pi]"]], " ", 
-     SuperscriptBox[
-      RowBox[{"Cos", "[", 
-       FractionBox["\[Theta]", "2"], "]"}], "4"], " ", 
-     RowBox[{"(", 
-      RowBox[{"2197", "-", 
-       RowBox[{"3864", " ", 
-        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "+", 
-       RowBox[{"2079", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], " ", 
-     SuperscriptBox["\[Gamma]", "2"]}], "31752"], "+", 
-   FractionBox[
-    RowBox[{
-     SuperscriptBox["\[ExponentialE]", 
-      RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Phi]"}]], " ", 
-     SqrtBox[
-      FractionBox["5", "\[Pi]"]], " ", 
-     SuperscriptBox[
-      RowBox[{"Cos", "[", 
-       FractionBox["\[Theta]", "2"], "]"}], "4"], " ", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"-", "1720"}], "+", 
-       RowBox[{"3475", " ", 
-        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "-", 
-       RowBox[{"4284", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"2", " ", "\[Theta]"}], "]"}]}], "+", 
-       RowBox[{"1701", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"3", " ", "\[Theta]"}], "]"}]}]}], ")"}], " ", 
-     SuperscriptBox["\[Gamma]", "3"]}], "190512"], "+", 
-   RowBox[{
-    FractionBox["1", "672126336"], 
-    RowBox[{
-     SuperscriptBox["\[ExponentialE]", 
-      RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Phi]"}]], " ", 
-     SqrtBox[
-      FractionBox["5", "\[Pi]"]], " ", 
-     SuperscriptBox[
-      RowBox[{"Cos", "[", 
-       FractionBox["\[Theta]", "2"], "]"}], "4"], " ", 
-     RowBox[{"(", 
-      RowBox[{"321315", "-", 
-       RowBox[{"471856", " ", 
-        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "+", 
-       RowBox[{"1280412", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"2", " ", "\[Theta]"}], "]"}]}], "-", 
-       RowBox[{"1926288", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"3", " ", "\[Theta]"}], "]"}]}], "+", 
-       RowBox[{"639009", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"4", " ", "\[Theta]"}], "]"}]}]}], ")"}], " ", 
-     SuperscriptBox["\[Gamma]", "4"]}]}], "+", 
-   InterpretationBox[
-    SuperscriptBox[
-     RowBox[{"O", "[", "\[Gamma]", "]"}], "5"],
-    SeriesData[Temp`\[Gamma], 0, {}, 0, 5, 1],
-    Editable->False]}],
-  SeriesData[
-  Temp`\[Gamma], 0, {
-   Rational[1, 2] E^(Complex[0, 2] Temp`\[Phi]) (5/Pi)^Rational[1, 2] 
-    Cos[Rational[1, 2] Temp`\[Theta]]^4, Rational[1, 9] 
-    E^(Complex[0, 2] Temp`\[Phi]) (5/Pi)^Rational[1, 2] 
-    Cos[Rational[1, 2] Temp`\[Theta]]^4 (-2 + 3 Cos[Temp`\[Theta]]), 
-    Rational[1, 31752] E^(Complex[0, 2] Temp`\[Phi]) (5/Pi)^Rational[1, 2] 
-    Cos[Rational[1, 2] Temp`\[Theta]]^4 (2197 - 3864 Cos[Temp`\[Theta]] + 
-     2079 Cos[2 Temp`\[Theta]]), Rational[1, 190512] 
-    E^(Complex[0, 2] Temp`\[Phi]) (5/Pi)^Rational[1, 2] 
-    Cos[Rational[1, 2] Temp`\[Theta]]^4 (-1720 + 3475 Cos[Temp`\[Theta]] - 
-     4284 Cos[2 Temp`\[Theta]] + 1701 Cos[3 Temp`\[Theta]]), 
-    Rational[1, 672126336] 
-    E^(Complex[0, 2] Temp`\[Phi]) (5/Pi)^Rational[1, 2] 
-    Cos[Rational[1, 2] Temp`\[Theta]]^4 (321315 - 471856 Cos[Temp`\[Theta]] + 
-     1280412 Cos[2 Temp`\[Theta]] - 1926288 Cos[3 Temp`\[Theta]] + 
-     639009 Cos[4 Temp`\[Theta]])}, 0, 5, 1],
-  Editable->False]], "Output",
+    RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]"}], "]"}], "[", 
+  RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]], "Output",
  CellLabel->"Out[8]="]
 }, Open  ]]
 }, Open  ]]
@@ -1025,9 +919,9 @@ Cell[BoxData[
  CellLabel->"In[10]:="],
 
 Cell[BoxData[
- RowBox[{"SpinWeightedSphericalHarmonicY", "[", 
-  RowBox[{"s", ",", "l", ",", "m", ",", "\[Theta]", ",", "\[Phi]"}], 
-  "]"}]], "Output",
+ RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+  RowBox[{"s", ",", "l", ",", "m", ",", "0", ",", "\[Theta]", ",", "\[Phi]"}],
+   "]"}]], "Output",
  CellLabel->"Out[10]="]
 }, Open  ]],
 
@@ -1086,10 +980,11 @@ Cell[BoxData[
  CellLabel->"In[13]:="],
 
 Cell[BoxData[
- RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-  RowBox[{
-   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]", ",", "\[Theta]", 
-   ",", "\[Phi]"}], "]"}]], "Output",
+ RowBox[{
+  RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
+   RowBox[{
+    RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "\[Gamma]"}], "]"}], "[", 
+  RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]], "Output",
  CellLabel->"Out[13]="]
 }, Open  ]],
 
@@ -1103,10 +998,12 @@ Cell[BoxData[
  CellLabel->"In[14]:="],
 
 Cell[BoxData[
- RowBox[{"SpinWeightedSpheroidalHarmonicS", "[", 
-  RowBox[{
-   RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "0.1`", ",", "\[Theta]", ",", 
-   "\[Phi]"}], "]"}]], "Output",
+ RowBox[{
+  RowBox[{"SpinWeightedSpheroidalHarmonicSFunction", "[", 
+   RowBox[{
+    RowBox[{"-", "2"}], ",", "2", ",", "2", ",", "0.1`", ",", "\<\"<<\"\>", 
+    ",", "\<\"Leaver: \"\>", ",", "12", ",", "\<\">>\"\>"}], "]"}], "[", 
+  RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]], "Output",
  CellLabel->"Out[14]="]
 }, Open  ]]
 }, Open  ]],

@@ -209,6 +209,22 @@ SpinWeightedSpheroidalHarmonicSFunction, which may be efficiently evaluated \
 for multiple values of \[Theta] and \[Phi].\
 \>", "Notes"],
 
+Cell["\<\
+For Methods that support suboptions, they may be passed as a list. For \
+example Method \[Rule] {\"Leaver\", \"InitialGuess\" \[Rule] 0.1} sets the \
+\"InitialGuess\" suboption to have value 0.1.\
+\>", "Notes"],
+
+Cell["\<\
+The possible suboptions that the \"Lever\" method accepts are: \"NumTerms\" \
+\[Rule] n.\
+\>", "Notes"],
+
+Cell["\<\
+The possible suboptions that the \"SphericalExpansion\" method accepts are: \
+\"NumTerms\" \[Rule] n.\
+\>", "Notes"],
+
 Cell["The following options can be given: ", "Notes"],
 
 Cell[BoxData[GridBox[{

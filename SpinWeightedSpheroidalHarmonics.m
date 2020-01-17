@@ -94,10 +94,15 @@ Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
 SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
  Module[{nDown, nUp, Matrix, Eigens, lmin},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
-  If[OptionValue["NumTerms"] === Automatic,
+  Switch[OptionValue["NumTerms"],
+   Automatic,
     nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
     Message[SpinWeightedSpheroidalEigenvalue::numterms, nUp];,
-    nUp = OptionValue["NumTerms"];
+   _Integer,
+    nUp = OptionValue["NumTerms"];,
+   _,
+    Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> {"SphericalExpansion", opts}];
+    Return[$Failed];
   ];
   lmin=Max[Abs[s],Abs[m]];
   nDown = Min[nUp, l-lmin];
@@ -185,6 +190,7 @@ SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inex
       ];
       \[Lambda] = SWSHEigenvalueLeaver[s, l, m, \[Gamma], opts] - 2 m \[Gamma] + \[Gamma]^2,
       _,
+      Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> OptionValue[Method]];
       \[Lambda] = $Failed;
   ];
   \[Lambda]
@@ -277,13 +283,18 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
 Options[SWSHSSpectral] = {"NumTerms" -> Automatic};
 
-SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
+SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
-  If[OptionValue["NumTerms"] === Automatic,
+  Switch[OptionValue["NumTerms"],
+   Automatic,
     nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
     Message[SpinWeightedSpheroidalHarmonicS::numterms, nUp];,
-    nUp = OptionValue["NumTerms"];
+   _Integer,
+    nUp = OptionValue["NumTerms"];,
+   _,
+    Message[SpinWeightedSpheroidalHarmonicS::optx, Method -> {"SphericalExpansion", opts}];
+    Return[$Failed];
   ];
   lmin = Max[Abs[s],Abs[m]];
   nDown = Min[l-lmin,nUp];
@@ -398,6 +409,7 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
       ];
       Slm = SWSHSLeaver[s, l, m, \[Gamma], opts],
     _,
+     Message[SpinWeightedSpheroidalHarmonicS::optx, Method -> OptionValue[Method]];
      Slm = $Failed;
   ];
   Slm

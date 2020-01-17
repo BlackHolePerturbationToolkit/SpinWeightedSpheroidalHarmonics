@@ -309,7 +309,9 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
 (*Leaver's method*)
 
 
-SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
+Options[SWSHSLeaver] = {};
+
+SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
  Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;

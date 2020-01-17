@@ -14,6 +14,7 @@ SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l
 (* Messages *)
 SpinWeightedSpheroidalEigenvalue::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
+SpinWeightedSpheroidalHarmonicS::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
@@ -274,10 +275,17 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 (*Spherical expansion method*)
 
 
-SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_] :=
+Options[SWSHSSpectral] = {"NumTerms" -> Automatic};
+
+SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
  Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
+  (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
+  If[OptionValue["NumTerms"] === Automatic,
+    nUp = Ceiling[Abs[3/2\[Gamma]]]+50;
+    Message[SpinWeightedSpheroidalHarmonicS::numterms, nUp];,
+    nUp = OptionValue["NumTerms"];
+  ];
   lmin = Max[Abs[s],Abs[m]];
-  nUp = Ceiling[Abs[3/2\[Gamma]]]+50;(*FIXME: Improve the estimate of nmax*)
   If[EvenQ[nUp],nUp+=1];
   nDown = Min[l-lmin,nUp];
 

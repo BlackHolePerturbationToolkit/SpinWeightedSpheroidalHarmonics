@@ -288,7 +288,7 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
   lmin = Max[Abs[s],Abs[m]];
   nDown = Min[l-lmin,nUp];
 
-  A = -SparseArray[
+  A = SparseArray[
         {{i_,i_} :> kHat[s, l-nDown-1+i, m, \[Gamma]],
          {i_,j_} /; j-i==-2 :> k2[s, l-nDown-3+i, m, \[Gamma]],
          {i_,j_} /; j-i==-1 :> kTilde2[s, l-nDown+i-2, m, \[Gamma]],
@@ -296,8 +296,8 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, OptionsPattern[]] :=
          {i_,j_} /; j-i==2 :> k2[s, l-nDown+i+-1, m, \[Gamma]]},
         {nUp+nDown+1, nUp+nDown+1}];
   esys = Eigensystem[A,Method->If[Precision[\[Gamma]]==MachinePrecision,"Banded","Automatic"]];
-  eval = Sort[esys[[1]],Greater][[-(nDown+1)]];
-  pos  = Position[esys[[1]], eval][[1]];
+  eval = -Sort[esys[[1]]][[-(nDown+1)]];
+  pos  = Position[esys[[1]], -eval][[1]];
   evec = First[esys[[2,pos]]];
 
   sign=Sign[evec[[Min[l-lmin+1,(nUp+nDown)/2+1]]]];

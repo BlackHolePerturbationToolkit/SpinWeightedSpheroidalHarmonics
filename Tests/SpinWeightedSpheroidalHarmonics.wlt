@@ -104,6 +104,13 @@ VerificationTest[
 ]
 
 VerificationTest[
+  SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"Leaver", "NumInversions" -> 3}],
+  -0.66407962199376178419950018744266,
+  {},
+  TestID->"SpinWeightedSpheroidalEigenvalue[..., Method -> {\"Leaver\", \"NumInversions\" -> 3}]"
+]
+
+VerificationTest[
   SpinWeightedSpheroidalEigenvalue[2, 2, 2, 0.1`32, Method -> {"Leaver", "NumTerms" -> 1}],
   -0.66407962199376178419950018744266,
   {SpinWeightedSpheroidalEigenvalue::optx},
@@ -349,6 +356,12 @@ With[{s = 2, l = 2, m = 2, \[Gamma] = 0.1`32, \[Theta] = 0.3`32, \[Phi] = 0.4`32
     0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
     {},
     TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"Leaver\"}]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"Leaver", "NumTerms" -> 2}][\[Theta], \[Phi]],
+    0.0001841212861596120040037305869324 + 0.0001895783754036400622852984961101 I,
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"Leaver\", NumTerms -> 2}]"
   ]
 
   VerificationTest[

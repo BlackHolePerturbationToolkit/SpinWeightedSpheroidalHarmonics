@@ -312,6 +312,66 @@ With[{s = 0, l = 2, m = 2, \[Gamma] = 0.00000001`32, \[Theta] = 0.3`32, \[Phi] =
   ]
 ]
 
+(* Suboptions *)
+With[{s = 2, l = 2, m = 2, \[Gamma] = 0.1`32, \[Theta] = 0.3`32, \[Phi] = 0.4`32},
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]],
+    0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
+    {},
+    TestID->"SpinWeightedSpheroidalHarmonicS[...]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"][\[Theta], \[Phi]],
+    0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
+    {},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> \"Leaver\"]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"Leaver"}][\[Theta], \[Phi]],
+    0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
+    {},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"Leaver\"}]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"Leaver", "NumTerms" -> 1}][\[Theta], \[Phi]],
+    0.00019649578982284742659052547689 + 0.00020231964149966822640907627571 I,
+    {SpinWeightedSpheroidalHarmonicS::optx},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"Leaver\", <<invalid suboption>>}]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"][\[Theta], \[Phi]],
+    0.0001964957898238118597970926718157 + 0.0002023196415006612440242575779433 I,
+    {SpinWeightedSpheroidalHarmonicS::numterms},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> \"SphericalExpansion\"]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"SphericalExpansion"}][\[Theta], \[Phi]],
+    0.0001964957898238118597970926718157 + 0.0002023196415006612440242575779433 I,
+    {SpinWeightedSpheroidalHarmonicS::numterms},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"SphericalExpansion\"}]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"SphericalExpansion", "InitialGuess" -> 0.1}][\[Theta], \[Phi]],
+    0.0001964957898238118597970926718157 + 0.0002023196415006612440242575779433 I,
+    {SpinWeightedSpheroidalHarmonicS::optx, SpinWeightedSpheroidalHarmonicS::numterms},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., Method -> {\"SphericalExpansion\", <<invalid subobtion>>}]"
+  ]
+
+  VerificationTest[
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> {"SphericalExpansion", "NumTerms" -> 4}][\[Theta], \[Phi]],
+    0.0001964957988921799016469279216708 + 0.0002023196508378026294361569589402 I,
+    {},
+    TestID->"SpinWeightedSpheroidalHarmonicS[..., {\"SphericalExpansion\", <<valid suboption>>}]"
+  ]
+
+]
+
 EndTestSection[]
 
 BeginTestSection["Complex spheroidicity near expected QNM values"]

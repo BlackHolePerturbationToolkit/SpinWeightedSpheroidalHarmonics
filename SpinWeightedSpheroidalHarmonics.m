@@ -444,7 +444,7 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
   res = E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] an.oneplusu^Range[0,nmax] Exp[I m \[Phi]];
 
   (* Print a warning message if the harmonic cannot be determined *)
-  If[Precision[res] == 0., Message[SpinWeightedSpheroidalHarmonicS::prec]];
+  If[Precision[res] == 0. && Accuracy[res] < Accuracy[{\[Gamma], \[Theta], \[Phi]}], Message[SpinWeightedSpheroidalHarmonicS::prec]];
 
   res
 ] /; MatchQ[OptionValue[Method], "Leaver"];

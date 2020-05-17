@@ -31,10 +31,12 @@ SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l
 
 SpinWeightedSpheroidalEigenvalue::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
+SpinWeightedSpheroidalEigenvalue::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 SpinWeightedSpheroidalHarmonicS::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
+SpinWeightedSpheroidalHarmonicS::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 
 
 (* ::Subsection::Closed:: *)
@@ -205,7 +207,8 @@ Options[SpinWeightedSpheroidalEigenvalue] = {Method -> Automatic};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] := 0;
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] || Abs[m] > l := 
+ (Message[SpinWeightedSpheroidalEigenvalue::params, s, l, m]; $Failed);
 
 
 SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
@@ -431,6 +434,10 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_, \[Th
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
 
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] || Abs[m] > l := 
+ (Message[SpinWeightedSpheroidalHarmonicS::params, s, l, m]; $Failed);
+
+
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, {"SphericalExact", {}, 0, 0}] /; OptionValue[Method] == Automatic;
 
@@ -508,8 +515,8 @@ SpinWeightedSpheroidalHarmonicSFunction /:
                   BoxForm`SummaryItem[{"Method: ", method}]
              };
   extended = {BoxForm`SummaryItem[{"Coefficients: ", Column[coeffs]}],
-              BoxForm`SummaryItem[{"nDown: ", nDown}],
-              BoxForm`SummaryItem[{"nUp: ", nUp}]
+              BoxForm`SummaryItem[{"NumDown: ", nDown}],
+              BoxForm`SummaryItem[{"NumUp: ", nUp}]
               };
   BoxForm`ArrangeSummaryBox[
     SpinWeightedSpheroidalHarmonicSFunction,

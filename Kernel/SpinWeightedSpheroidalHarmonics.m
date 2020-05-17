@@ -498,8 +498,28 @@ SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
 (*Output format*)
 
 
-Format[SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]] :=
- SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], "<<", method<>": ",  nDown+nUp+1, ">>"];
+SpinWeightedSpheroidalHarmonicSFunction /:
+ MakeBoxes[swshf:SpinWeightedSpheroidalHarmonicSFunction[s_, l_, m_, \[Gamma]_, {method_String, coeffs_List, nDown_Integer, nUp_Integer}], form:(StandardForm|TraditionalForm)] :=
+ Module[{summary, extended},
+  summary = {Row[{BoxForm`SummaryItem[{"s: ", s}], "  ",
+                  BoxForm`SummaryItem[{"l: ", l}], "  ",
+                  BoxForm`SummaryItem[{"m: ", m}], "  ",
+                  BoxForm`SummaryItem[{"\[Gamma]: ", \[Gamma]}]}],
+                  BoxForm`SummaryItem[{"Method: ", method}]
+             };
+  extended = {BoxForm`SummaryItem[{"Coefficients: ", Column[coeffs]}],
+              BoxForm`SummaryItem[{"nDown: ", nDown}],
+              BoxForm`SummaryItem[{"nUp: ", nUp}]
+              };
+  BoxForm`ArrangeSummaryBox[
+    SpinWeightedSpheroidalHarmonicSFunction,
+    swshf,
+    PolarPlot[{swshf[\[Theta],0],swshf[\[Theta],\[Pi]]}, {\[Theta],0,\[Pi]}, Axes->False, PlotRange->All, ImagePadding->All, PlotStyle->ColorData[97,1],
+      ImageSize -> Dynamic[{Automatic, 3.5 CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[Magnification]}]],
+    summary,
+    extended,
+    form]
+];
 
 
 (* ::Subsection::Closed:: *)

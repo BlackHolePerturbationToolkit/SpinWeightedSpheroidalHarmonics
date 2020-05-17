@@ -536,7 +536,7 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
 (*SphericalExact method*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, (0|0.), {"SphericalExact", {}, 0, 0}][\[Theta]_, \[Phi]_] :=
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_, {"SphericalExact", {}, 0, 0}][\[Theta]_, \[Phi]_] /; \[Gamma] == 0 :=
   SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]];
 
 

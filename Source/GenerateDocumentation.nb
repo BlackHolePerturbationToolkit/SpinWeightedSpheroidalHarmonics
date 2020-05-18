@@ -12,15 +12,11 @@ Cell[BoxData[
   RowBox[{"FileNameJoin", "[", 
    RowBox[{"{", 
     RowBox[{
-     RowBox[{"FileNameDrop", "[", 
-      RowBox[{
-       RowBox[{
-       "FindFile", "[", "\"\<SpinWeightedSpheroidalHarmonics`\>\"", "]"}], 
-       ",", 
-       RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
-   "]"}]}]], "Input"],
+     RowBox[{"ParentDirectory", "[", 
+      RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ",", 
+     "\"\<Documentation\>\""}], "}"}], "]"}]}]], "Input"],
 
-Cell[BoxData["\<\"/Users/barry/Library/Mathematica/Applications/\
+Cell[BoxData["\<\"/Users/barry/Documents/GitHub/\
 SpinWeightedSpheroidalHarmonics/Documentation\"\>"], "Output"]
 }, Open  ]],
 
@@ -42,19 +38,17 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   RowBox[{"{", 
-   RowBox[{"\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Guides/\
-SpinWeightedSpheroidalHarmonics.nb\"\>", 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Index/_0.cfs\"\>", ",", 
-    
-    RowBox[{"\[LeftSkeleton]", "8", "\[RightSkeleton]"}], 
-    ",", "\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/SpellIndex/segments.gen\
-\"\>", ",", \
-"\<\"/Users/barry/Library/Mathematica/Applications/\
-SpinWeightedSpheroidalHarmonics/Documentation/English/Tutorials/\
-SpinWeightedSpheroidalHarmonics.nb\"\>"}], "}"}],
+   RowBox[{"\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/Guides/SpinWeightedSpheroidalHarmonics.nb\"\>", 
+    ",", "\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/Index/_0.cfs\"\>", 
+    ",", "\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/Index/segments_3\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "6", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/SpellIndex/segments_7\"\>", 
+    ",", "\<\"/Users/barry/Documents/GitHub/SpinWeightedSpheroidalHarmonics/\
+Documentation/English/SpellIndex/segments.gen\"\>"}], "}"}],
   Short[#, 10]& ]], "Output"]
 }, Open  ]],
 
@@ -72,6 +66,16 @@ Cell[CellGroupData[{
 Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print"],
 
 Cell[BoxData["\<\"SpinWeightedSphericalHarmonicY\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"l\"\>", ",", "\<\"m\"\>", ",", "\<\"s\"\>", 
+     ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Theta]\"\>", 
+     ",", "\<\"\[Phi]\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"l", "m", "s", "\[Gamma]", "\[Theta]", "\[Phi]"}],
+  Editable->False]], "Print"],
 
 Cell[BoxData["\<\"SpinWeightedSpheroidalEigenvalue\"\>"], "Print"],
 
@@ -116,7 +120,7 @@ Cell[BoxData["\<\"Done\"\>"], "Print"]
 }, Open  ]]
 },
 WindowSize->{740, 867},
-WindowMargins->{{237, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 89}, {Automatic, 7}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,

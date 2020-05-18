@@ -7,13 +7,17 @@ withinRoundoff[a_, b_] :=
   Block[{Internal`$SameQTolerance = 4},
     SameQ[a,b]];
 
-PrependTo[$Path, FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
-PacletDirectoryAdd[FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
+If[$VersionNumber >= 12.1,
+  PacletDirectoryLoad[FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
+  $testDir = FileNameJoin[{PacletObject["SpinWeightedSpheroidalHarmonics"]["Location"], "Tests"}];
+  ,
+  PacletDirectoryAdd[FileNameDrop[ExpandFileName[First[$ScriptCommandLine]],-3]];
+  $testDir = FileNameJoin[{Lookup[PacletInformation["SpinWeightedSpheroidalHarmonics"], "Location"], "Tests"}];
+];
+
+testFiles = FileNames["*.wlt", $testDir];
 
 << SpinWeightedSpheroidalHarmonics`
-
-testFiles = FileNames["*.wlt", 
- FileNameJoin[{Lookup[PacletInformation["SpinWeightedSpheroidalHarmonics"], "Location"], "Tests"}]];
 
 reports = TestReport /@ testFiles;
 

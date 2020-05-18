@@ -35,7 +35,7 @@ VerificationTest[
 idStringEigenvalue[s_, l_, m_, \[Gamma]_, method_:""] :=
   "SpinWeightedSpheroidalEigenvalue["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"]";
 
-Get[FileNameJoin[{Lookup[PacletInformation["SpinWeightedSpheroidalHarmonics"], "Location"], "Tests", "EigenvalueLeaverData.m"}]];
+Get[FileNameJoin[{$testDir, "EigenvalueLeaverData.m"}]];
 
 Table[
   VerificationTest[
@@ -149,7 +149,7 @@ EndTestSection[]
 
 BeginTestSection["SpinWeightedSpheroidalHarmonicS"]
 
-Get[FileNameJoin[{Lookup[PacletInformation["SpinWeightedSpheroidalHarmonics"], "Location"], "Tests", "SlmLeaverData.m"}]];
+Get[FileNameJoin[{$testDir, "SlmLeaverData.m"}]];
 
 idString[s_, l_, m_, \[Gamma]_, method_:""] :=
   "SpinWeightedSpheroidalHarmonicS["<>ToString[s]<>", "<>ToString[l]<>", "<>ToString[m]<>", "<>ToString[\[Gamma], InputForm]<>"]";

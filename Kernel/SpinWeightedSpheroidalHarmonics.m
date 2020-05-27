@@ -89,6 +89,16 @@ kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
 
 
+(* Building the spectral matrix of a given size and params *)
+SparseSWSHMatrix[s_, l_, m_, \[Gamma]_, nDown_, nUp_]:=SparseArray[
+	{{i_,i_}:>kHat[s,l-nDown-1+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-2:>k2[s,l-nDown-3+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-1:>kTilde2[s,l-nDown+i-2,m,\[Gamma]],
+	{i_,j_}/;j-i==1:>kTilde2[s,l-nDown+i-1,m,\[Gamma]],
+	{i_,j_}/;j-i==2:>k2[s,l-nDown+i+-1,m,\[Gamma]]}
+  ,{nUp+nDown+1,nUp+nDown+1}];
+
+
 (* ::Subsection::Closed:: *)
 (*Continued fraction*)
 
@@ -141,13 +151,7 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
   lmin=Max[Abs[s],Abs[m]];
   nDown = Min[nUp, l-lmin];
 
-  Matrix=SparseArray[
-	{{i_,i_}:>kHat[s,l-nDown-1+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-2:>k2[s,l-nDown-3+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-1:>kTilde2[s,l-nDown+i-2,m,\[Gamma]],
-	{i_,j_}/;j-i==1:>kTilde2[s,l-nDown+i-1,m,\[Gamma]],
-	{i_,j_}/;j-i==2:>k2[s,l-nDown+i+-1,m,\[Gamma]]}
-  ,{nUp+nDown+1,nUp+nDown+1}];
+  Matrix=SparseSWSHMatrix[s,l,m,\[Gamma],nDown,nUp];
 
   (* To choose the eigenvalue corrsponding to the desired l, we assume that the real
      part of eigenvalue is a monotonic function of l. *)
@@ -327,7 +331,7 @@ Options[SWSHSSpectral] = {"NumTerms" -> Automatic};
 
 SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
-  (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
+  (* FIXME: Improve the estimate of nmax. It should depend on the accuracy sought. *)
   Switch[OptionValue["NumTerms"],
    Automatic,
     nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
@@ -341,13 +345,7 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]]
   lmin = Max[Abs[s],Abs[m]];
   nDown = Min[l-lmin,nUp];
 
-  A = SparseArray[
-        {{i_,i_} :> kHat[s, l-nDown-1+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-2 :> k2[s, l-nDown-3+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-1 :> kTilde2[s, l-nDown+i-2, m, \[Gamma]],
-         {i_,j_} /; j-i==1 :> kTilde2[s, l-nDown+i-1, m, \[Gamma]],
-         {i_,j_} /; j-i==2 :> k2[s, l-nDown+i+-1, m, \[Gamma]]},
-        {nUp+nDown+1, nUp+nDown+1}];
+  A = SparseSWSHMatrix[s,l,m,\[Gamma],nDown,nUp];
   esys = Quiet[Eigensystem[A], Eigenvalues::arhm];
   eval = -Sort[esys[[1]]][[-(nDown+1)]];
   pos  = Position[esys[[1]], -eval][[1]];

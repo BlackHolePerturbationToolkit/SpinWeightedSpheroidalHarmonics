@@ -108,6 +108,7 @@ CF[a_, b_, {n_, n0_}] :=
    A[k_] := A[k] = bk[k] A[k - 1] + ak[k] A[k - 2];
    B[k_] := B[k] = bk[k] B[k - 1] + ak[k] B[k - 2];
    While[res =!= (res = A[j]/B[j]), j++];
+   Clear[A, B, ak, bk];
    res
    ];
 
@@ -189,6 +190,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   LHS[Ax_] := \[Beta]n[nInv, Ax] + ContinuedFractionK[-\[Alpha]n[nInv-n] \[Gamma]n[nInv-n+1], \[Beta]n[nInv-n, Ax], {n, 1, nInv}];
   Eq[A_?NumericQ] := LHS[A] - RHS[A];
   Aval = Avar /. Quiet[Check[FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"], Avar -> $Failed, {Power::infy, FindRoot::nlnum}], {Power::infy, FindRoot::nlnum}];
+  Clear[\[Alpha]n, \[Beta]n, \[Gamma]n, LHS, RHS, Eq];
   Aval
 ];
 
@@ -215,7 +217,7 @@ SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[G
   l(l+1) - s(s+1);
 
 
-SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] /; AllTrue[{2s, 2l, 2m}, IntegerQ] := 
  Module[{opts, Aini, \[Lambda]},
   Switch[OptionValue[Method],
     "SphericalExpansion",
@@ -285,7 +287,7 @@ SpinWeightedSpheroidalEigenvalue /:
 
 SpinWeightedSpheroidalEigenvalue /: 
   Series[SpinWeightedSpheroidalEigenvalue[s_?NumberQ, l_?NumberQ, m_?NumberQ, \[Gamma]_], {\[Gamma]_, \[Infinity], order_}] :=
-Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,Asum,sElm,s\[Lambda]lm},
+Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,Asum,sElm,s\[Lambda]lm,res},
   aFgen[0,_]=0;
   aFgen[0,0]=1;
 
@@ -309,8 +311,11 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 
   s\[Lambda]lm = sElm-s(s+1)+\[Gamma]^2-2m \[Gamma];
   
-  SeriesData[\[Gamma], \[Infinity], Reverse[CoefficientList[Expand[s\[Lambda]lm \[Gamma]^order],\[Gamma]]], -1, order+1, 1]
-  
+  res = SeriesData[\[Gamma], \[Infinity], Reverse[CoefficientList[Expand[s\[Lambda]lm \[Gamma]^order],\[Gamma]]], -1, order+1, 1];
+
+  Remove[aFgen, AFgen, \[Delta]gen, Serngen, c, n];
+
+  res
 ]
 
 
@@ -411,6 +416,9 @@ SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :
   (* Overall sign such that the \[Gamma]\[Rule]0 limit is continuous *)
   sign = If[(OddQ[l]&&EvenQ[m+s])||(OddQ[l]&&OddQ[m+s]&&m>=s)||(EvenQ[l]&&OddQ[m-s]&&m<=s), -1, 1];
   
+  (* Clear Symbols with DownValues to prevent memory leaks *)
+  Clear[\[Alpha]n, \[Beta]n, \[Gamma]n, an, normterm];
+
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {"Leaver", sign anTab/norm, nmin, nmax}]
 ];
@@ -572,18 +580,22 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
 
 
 Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Module[{\[Theta]1,\[Phi]1},
-  Sum[coeffs[[k+nDown+1]]D[SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta]1, 0],{\[Theta]1,d1}], {k, -nDown, nUp}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
+ Module[{\[Theta]1,\[Phi]1, res},
+  res = Sum[coeffs[[k+nDown+1]]D[SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta]1, 0],{\[Theta]1,d1}], {k, -nDown, nUp}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]};
+  Remove[\[Theta]1,\[Phi]1];
+  res
 ] /; method == "SphericalExpansion";
 
 
 Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Module[{\[Theta]1, \[Phi]1, u, k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu},
+ Module[{\[Theta]1, \[Phi]1, u, k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu, res},
   u=Cos[\[Theta]1];
   oneplusu = 2 Cos[\[Theta]1/2]^2;
   oneminusu = 2 Sin[\[Theta]1/2]^2;
   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
-  D[E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] coeffs.oneplusu^Range[0,nUp],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]}
+  res = D[E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] coeffs.oneplusu^Range[0,nUp],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]};
+  Remove[\[Theta]1,\[Phi]1];
+  res
 ] /; method == "Leaver";
   
 

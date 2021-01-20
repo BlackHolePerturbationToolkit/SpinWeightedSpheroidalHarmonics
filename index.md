@@ -82,3 +82,7 @@ Currently, for the high frequency expansions, you have to given explicit values 
 ## Further examples
 
 See the Documentation Centre for a tutorial and documentation on individual commands. See also the [Mathematica Toolkit Examples](https://github.com/BlackHolePerturbationToolkit/MathematicaToolkitExamples) for further example notebooks.
+
+## Authors and contributors
+
+Barry Wardell, Niels Warburton, Marc Casals, Sarp Akcay, Adrian Ottewill

@@ -47,7 +47,7 @@ Begin["`Private`"];
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Useful functions*)
 
 
@@ -56,6 +56,7 @@ Begin["`Private`"];
 
 
 \[Alpha][s_,l_,m_]:=1/l (Sqrt[l^2-m^2] Sqrt[l^2-s^2])/(Sqrt[2l-1] Sqrt[2l+1]);
+\[Alpha][s_,l_,m_] /; l == Abs[m] = 0;
 \[Alpha][s_,l_,m_]/;l<Abs[s]=0;
 \[Alpha][0,l_,m_]:= Sqrt[l^2-m^2]/(Sqrt[2l-1] Sqrt[2l+1]);
 \[Beta][s_,l_,m_]:=-((m s)/(l(l+1)));
@@ -78,12 +79,13 @@ d[s_,l_,m_][i_Integer?Positive,j_Integer]/;l+j<Abs[s]:=0;
 simplify[expr_] := Collect[expr, {HoldPattern[\[Alpha][__]], HoldPattern[\[Beta][__]]}, Simplify];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Functions for spectral method for seed in numerical evaluation*)
 
 
 kHat[s_, 0, 0, \[Gamma]_] := \[Gamma]^2/3;
 kHat[s_, l_, m_, \[Gamma]_] := -l (1+l)+(2 m s^2 \[Gamma])/(l+l^2)+1/3 (1+(2 (l+l^2-3 m^2) (l+l^2-3 s^2))/(l (-3+l+8 l^2+4 l^3))) \[Gamma]^2;
+kHat[s_,1/2,m_,\[Gamma]_]/;Abs[s]==1/2:=1/864 (-648+576 m \[Gamma]+216 \[Gamma]^2+288 m^2 \[Gamma]^2);
 k2[s_, l_, m_, \[Gamma]_] := (Sqrt[((1+l-m) (2+l-m) (1+l+m) (2+l+m) (1+l-s) (2+l-s) (1+l+s) (2+l+s))/((1+2 l) (5+2 l))] \[Gamma]^2)/((1+l) (2+l) (3+2 l));
 kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
@@ -115,11 +117,11 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spherical expansion method*)
 
 
@@ -195,7 +197,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*SpinWeightedSpheroidalEigenvalue (uses a combination of the spectral and Leaver's method)*)
 
 

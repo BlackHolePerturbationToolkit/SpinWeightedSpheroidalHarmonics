@@ -39,9 +39,10 @@ jobs:
         run: |
           export PATH="${{ env.WOLFRAMENGINE_EXECUTABLES_DIRECTORY }}:$PATH"
           wolframscript -debug -verbose -script ./Tests/AllTests.wls
+      - name: Produce test report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Unit tests
-          path: TestReport.xml
+          artifact: TestReport.xml
           reporter: jest-junit

@@ -46,3 +46,4 @@ jobs:
           name: Unit tests
           path: TestReport.xml
           reporter: jest-junit
+          fail-on-error: false

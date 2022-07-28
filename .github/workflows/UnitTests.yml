@@ -44,5 +44,5 @@ jobs:
         if: always()
         with:
           name: Unit tests
-          artifact: TestReport.xml
+          path: TestReport.xml
           reporter: jest-junit

@@ -192,7 +192,7 @@ With[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0},
 With[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4}, 
   VerificationTest[
     SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
-    -0.310529282862103993 - 0.023555700389793967*I,
+    -0.010529282862103993 - 0.023555700389793967*I,
     SameTest -> withinRoundoff,
     TestID -> idString[s, l, m, \[Gamma]]
   ]

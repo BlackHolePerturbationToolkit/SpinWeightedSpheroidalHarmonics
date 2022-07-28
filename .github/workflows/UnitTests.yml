@@ -44,7 +44,7 @@ jobs:
         if: always()
         with:
           name: Unit tests
-          path: AllTests.xml
+          path: TestReport.xml
           reporter: jest-junit
       - name: Archive test report
         uses: actions/upload-artifact@v3

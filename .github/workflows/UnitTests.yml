@@ -39,16 +39,9 @@ jobs:
         run: |
           export PATH="${{ env.WOLFRAMENGINE_EXECUTABLES_DIRECTORY }}:$PATH"
           wolframscript -debug -verbose -script ./Tests/AllTests.wls
-      - name: Publish Test Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Unit tests
           path: TestReport.xml
           reporter: jest-junit
-      - name: Archive test report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test Report
-          path: TestReport.xml
-          if-no-files-found: error

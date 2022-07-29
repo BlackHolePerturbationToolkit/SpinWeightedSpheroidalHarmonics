@@ -64,8 +64,8 @@ jobs:
           label: 'tests'
           status: "${{ steps.testreport.outputs.passed }} passed, ${{ steps.testreport.outputs.failed }} failed, ${{ steps.testreport.outputs.skipped }} skipped"
           color: ${{
-            steps.testreport.outputs.failed == 0 && 'success'  ||
-            steps.testreport.outputs.failed >  0 && 'critical' ||
+            steps.testreport.outputs.failed == 0 && 'green'  ||
+            steps.testreport.outputs.failed >  0 && 'red' ||
             'yellow' }}
           path: badges/testresult.svg
       - name: Commit badge

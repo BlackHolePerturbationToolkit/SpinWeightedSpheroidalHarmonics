@@ -52,11 +52,11 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Checkout badge branch
+      - name: Checkout gh_pages branch
         uses: actions/checkout@v3
         with:
-          ref: badges
-          path: badges
+          ref: gh_pages
+          path: gh_pages
       - name: Generate the badge SVG image
         uses: emibcn/badge-action@v1
         id: badge
@@ -67,22 +67,20 @@ jobs:
             steps.testreport.outputs.failed == 0 && 'green'  ||
             steps.testreport.outputs.failed >  0 && 'red' ||
             'yellow' }}
-          path: badges/testresult.svg
+          path: gh_pages/badges/${{ steps.extract_branch.outputs.branch }}/testresult.svg
       - name: Commit badge
         env:
           BRANCH: ${{ steps.extract_branch.outputs.branch }}
           FILE: 'testresult.svg'
-        working-directory: ./badges
+        working-directory: ./gh_pages
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          mkdir -p "${BRANCH}"
-          mv "${FILE}" "${BRANCH}"
-          git add "${BRANCH}/${FILE}"
+          git add "badges/${BRANCH}/${FILE}"
           git commit -m "Add/Update badge" || true
       - name: Push badge commit
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: badges
-          directory: badges
+          branch: gh_pages
+          directory: gh_pages

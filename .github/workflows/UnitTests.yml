@@ -67,7 +67,7 @@ jobs:
             steps.testreport.outputs.failed == 0 && 'green'  ||
             steps.testreport.outputs.failed >  0 && 'red' ||
             'yellow' }}
-          path: gh-pages/badges/${{ steps.extract_branch.outputs.branch }}/testresult.svg
+          path: gh-pages/testresult.svg
       - name: Commit badge
         env:
           BRANCH: ${{ steps.extract_branch.outputs.branch }}
@@ -76,6 +76,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          mkdir -p "badges/${BRANCH}"
+          mv "${FILE}" "badges/${BRANCH}"
           git add "badges/${BRANCH}/${FILE}"
           git commit -m "Add/Update badge" || true
       - name: Push badge commit

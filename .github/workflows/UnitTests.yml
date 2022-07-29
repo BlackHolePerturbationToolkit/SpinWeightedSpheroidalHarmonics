@@ -62,7 +62,7 @@ jobs:
         id: badge
         with:
           label: 'tests'
-          status: "${{ testreport.outputs.passed }} passed, ${{ testreport.outputs.failed }} failed, ${{ testreport.outputs.skipped }} skipped"
+          status: "${{ steps.testreport.outputs.passed }} passed, ${{ steps.testreport.outputs.failed }} failed, ${{ steps.testreport.outputs.skipped }} skipped"
           color: ${{
             steps.testreport.outputs.failed == 0 && 'success'  ||
             steps.testreport.outputs.failed >  0 && 'critical' ||

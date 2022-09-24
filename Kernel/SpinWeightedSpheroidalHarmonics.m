@@ -542,7 +542,7 @@ SpinWeightedSpheroidalHarmonicSFunction /:
 
 
 SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]["ExpansionCoefficients"] :=
-  Thread[Range[-nDown, nUp] -> coeffs];
+  Association[Thread[Range[-nDown, nUp] -> coeffs]];
 
 
 (* ::Subsection::Closed:: *)

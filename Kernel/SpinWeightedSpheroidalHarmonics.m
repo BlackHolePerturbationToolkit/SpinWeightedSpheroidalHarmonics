@@ -16,6 +16,13 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 
 (* ::Subsection::Closed:: *)
+(*Unprotect symbols*)
+
+
+ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
+
+
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -639,6 +646,13 @@ SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] :=
 
 (* ::Section::Closed:: *)
 (*End Package*)
+
+
+(* ::Subsection::Closed:: *)
+(*Protect symbols*)
+
+
+SetAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
 
 
 (* ::Subsection::Closed:: *)

@@ -548,6 +548,13 @@ SpinWeightedSpheroidalHarmonicSFunction /:
 
 
 (* ::Subsection::Closed:: *)
+(*Accessing attributes*)
+
+
+Keys[m_SpinWeightedSpheroidalHarmonicSFunction] ^:= {"s", "l", "m", "\[Gamma]", "Method", "ExpansionCoefficients"};
+
+
+(* ::Subsection::Closed:: *)
 (*Expansion coefficients*)
 
 

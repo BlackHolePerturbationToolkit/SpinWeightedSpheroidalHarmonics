@@ -211,7 +211,8 @@ Options[SpinWeightedSpheroidalEigenvalue] = {Method -> Automatic};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
 
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] || Abs[m] > l := 
+SpinWeightedSpheroidalEigenvalue[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;
+  l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] :=
  (Message[SpinWeightedSpheroidalEigenvalue::params, s, l, m]; $Failed);
 
 

@@ -91,6 +91,20 @@ kTilde2[s_, 0, 0, \[Gamma]_] := -2 s Sqrt[(1-s^2)/3] \[Gamma];
 kTilde2[s_, l_, m_, \[Gamma]_] := -((2 s Sqrt[((1+2 l+l^2-m^2) (1+2 l+l^2-s^2))/(3+8 l+4 l^2)] \[Gamma] (2 l+l^2+m \[Gamma]))/(l (2+3 l+l^2)));
 
 
+(* Building the spectral matrix of a given size and params *)
+SparseSWSHMatrix[s_, l_, m_, \[Gamma]_, nDown_, nUp_]:=SparseArray[
+	{{i_,i_}:>kHat[s,l-nDown-1+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-2:>k2[s,l-nDown-3+i,m,\[Gamma]],
+	{i_,j_}/;j-i==-1:>kTilde2[s,l-nDown+i-2,m,\[Gamma]],
+	{i_,j_}/;j-i==1:>kTilde2[s,l-nDown+i-1,m,\[Gamma]],
+	{i_,j_}/;j-i==2:>k2[s,l-nDown+i+-1,m,\[Gamma]]}
+  ,{nUp+nDown+1,nUp+nDown+1}];
+
+
+(* Mma ought to provide a sparse identity matrix but... *)
+SparseIdentityMatrix[n_Integer?NonNegative]:=SparseArray[{{x_,x_}->1},{n,n}];
+
+
 (* ::Subsection::Closed:: *)
 (*Continued fraction*)
 
@@ -125,12 +139,22 @@ CF[a_, b_, {n_, n0_}] :=
 (*Spherical expansion method*)
 
 
-Options[SWSHEigenvalueSpectral] = {"NumTerms" -> Automatic};
+Options[SWSHEigenvalueSpectral] = {"InitialGuess" -> Automatic, "NumTerms" -> Automatic};
 
 
-SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
- Module[{nDown, nUp, Matrix, Eigens, lmin},
-  (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
+SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]]:=
+ Module[{nDown, nUp, AMatrix, lmin, AGuess},
+  Switch[OptionValue["InitialGuess"],
+   Automatic,
+     (* NOTE this is currently an initial value of A, not \[Lambda] *)
+     AGuess = l(l+1) - s(s+1);,
+   _?NumericQ,
+     AGuess = SetPrecision[OptionValue["InitialGuess"],Precision[\[Gamma]]];,
+   _,
+    Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> {"SphericalExpansion", opts}];
+    Return[$Failed];
+  ];
+  (* FIXME: Improve the estimate of nmax. It should depend on the accuracy sought. *)
   Switch[OptionValue["NumTerms"],
    Automatic,
     nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
@@ -144,19 +168,13 @@ SWSHEigenvalueSpectral[s_, l_, m_, \[Gamma]_, OptionsPattern[]]:=
   lmin=Max[Abs[s],Abs[m]];
   nDown = Min[nUp, l-lmin];
 
-  Matrix=SparseArray[
-	{{i_,i_}:>kHat[s,l-nDown-1+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-2:>k2[s,l-nDown-3+i,m,\[Gamma]],
-	{i_,j_}/;j-i==-1:>kTilde2[s,l-nDown+i-2,m,\[Gamma]],
-	{i_,j_}/;j-i==1:>kTilde2[s,l-nDown+i-1,m,\[Gamma]],
-	{i_,j_}/;j-i==2:>k2[s,l-nDown+i+-1,m,\[Gamma]]}
-  ,{nUp+nDown+1,nUp+nDown+1}];
-
-  (* To choose the eigenvalue corrsponding to the desired l, we assume that the real
-     part of eigenvalue is a monotonic function of l. *)
-  Eigens=-Sort[Quiet[Eigenvalues[Matrix],Eigenvalues::arhm]];
-
-  Eigens[[-(nDown+1)]]-s(s+1)
+  AMatrix = SparseSWSHMatrix[s,l,m,\[Gamma],nDown,nUp];
+  (* Because the matrix built up above has an annoying convention... *)
+  (* After this step, the eigenvalues are A's *)
+  AMatrix = -AMatrix - s(s+1)*SparseIdentityMatrix[nUp+nDown+1];
+  (* The above manipulation can be absorbed into the shift below, and flipping the sign of the eigenvalue *)
+  (* Do we want to do that? *)
+  Eigenvalues[AMatrix, -1, Method->{"Arnoldi", "Shift"->AGuess}][[1]]
 ];
 
 
@@ -330,12 +348,22 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 (*Spherical expansion method*)
 
 
-Options[SWSHSSpectral] = {"NumTerms" -> Automatic};
+Options[SWSHSSpectral] = {"InitialGuess"->Automatic, "NumTerms" -> Automatic};
 
 
 SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
- Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
-  (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
+ Module[{lmin, nUp, nDown, AMatrix, evec,sign,AGuess},
+   Switch[OptionValue["InitialGuess"],
+   Automatic,
+     (* NOTE this is currently an initial value of A, not \[Lambda] *)
+     AGuess = l(l+1) - s(s+1);,
+   _?NumericQ,
+     AGuess = SetPrecision[OptionValue["InitialGuess"],Precision[\[Gamma]]];,
+   _,
+    Message[SpinWeightedSpheroidalEigenvalue::optx, Method -> {"SphericalExpansion", opts}];
+    Return[$Failed];
+  ];
+  (* FIXME: Improve the estimate of nmax. It should depend on the accuracy sought. *)
   Switch[OptionValue["NumTerms"],
    Automatic,
     nUp = Ceiling[Abs[3/2\[Gamma]]]+5;
@@ -349,17 +377,13 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]]
   lmin = Max[Abs[s],Abs[m]];
   nDown = Min[l-lmin,nUp];
 
-  A = SparseArray[
-        {{i_,i_} :> kHat[s, l-nDown-1+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-2 :> k2[s, l-nDown-3+i, m, \[Gamma]],
-         {i_,j_} /; j-i==-1 :> kTilde2[s, l-nDown+i-2, m, \[Gamma]],
-         {i_,j_} /; j-i==1 :> kTilde2[s, l-nDown+i-1, m, \[Gamma]],
-         {i_,j_} /; j-i==2 :> k2[s, l-nDown+i+-1, m, \[Gamma]]},
-        {nUp+nDown+1, nUp+nDown+1}];
-  esys = Quiet[Eigensystem[A], Eigenvalues::arhm];
-  eval = -Sort[esys[[1]]][[-(nDown+1)]];
-  pos  = Position[esys[[1]], -eval][[1]];
-  evec = First[esys[[2,pos]]];
+  AMatrix = SparseSWSHMatrix[s,l,m,\[Gamma],nDown,nUp];
+  (* Because the matrix built up above has an annoying convention... *)
+  (* After this step, the eigenvalues are A's *)
+  AMatrix = -AMatrix - s(s+1)*SparseIdentityMatrix[nUp+nDown+1];
+  (* The above manipulation can be absorbed into the shift below, and flipping the sign of the eigenvalue *)
+  (* Do we want to do that? *)
+  evec = Eigenvectors[AMatrix, -1, Method->{"Arnoldi", "Shift"->AGuess}][[1]];
 
   sign=Sign[evec[[Min[l-lmin+1,(nUp+nDown)/2+1]]]];
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {"SphericalExpansion", sign*evec, nDown, nUp}]

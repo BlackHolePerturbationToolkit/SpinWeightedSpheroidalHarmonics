@@ -538,6 +538,14 @@ SpinWeightedSpheroidalHarmonicSFunction /:
 
 
 (* ::Subsection::Closed:: *)
+(*Expansion coefficients*)
+
+
+SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]["ExpansionCoefficients"] :=
+  Association[Thread[Range[-nDown, nUp] -> coeffs]];
+
+
+(* ::Subsection::Closed:: *)
 (*Numerical evaluation*)
 
 

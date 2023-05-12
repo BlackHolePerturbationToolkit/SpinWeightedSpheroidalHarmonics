@@ -7,7 +7,8 @@
     },
   "Numerical Evaluation" -> {
     "Slm = SpinWeightedSpheroidalHarmonicS[-2, 2, 2, 0.1`32]",
-    "Slm[\[Pi]/4, 0]"
+    "Slm[\[Pi]/4, 0]",
+    "Slm[\"ExpansionCoefficients\"]"
     },
   "See Also" -> {"SpinWeightedSpheroidalHarmonicS"},
   "More About" -> {"SpinWeightedSpheroidalHarmonics"},

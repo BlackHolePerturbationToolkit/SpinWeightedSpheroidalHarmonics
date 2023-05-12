@@ -420,6 +420,22 @@ VerificationTest[
   TestID->"SpinWeightedSpheroidalHarmonicS[...] with 0.0``32 spheroidicity"
 ]
 
+With[{s = 2, l = 10, m = 2, \[Gamma] = 0.1}, 
+  VerificationTest[
+    SetAccuracy[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]["ExpansionCoefficients"][[1;;5]], 6],
+    <|0 -> -8.818050086267075, 1 -> 21.65089643682929, 2 -> -17.171313724018557, 
+      3 -> 4.847739931702922, 4 -> -0.2937583721632349|>,
+    TestID -> "ExpansionCoefficients (Leaver)"
+  ]
+
+  VerificationTest[
+    SetAccuracy[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"]["ExpansionCoefficients"][[2;;6]], 6],
+    <|-2 -> 0.000055654127758144056, -1 -> -0.0169795873354771, 0 -> 0.9997443511214629, 
+      1 -> 0.014929457524949523, 2 -> 0.00018496617816892035|>,
+    TestID -> "ExpansionCoefficients (SphericalExpansion)"
+  ]
+]
+
 EndTestSection[]
 
 BeginTestSection["Complex spheroidicity near expected QNM values"]

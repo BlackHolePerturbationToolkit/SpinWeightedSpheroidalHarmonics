@@ -1,0 +1,310 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11722,        302]
+NotebookOptionsPosition[     10392,        271]
+NotebookOutlinePosition[     10788,        287]
+CellTagsIndexPosition[     10745,        284]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"<<", "SpinWeightedSpheroidalHarmonics`"}]], "Input",
+ CellChangeTimes->{{3.8889871503972745`*^9, 3.888987171875475*^9}, {
+   3.888988746676641*^9, 3.8889887511007776`*^9}, 
+   3.892896128058703*^9},ExpressionUUID->"1cc8a37f-9e9a-4882-abf2-\
+5edca164bd9d"],
+
+Cell["\<\
+s = -1/2 from https://arxiv.org/abs/0905.2974 (just below Eqn. 4)
+
+Make comparisons with the first row of each table (\[Mu]=0)
+Make comparisons with \[ScriptCapitalP] = +1 (-1 just corresponds to an \
+overall minus sign in our case)
+The eigenvalues listed are the square roots of the values the toolkit \
+produces (see code)\
+\>", "Text",
+ CellChangeTimes->{{3.8889888862281075`*^9, 3.888988930223751*^9}, {
+  3.8889889617413807`*^9, 3.888989038491771*^9}, {3.888989091411414*^9, 
+  3.8889891171881704`*^9}},ExpressionUUID->"b80442bc-bad9-4e6c-b68b-\
+797348ed4f79"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"s", "=", 
+  RowBox[{
+   RowBox[{"-", "1"}], "/", "2"}]}]], "Input",
+ CellChangeTimes->{{3.8889870334324646`*^9, 3.8889870433416557`*^9}, 
+   3.888988745183391*^9, {3.888988874908327*^9, 3.88898887777938*^9}},
+ CellLabel->"In[37]:=",ExpressionUUID->"7afef521-ee16-48f3-aac5-bfad684f130e"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox["1", "2"]}]], "Output",
+ CellChangeTimes->{3.888988970814663*^9},
+ CellLabel->"Out[37]=",ExpressionUUID->"5ce9378e-d9b2-4804-a8ca-e0f33450064b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"With", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"j", "=", 
+        RowBox[{"1", "/", "2"}]}], ",", 
+       RowBox[{"m", "=", 
+        RowBox[{"1", "/", "2"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+             RowBox[{"s", ",", "j", ",", "m", ",", "\[Gamma]"}], "]"}]], ",", 
+           RowBox[{"{", 
+            RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+            "}"}]}], "]"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           SqrtBox[
+            RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+             RowBox[{"s", ",", "j", ",", 
+              RowBox[{"-", "m"}], ",", "\[Gamma]"}], "]"}]], ",", 
+           RowBox[{"{", 
+            RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+            "}"}]}], "]"}]}], "}"}], ",", "7"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}], "//", "TableForm"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.888987050466499*^9, 3.8889871409651766`*^9}, {
+   3.888987177862172*^9, 3.888987196854488*^9}, {3.888987358693663*^9, 
+   3.8889874290706377`*^9}, {3.888987500735075*^9, 3.8889875133217096`*^9}, {
+   3.88898755332672*^9, 3.888987602567712*^9}, 3.8889876967534885`*^9, 
+   3.888987868606208*^9, {3.8889879372874565`*^9, 3.88898795018255*^9}, {
+   3.8889880135978394`*^9, 3.8889880853966155`*^9}, 3.8889885789648776`*^9, 
+   3.8889886232537804`*^9, {3.888988675422773*^9, 3.88898873146076*^9}, {
+   3.888988872828933*^9, 3.8889888731164536`*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"6dea930e-9e56-49ac-a5ce-bf94dc43b25f"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0.934097350666911375`7.", "0.8698175703164321002`7.", 
+     "0.8073062775100616974`7.", "0.7467123780708617208`7.", 
+     "0.6881860913223023053`7.", "0.6318763714952456844`7.", 
+     "0.5779277127836668518`7.", "0.5264763822700060874`7.", 
+     "0.4776461972071729777`7.", "0.4315440458061610324`7."},
+    {"1.0673846052265646707`7.", "1.1361158921736706103`7.", 
+     "1.2060647536286352413`7.", "1.2771084507779347887`7.", 
+     "1.3491305605353024837`7.", "1.4220207319662667088`7.", 
+     "1.4956743047187282723`7.", "1.5699918323527420093`7.", 
+     "1.6448785444807118931`7.", "1.7202437740509939514`7."}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.8889871422176075`*^9, {3.8889871746893044`*^9, 3.8889871853183765`*^9}, {
+   3.888987370614954*^9, 3.888987429651463*^9}, {3.8889875016049104`*^9, 
+   3.888987513961376*^9}, {3.8889875544753466`*^9, 3.8889876031824384`*^9}, 
+   3.8889878694763346`*^9, 3.8889879510705276`*^9, {3.888988018853943*^9, 
+   3.8889880860140905`*^9}, 3.8889885797562213`*^9, 3.888988654467714*^9, {
+   3.888988693600623*^9, 3.8889887318872147`*^9}, 3.888988973643839*^9},
+ CellLabel->
+  "Out[38]//TableForm=",ExpressionUUID->"c5d163c7-9cc4-4203-9212-\
+f561cfa8964d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"j", "=", 
+       RowBox[{"3", "/", "2"}]}], ",", 
+      RowBox[{"m", "=", 
+       RowBox[{"3", "/", "2"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"N", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SqrtBox[
+           RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+            RowBox[{"s", ",", "j", ",", "m", ",", "\[Gamma]"}], "]"}]], ",", 
+          RowBox[{"{", 
+           RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+           "}"}]}], "]"}], ",", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SqrtBox[
+           RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+            RowBox[{"s", ",", "j", ",", 
+             RowBox[{"-", "m"}], ",", "\[Gamma]"}], "]"}]], ",", 
+          RowBox[{"{", 
+           RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+           "}"}]}], "]"}]}], "}"}], ",", "7"}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}], "//", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.8889890630533943`*^9, 3.888989066700382*^9}},
+ CellLabel->"In[39]:=",ExpressionUUID->"76bf4a66-f32b-48f9-9066-4fbd553f63ea"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1.9203285488781225357`7.", "1.8413495248403364619`7.", 
+     "1.7631185882635442274`7.", "1.6856951575082728993`7.", 
+     "1.6091426549402172418`7.", "1.5335287367019415522`7.", 
+     "1.4589254955808569003`7.", "1.3854096234664785099`7.", 
+     "1.3130625166400874587`7.", "1.2419703035673636783`7."},
+    {"2.0803117217587164337`7.", "2.161214805733265703`7.", 
+     "2.2426633382923622965`7.", "2.3246141531982562121`7.", 
+     "2.4070265921587869895`7.", "2.4898622746022220768`7.", 
+     "2.5730848773070774521`7.", "2.6566599240315637302`7.", 
+     "2.7405545849236467436`7.", "2.8247374852272447453`7."}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.888989069035548*^9},
+ CellLabel->
+  "Out[39]//TableForm=",ExpressionUUID->"65fc71ba-0186-4e40-b186-\
+931cb10548e5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"j", "=", 
+       RowBox[{"3", "/", "2"}]}], ",", 
+      RowBox[{"m", "=", 
+       RowBox[{"1", "/", "2"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"N", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SqrtBox[
+           RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+            RowBox[{"s", ",", "j", ",", "m", ",", "\[Gamma]"}], "]"}]], ",", 
+          RowBox[{"{", 
+           RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+           "}"}]}], "]"}], ",", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SqrtBox[
+           RowBox[{"SpinWeightedSpheroidalEigenvalue", "[", 
+            RowBox[{"s", ",", "j", ",", 
+             RowBox[{"-", "m"}], ",", "\[Gamma]"}], "]"}]], ",", 
+          RowBox[{"{", 
+           RowBox[{"\[Gamma]", ",", "0.1`32", ",", "1.1`32", ",", ".1`32"}], 
+           "}"}]}], "]"}]}], "}"}], ",", "7"}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}], "//", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.888989127860074*^9, 3.8889891280525084`*^9}},
+ CellLabel->"In[40]:=",ExpressionUUID->"4c5f09ee-4d8e-493e-ae62-4f5be3ec98c6"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1.9745815333538363625`7.", "1.951770800566694846`7.", 
+     "1.9317374885158698146`7.", "1.9146533740057589067`7.", 
+     "1.9006899839333786025`7.", "1.8900156484198576156`7.", 
+     "1.8827919395097144281`7.", "1.87916954446786126`7.", 
+     "1.8792836955276832109`7.", "1.8832493609822535772`7."},
+    {"2.0278603822831370905`7.", "2.0580020164857130483`7.", 
+     "2.0902702639600999556`7.", "2.1245170441626488246`7.", 
+     "2.1606011022514260492`7.", "2.1983880745820179805`7.", 
+     "2.237750405523414019`7.", "2.2785671592206679726`7.", 
+     "2.3207237609835853163`7.", "2.3641116952265730588`7."}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.888989128610052*^9},
+ CellLabel->
+  "Out[40]//TableForm=",ExpressionUUID->"2989d573-14f7-4621-8bbf-\
+d3e062726243"]
+}, Open  ]]
+},
+WindowSize->{719, 771},
+WindowMargins->{{Automatic, -4}, {Automatic, 40}},
+FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ca4e9282-ddfe-4dc9-a26b-af2d1c3bcddb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 279, 5, 30, "Input",ExpressionUUID->"1cc8a37f-9e9a-4882-abf2-5edca164bd9d"],
+Cell[840, 27, 575, 12, 127, "Text",ExpressionUUID->"b80442bc-bad9-4e6c-b68b-797348ed4f79"],
+Cell[CellGroupData[{
+Cell[1440, 43, 311, 6, 30, "Input",ExpressionUUID->"7afef521-ee16-48f3-aac5-bfad684f130e"],
+Cell[1754, 51, 187, 4, 49, "Output",ExpressionUUID->"5ce9378e-d9b2-4804-a8ca-e0f33450064b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1978, 60, 1866, 42, 220, "Input",ExpressionUUID->"6dea930e-9e56-49ac-a5ce-bf94dc43b25f"],
+Cell[3847, 104, 1588, 32, 63, "Output",ExpressionUUID->"c5d163c7-9cc4-4203-9212-f561cfa8964d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5472, 141, 1275, 33, 177, "Input",ExpressionUUID->"76bf4a66-f32b-48f9-9066-4fbd553f63ea"],
+Cell[6750, 176, 1157, 26, 63, "Output",ExpressionUUID->"65fc71ba-0186-4e40-b186-931cb10548e5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7944, 207, 1275, 33, 177, "Input",ExpressionUUID->"4c5f09ee-4d8e-493e-ae62-4f5be3ec98c6"],
+Cell[9222, 242, 1154, 26, 63, "Output",ExpressionUUID->"2989d573-14f7-4621-8bbf-d3e062726243"]
+}, Open  ]]
+}
+]
+*)
+

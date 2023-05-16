@@ -39,6 +39,7 @@ SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l
 SpinWeightedSpheroidalEigenvalue::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalEigenvalue::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
+SpinWeightedSpheroidalEigenvalue::infseriesparams = "Series expansion about \[Gamma]=\[Infinity] only supported for integer or half-integer parameters, but specified parameters were s=`1`, l=`2`, m=`3`";
 SpinWeightedSpheroidalHarmonicS::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
@@ -205,7 +206,7 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 
 
 (* ::Subsection::Closed:: *)
-(*SpinWeightedSpheroidalEigenvalue (uses a combination of the spectral and Leaver's method)*)
+(*SpinWeightedSpheroidalEigenvalue*)
 
 
 SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
@@ -227,7 +228,7 @@ SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[G
   l(l+1) - s(s+1);
 
 
-SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] /; AllTrue[{2s, 2l, 2m}, IntegerQ] := 
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] := 
  Module[{opts, Aini, \[Lambda]},
   Switch[OptionValue[Method],
     "SphericalExpansion",
@@ -254,7 +255,7 @@ SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPa
 ];
 
 
-SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, opts:OptionsPattern[]], Nopts___] :=
+SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_?NumericQ, opts:OptionsPattern[]], Nopts___] :=
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
 
 
@@ -283,7 +284,7 @@ SpinWeightedSpheroidalEigenvalue /:
 (*For details see "High-order asymptotics for the Spin-Weighted Spheroidal Equation at large real frequency", M. Casals, A. C. Ottewill, N. Warburton, arXiv:1810.00432*)
 
 
-SWSHq[s_?NumberQ, l_?NumberQ, m_?NumberQ] := Module[{slm,z0},
+SWSHq[s_, l_, m_] := Module[{slm,z0},
 	slm = Abs[m+Abs[s]] + Abs[s];
 	z0  = If[EvenQ[l+m], 0, 1];
 
@@ -291,12 +292,18 @@ SWSHq[s_?NumberQ, l_?NumberQ, m_?NumberQ] := Module[{slm,z0},
 ]
 
 
-SpinWeightedSpheroidalEigenvalue /: 
-  Series[SpinWeightedSpheroidalEigenvalue[s_?NumberQ, l_?NumberQ, m_?NumberQ, -\[Gamma]_], {\[Gamma]_, \[Infinity], order_}]:= Series[SpinWeightedSpheroidalEigenvalue[s, l, -m, \[Gamma]], {\[Gamma], \[Infinity], order}]
+SpinWeightedSpheroidalEigenvalue /:
+ Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, \[Infinity], order_}] /; !AllTrue[{2s, 2l, 2m}, IntegerQ] :=
+ (Message[SpinWeightedSpheroidalEigenvalue::infseriesparams, s, l, m]; $Failed);
 
 
-SpinWeightedSpheroidalEigenvalue /: 
-  Series[SpinWeightedSpheroidalEigenvalue[s_?NumberQ, l_?NumberQ, m_?NumberQ, \[Gamma]_], {\[Gamma]_, \[Infinity], order_}] :=
+SpinWeightedSpheroidalEigenvalue /:
+ Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, -\[Gamma]_], {\[Gamma]_, \[Infinity], order_}] :=
+   Series[SpinWeightedSpheroidalEigenvalue[s, l, -m, \[Gamma]], {\[Gamma], \[Infinity], order}];
+
+
+SpinWeightedSpheroidalEigenvalue /:
+ Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, \[Infinity], order_}] :=
 Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,Asum,sElm,s\[Lambda]lm,res},
   aFgen[0,_]=0;
   aFgen[0,0]=1;

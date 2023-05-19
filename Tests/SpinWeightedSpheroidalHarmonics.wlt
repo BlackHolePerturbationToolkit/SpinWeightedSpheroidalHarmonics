@@ -173,7 +173,7 @@ Table[
 
 With[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0}, 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]],
     0.4305973913818948,
     SameTest -> withinRoundoff,
     TestID -> idString[s, l, m, \[Gamma]]
@@ -182,7 +182,7 @@ With[{s = 0, l = 1, m = 0, \[Gamma] = 0.5, \[Theta] = 0.5, \[Phi] = 0},
 
 With[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0}, 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]],
     0.15410463040391498,
     SameTest -> withinRoundoff,
     TestID -> idString[s, l, m, \[Gamma]]
@@ -191,7 +191,7 @@ With[{s = 0, l = 2, m = -1, \[Gamma] = 0.8, \[Theta] = 0.2, \[Phi] = 0},
 
 With[{s = -2, l = 10, m = 5, \[Gamma] = 1.0, \[Theta] = 0.1, \[Phi] = 4}, 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"][\[Theta], \[Phi]],
     -0.010529282862103993 - 0.023555700389793967*I,
     SameTest -> withinRoundoff,
     TestID -> idString[s, l, m, \[Gamma]]
@@ -208,7 +208,7 @@ With[{s = 1, l = 2, m = 2, \[Gamma] = 2.12`20, \[Theta] = \[Pi]/3., \[Phi] = 0},
 
 With[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0}, 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"][\[Theta], \[Phi]],
     -0.17001322692047803109041563873499247769`26.19971750849647,
     TestID -> idString[s, l, m, \[Gamma]]
   ]
@@ -216,7 +216,7 @@ With[{s = -2, l = 7, m = 2, \[Gamma] = 0.01`40, \[Theta] = \[Pi]/2, \[Phi] = 0},
 
 With[{s = 0, l = 1, m = 0, \[Gamma] = 0.01`30, \[Theta] = 0, \[Phi] = 0}, 
   VerificationTest[
-    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi], Method -> "Leaver"],
+    SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "Leaver"][\[Theta], \[Phi]],
     0.48860446631177094306032408791530492821`27.827288196470665,
     TestID -> idString[s, l, m, \[Gamma]]
   ]

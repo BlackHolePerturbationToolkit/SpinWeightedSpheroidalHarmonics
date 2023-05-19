@@ -27,8 +27,8 @@ ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS
 
 
 SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
-SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], \[Theta], \[Phi]] gives the spin-weighted oblate spheroidal harmonic with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], data, method] represents a function for computing numerical values of spin-weighted spheroidal harmonics.";
+SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] gives the spin-weighted spheroidal harmonic with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
 
@@ -446,17 +446,13 @@ SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 
 
 SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
- {"ArgumentsPattern" -> {_, _, _, _, ___}};
+ {"ArgumentsPattern" -> {_, _, _, _, OptionsPattern[]}};
 
 
 Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 
 
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
-
-
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_, \[Theta]_, \[Phi]_, opts:OptionsPattern[]] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
 
 SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;

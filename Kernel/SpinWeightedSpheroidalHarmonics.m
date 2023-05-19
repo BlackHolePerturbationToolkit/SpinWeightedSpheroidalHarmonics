@@ -65,10 +65,8 @@ Begin["`Private`"];
 
 \[Alpha][s_,l_,m_]:=1/l (Sqrt[l^2-m^2] Sqrt[l^2-s^2])/(Sqrt[2l-1] Sqrt[2l+1]);
 \[Alpha][s_,l_,m_] /; l == Abs[m] = 0;
-\[Alpha][s_,l_,m_]/;l<Abs[s]=0;
 \[Alpha][0,l_,m_]:= Sqrt[l^2-m^2]/(Sqrt[2l-1] Sqrt[2l+1]);
 \[Beta][s_,l_,m_]:=-((m s)/(l(l+1)));
-\[Beta][s_,l_,m_]/;l<Abs[s]=0;
 \[Beta][0,l_,m_]=0;
 s\[Lambda]lm[s_,l_,m_][0]:=l(l+1)-s(s+1); 
 s\[Lambda]lm[s_,l_,m_][i_Integer?Positive]:=-(1/d[s,l,m][0,0])(Sum[d[s,l,m][i-k,0] s\[Lambda]lm[s,l,m][k],{k,1,i-1}]+\[Alpha][s,-1+l,m] \[Alpha][s,l,m] d[s,l,m][-2+i,-2]+\[Alpha][s,l,m] (\[Beta][s,-1+l,m]+\[Beta][s,l,m]) d[s,l,m][-2+i,-1]+(-1+\[Alpha][s,l,m]^2+\[Alpha][s,1+l,m]^2+\[Beta][s,l,m]^2) d[s,l,m][-2+i,0]+\[Alpha][s,1+l,m] (\[Beta][s,l,m]+\[Beta][s,1+l,m]) d[s,l,m][-2+i,1]+\[Alpha][s,1+l,m] \[Alpha][s,2+l,m] d[s,l,m][-2+i,2]-2 s \[Alpha][s,l,m] d[s,l,m][-1+i,-1]+2 (m-s \[Beta][s,l,m]) d[s,l,m][-1+i,0]-2 s \[Alpha][s,1+l,m] d[s,l,m][-1+i,1](*+d[s,l,m][i,0] s\[Lambda]lm[s,l,m][0]-(l-s) (1+l+s) d[s,l,m][i,0]*))
@@ -347,7 +345,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 Options[SWSHSSpectral] = {"NumTerms" -> Automatic};
 
 
-SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
+SWSHSSpectral[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{lmin, nUp, nDown, A, esys,evec,eval,sign,pos},
   (* FIXME: Improve the estimate of nmax. It should depend on the accuarcy sought. *)
   Switch[OptionValue["NumTerms"],
@@ -387,7 +385,7 @@ SWSHSSpectral[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]]
 Options[SWSHSLeaver] = {"NumTerms" -> Automatic};
 
 
-SWSHSLeaver[s_Integer, l_Integer, m_Integer, \[Gamma]_, opts:OptionsPattern[]] :=
+SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
  Module[{\[Lambda], k1, k2, \[Alpha]n, \[Beta]n, \[Gamma]n, an, n, sign, norm, anTab, nmin, nmax, normterm, prec=Precision[\[Gamma]]},
   nmin = 0;
   nmax = 1;
@@ -459,7 +457,8 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_, \[Th
   SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], opts][\[Theta], \[Phi]];
 
 
-SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; l < Abs[s] || Abs[m] > l := 
+SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;
+  l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
  (Message[SpinWeightedSpheroidalHarmonicS::params, s, l, m]; $Failed);
 
 
@@ -467,7 +466,7 @@ SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Ga
   SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, {"SphericalExact", {}, 0, 0}] /; OptionValue[Method] == Automatic;
 
 
-SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
  Module[{opts, Slm},
   Switch[OptionValue[Method],
     "Eigenvalue"|"SphericalExpansion",
@@ -494,8 +493,8 @@ SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?Inexa
 ];
 
 
-SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_Integer, l_Integer, m_Integer, \[Gamma]_?NumericQ, \[Theta]_?NumericQ, \[Phi]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], \[Theta], \[Phi], opts];
+SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
+  SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], opts];
 
 
 (* ::Subsection::Closed:: *)

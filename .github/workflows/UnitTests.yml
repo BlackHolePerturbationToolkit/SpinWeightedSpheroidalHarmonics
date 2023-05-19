@@ -53,12 +53,14 @@ jobs:
         id: extract_branch
       - name: Checkout gh-pages branch
         uses: actions/checkout@v3
+        if: always()
         with:
           ref: gh-pages
           path: gh-pages
       - name: Generate the badge SVG image
         uses: emibcn/badge-action@v2.0.2
         id: badge
+        if: always()
         with:
           label: 'tests'
           status: "${{ steps.testreport.outputs.passed }} passed, ${{ steps.testreport.outputs.failed }} failed, ${{ steps.testreport.outputs.skipped }} skipped"
@@ -68,6 +70,7 @@ jobs:
             'yellow' }}
           path: gh-pages/testresult.svg
       - name: Commit badge
+        if: always()
         env:
           BRANCH: ${{ steps.extract_branch.outputs.branch }}
           FILE: 'testresult.svg'
@@ -81,6 +84,7 @@ jobs:
           git commit -m "Add/Update badge" || true
       - name: Push badge commit
         uses: ad-m/github-push-action@master
+        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages

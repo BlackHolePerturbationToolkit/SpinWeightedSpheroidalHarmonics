@@ -45,7 +45,7 @@ jobs:
           name: Unit tests
           path: TestReport.xml
           reporter: jest-junit
-          fail-on-error: false
+          fail-on-error: true
       - name: Extract branch name
         shell: bash
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT

@@ -45,6 +45,7 @@ SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
+SpinWeightedSphericalHarmonicY::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 
 
 (* ::Subsection::Closed:: *)
@@ -636,20 +637,22 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer
 
 
 SyntaxInformation[SpinWeightedSphericalHarmonicY] =
- {"ArgumentsPattern" -> {_, _, _, _, _, ___}};
+ {"ArgumentsPattern" -> {_, _, _, _, _, OptionsPattern[]}};
 
 
 SetAttributes[SpinWeightedSphericalHarmonicY, {NumericFunction, Listable}];
 
 
-SpinWeightedSphericalHarmonicY[s_Integer, l_Integer, m_Integer, \[Theta]_, \[Phi]_] :=
+SpinWeightedSphericalHarmonicY[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Theta]_, \[Phi]_, OptionsPattern[]] /;
+  l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
+ (Message[SpinWeightedSphericalHarmonicY::params, s, l, m]; $Failed);
+
+
+SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_] :=
   (-1)^m Sqrt[((l+m)!(l-m)!(2l+1))/(4\[Pi] (l+s)!(l-s)!)] Sum[Binomial[l-s,r] Binomial[l+s,r+s-m] (-1)^(l-r-s) If[(2 l - 2 r - s + m)==0, 1, Sin[\[Theta]/2]^(2 l - 2 r - s + m)] If[(2 r + s - m)==0, 1, Cos[\[Theta]/2]^(2 r + s - m)],{r,Max[m-s,0],Min[l-s,l+m]}]Exp[I m \[Phi]];
 
 
-SpinWeightedSphericalHarmonicY[s_Integer, l_Integer, m_Integer, \[Theta]_, \[Phi]_] /; Abs[m]>l = 0;
-
-
-SpinWeightedSphericalHarmonicY[s_Integer, l_Integer, m_Integer, \[Theta]_, 0.] :=
+SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], 0];
 
 

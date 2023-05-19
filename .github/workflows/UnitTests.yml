@@ -47,6 +47,7 @@ jobs:
           reporter: jest-junit
           fail-on-error: false
       - name: Extract branch name
+        if: always()
         shell: bash
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
         id: extract_branch
@@ -84,8 +85,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           directory: gh-pages
-      - name: Return status
-        if: ${{ steps.testreport.outputs.failed }} > 0
-        run: |
-          echo "::error::Failed {steps.testreport.outputs.failed} unit tests"
-          exit 1

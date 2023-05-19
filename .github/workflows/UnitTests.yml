@@ -56,7 +56,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
       - name: Generate the badge SVG image
-        uses: emibcn/badge-action@v1
+        uses: emibcn/badge-action@v2.0.2
         id: badge
         with:
           label: 'tests'

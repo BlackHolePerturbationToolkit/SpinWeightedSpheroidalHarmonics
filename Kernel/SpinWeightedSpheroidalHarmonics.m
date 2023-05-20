@@ -27,7 +27,7 @@ ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS
 
 
 SpinWeightedSphericalHarmonicY::usage = "SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]] gives the spin-weighted spherical harmonic with of spin-weight s, degree l and order m.";
-SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], data, method] represents a function for computing numerical values of spin-weighted spheroidal harmonics.";
+SpinWeightedSpheroidalHarmonicSFunction::usage = "SpinWeightedSpheroidalHarmonicSFunction[\[Ellipsis]] represents a solution to the spin-weighted spheroidal equation.";
 SpinWeightedSpheroidalHarmonicS::usage = "SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]] gives the spin-weighted spheroidal harmonic with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 SpinWeightedSpheroidalEigenvalue::usage = "SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]] gives the spin-weighted spheroidal eigenvalue with spheroidicity \[Gamma], spin-weight s, degree l and order m.";
 
@@ -376,7 +376,7 @@ SWSHSSpectral[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   evec = First[esys[[2,pos]]];
 
   sign=Sign[evec[[Min[l-lmin+1,(nUp+nDown)/2+1]]]];
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {"SphericalExpansion", sign*evec, nDown, nUp}]
+  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "Eigenvalue" -> eval, "Method" -> {"SphericalExpansion", "Coefficients" -> sign*evec, "\!\(\*SubscriptBox[\(l\), \(min\)]\)" -> l-nDown, "\!\(\*SubscriptBox[\(l\), \(max\)]\)" -> l+nUp}|>]
 ];
 
 
@@ -437,7 +437,7 @@ SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   Clear[\[Alpha]n, \[Beta]n, \[Gamma]n, an, normterm];
 
   (* Return a SpinWeightedSpheroidalHarmonicSFunction which can be evaluated for arbitratry \[Theta], \[Phi] *)
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, \[Gamma], {"Leaver", sign anTab/norm, nmin, nmax}]
+  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "Eigenvalue" -> \[Lambda], "Method" -> {"Leaver", "Coefficients" -> sign anTab/norm, "\!\(\*SubscriptBox[\(n\), \(max\)]\)" -> nmax}|>]
 ];
 
 
@@ -461,7 +461,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_
 
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
-  SpinWeightedSpheroidalHarmonicSFunction[s, l, m, 0, {"SphericalExact", {}, 0, 0}] /; OptionValue[Method] == Automatic;
+  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "\[Lambda]" -> SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]], "Method" -> {"SphericalExact"}|>] /; OptionValue[Method] == Automatic;
 
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=
@@ -517,7 +517,7 @@ SpinWeightedSpheroidalHarmonicS /:
 
 
 SyntaxInformation[SpinWeightedSpheroidalHarmonicSFunction] =
- {"ArgumentsPattern" -> {_, _, _, _, {_, {___}, _, _}}};
+ {"ArgumentsPattern" -> {_Association}};
 
 
 SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
@@ -528,18 +528,26 @@ SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
 
 
 SpinWeightedSpheroidalHarmonicSFunction /:
- MakeBoxes[swshf:SpinWeightedSpheroidalHarmonicSFunction[s_, l_, m_, \[Gamma]_, {method_String, coeffs_List, nDown_Integer, nUp_Integer}], form:(StandardForm|TraditionalForm)] :=
- Module[{summary, extended},
+ MakeBoxes[swshf:SpinWeightedSpheroidalHarmonicSFunction[a_Association], form:(StandardForm|TraditionalForm)] :=
+ Module[{summary, extended, s = a["s"], l = a["l"], m = a["m"], \[Gamma] = a["\[Gamma]"], \[Lambda] = a["Eigenvalue"], method = First[a["Method"]], opts = Association[Rest[a["Method"]]]},
   summary = {Row[{BoxForm`SummaryItem[{"s: ", s}], "  ",
                   BoxForm`SummaryItem[{"l: ", l}], "  ",
                   BoxForm`SummaryItem[{"m: ", m}], "  ",
                   BoxForm`SummaryItem[{"\[Gamma]: ", \[Gamma]}]}],
-                  BoxForm`SummaryItem[{"Method: ", method}]
+                  BoxForm`SummaryItem[{"Eigenvalue: ", \[Lambda]}]
              };
-  extended = {BoxForm`SummaryItem[{"Coefficients: ", Column[coeffs]}],
-              BoxForm`SummaryItem[{"NumDown: ", nDown}],
-              BoxForm`SummaryItem[{"NumUp: ", nUp}]
-              };
+  extended = Join[{BoxForm`SummaryItem[{"Method: ", method}]},
+                   Switch[method,
+                    "SphericalExpansion",
+                     {BoxForm`SummaryItem[{"\!\(\*SubscriptBox[\(l\), \(min\)]\): ", opts["\!\(\*SubscriptBox[\(l\), \(min\)]\)"]}],
+                      BoxForm`SummaryItem[{"\!\(\*SubscriptBox[\(l\), \(max\)]\): ", opts["\!\(\*SubscriptBox[\(l\), \(max\)]\)"]}],
+                      BoxForm`SummaryItem[{"Expansion coefficients: ", Column[opts["Coefficients"]]}]},
+                    "Leaver",
+                     {BoxForm`SummaryItem[{"\!\(\*SubscriptBox[\(n\), \(max\)]\): ", opts["\!\(\*SubscriptBox[\(n\), \(max\)]\)"]}],
+                      BoxForm`SummaryItem[{"Expansion coefficients: ", Column[opts["Coefficients"]]}]},
+                    _,
+                     {}
+                    ]];
   BoxForm`ArrangeSummaryBox[
     SpinWeightedSpheroidalHarmonicSFunction,
     swshf,
@@ -555,15 +563,28 @@ SpinWeightedSpheroidalHarmonicSFunction /:
 (*Accessing attributes*)
 
 
-Keys[m_SpinWeightedSpheroidalHarmonicSFunction] ^:= {"s", "l", "m", "\[Gamma]", "Method", "ExpansionCoefficients"};
+SpinWeightedSpheroidalHarmonicSFunction[assoc_][y_String] := assoc[y];
+
+
+Keys[SpinWeightedSpheroidalHarmonicSFunction[assoc_]] ^:= Keys[assoc];
 
 
 (* ::Subsection::Closed:: *)
 (*Expansion coefficients*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]["ExpansionCoefficients"] :=
-  Association[Thread[Range[-nDown, nUp] -> coeffs]];
+SpinWeightedSpheroidalHarmonicSFunction[assoc_]["ExpansionCoefficients"] /; First[assoc["Method"]] == "Leaver" :=
+ Module[{opts = Association[Rest[assoc["Method"]]], coeffs, nmax},
+  {nmax, coeffs} = {opts["\!\(\*SubscriptBox[\(n\), \(max\)]\)"], opts["Coefficients"]};
+  Association[Thread[Range[0, nmax] -> coeffs]]
+ ];
+
+
+SpinWeightedSpheroidalHarmonicSFunction[assoc_]["ExpansionCoefficients"] /; First[assoc["Method"]] == "SphericalExpansion" :=
+ Module[{opts = Association[Rest[assoc["Method"]]], lmin, lmax, coeffs},
+  {lmin, lmax, coeffs} = {opts["\!\(\*SubscriptBox[\(l\), \(min\)]\)"], opts["\!\(\*SubscriptBox[\(l\), \(max\)]\)"], opts["Coefficients"]};
+  Association[Thread[Range[lmin - assoc["l"], lmax - assoc["l"]] -> coeffs]]
+ ];
 
 
 (* ::Subsection::Closed:: *)
@@ -574,16 +595,22 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
 (*SphericalExpansion method*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
-  Sum[coeffs[[k+nDown+1]]SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta], 0], {k, -nDown, nUp}]Exp[I m \[Phi]] /; method == "SphericalExpansion";
+SpinWeightedSpheroidalHarmonicSFunction[assoc_][\[Theta]_?NumericQ, \[Phi]_?NumericQ] /; First[assoc["Method"]] == "SphericalExpansion" :=
+ Module[{s = assoc["s"], m = assoc["m"], opts = Association[Rest[assoc["Method"]]], lmin, lmax, coeffs},
+  {lmin, lmax, coeffs} = {opts["\!\(\*SubscriptBox[\(l\), \(min\)]\)"], opts["\!\(\*SubscriptBox[\(l\), \(max\)]\)"], opts["Coefficients"]};
+  Sum[coeffs[[l-lmin+1]]SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], 0], {l, lmin, lmax}]Exp[I m \[Phi]]
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*Leaver's method*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Module[{u = Cos[\[Theta]], k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu, res},
+SpinWeightedSpheroidalHarmonicSFunction[assoc_][\[Theta]_?NumericQ, \[Phi]_?NumericQ] /; First[assoc["Method"]] == "Leaver" :=
+ Module[{u = Cos[\[Theta]], k1, k2, oneplusu, oneminusu, res, s = assoc["s"], l = assoc["l"], m = assoc["m"], \[Gamma] = assoc["\[Gamma]"], opts = Association[Rest[assoc["Method"]]], coeffs, nUp},
+  {nUp, coeffs} = {opts["\!\(\*SubscriptBox[\(n\), \(max\)]\)"], opts["Coefficients"]};
+  k1 = Abs[m-s]/2;
+  k2 = Abs[m+s]/2;
   oneplusu = 2 Cos[\[Theta]/2]^2;
   oneminusu = 2 Sin[\[Theta]/2]^2;
   (* Leaver's series solution, Eq. 18 of Leaver 1985 *)
@@ -593,31 +620,35 @@ SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma
   If[Precision[res] == 0. && Accuracy[res] < Accuracy[{\[Gamma], \[Theta], \[Phi]}], Message[SpinWeightedSpheroidalHarmonicS::prec]];
 
   res
-] /; method == "Leaver";
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*SphericalExact method*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_, {"SphericalExact", {}, 0, 0}][\[Theta]_, \[Phi]_] /; \[Gamma] == 0 :=
-  SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]];
+SpinWeightedSpheroidalHarmonicSFunction[assoc_][\[Theta]_, \[Phi]_] /; First[assoc["Method"]] == "SphericalExact" :=
+  SpinWeightedSphericalHarmonicY[assoc["s"], assoc["l"], assoc["m"], \[Theta], \[Phi]];
 
 
 (* ::Subsubsection::Closed:: *)
 (*Derivatives*)
 
 
-Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Module[{\[Theta]1,\[Phi]1, res},
-  res = Sum[coeffs[[k+nDown+1]]D[SpinWeightedSphericalHarmonicY[s, l+k, m, \[Theta]1, 0],{\[Theta]1,d1}], {k, -nDown, nUp}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]};
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] /; First[assoc["Method"]] == "SphericalExpansion" :=
+ Module[{\[Theta]1,\[Phi]1, res, s = assoc["s"], m = assoc["m"],  opts = Association[Rest[assoc["Method"]]], lmin, lmax, coeffs},
+  {lmin, lmax, coeffs} = {opts["\!\(\*SubscriptBox[\(l\), \(min\)]\)"], opts["\!\(\*SubscriptBox[\(l\), \(max\)]\)"], opts["Coefficients"]};
+  res = Sum[coeffs[[l-lmin+1]]D[SpinWeightedSphericalHarmonicY[s, l, m, \[Theta]1, 0],{\[Theta]1,d1}], {l, lmin, lmax}]D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]};
   Remove[\[Theta]1,\[Phi]1];
   res
-] /; method == "SphericalExpansion";
+];
 
 
-Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer, m_Integer, \[Gamma]_?InexactNumberQ, {method_String, coeffs_List, nDown_Integer, nUp_Integer}]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] :=
- Module[{\[Theta]1, \[Phi]1, u, k1 = Abs[m-s]/2, k2 = Abs[m+s]/2, oneplusu, oneminusu, res},
+Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?NumericQ, \[Phi]_?NumericQ] /; First[assoc["Method"]] == "Leaver":=
+ Module[{\[Theta]1, \[Phi]1, u, k1, k2, oneplusu, oneminusu, res, s = assoc["s"], m = assoc["m"], \[Gamma] = assoc["\[Gamma]"], opts = Association[Rest[assoc["Method"]]], coeffs, nUp},
+  {nUp, coeffs} = {opts["\!\(\*SubscriptBox[\(n\), \(max\)]\)"], opts["Coefficients"]};
+  k1 = Abs[m-s]/2;
+  k2 = Abs[m+s]/2;
   u=Cos[\[Theta]1];
   oneplusu = 2 Cos[\[Theta]1/2]^2;
   oneminusu = 2 Sin[\[Theta]1/2]^2;
@@ -625,7 +656,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[s_Integer, l_Integer
   res = D[E^(\[Gamma] u) If[k1==0, 1, oneplusu^k1] If[k2==0, 1, oneminusu^k2] coeffs . oneplusu^Range[0,nUp],{\[Theta]1,d1}] D[Exp[I m \[Phi]1],{\[Phi]1,d2}]/.{\[Theta]1->\[Theta],\[Phi]1->\[Phi]};
   Remove[\[Theta]1,\[Phi]1];
   res
-] /; method == "Leaver";
+];
   
 
 

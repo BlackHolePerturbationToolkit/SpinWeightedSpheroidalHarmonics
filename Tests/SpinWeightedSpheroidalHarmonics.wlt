@@ -430,8 +430,8 @@ With[{s = -2, l = 5, m = 2, \[Gamma] = 0.1},
 
   VerificationTest[
     SetAccuracy[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma], Method -> "SphericalExpansion"]["ExpansionCoefficients"][[2;;6]], 6],
-    <|-2 -> 0.000055654127758144056, -1 -> -0.0169795873354771, 0 -> 0.9997443511214629, 
-      1 -> 0.014929457524949523, 2 -> 0.00018496617816892035|>,
+    <|3 -> 0.000055654127758144056, 4 -> -0.0169795873354771, 5 -> 0.9997443511214629, 
+      6 -> 0.014929457524949523, 7 -> 0.00018496617816892035|>,
     {SpinWeightedSpheroidalHarmonicS::numterms},
     TestID -> "ExpansionCoefficients (SphericalExpansion)"
   ]

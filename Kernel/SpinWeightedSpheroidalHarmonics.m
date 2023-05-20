@@ -583,7 +583,7 @@ SpinWeightedSpheroidalHarmonicSFunction[assoc_]["ExpansionCoefficients"] /; Firs
 SpinWeightedSpheroidalHarmonicSFunction[assoc_]["ExpansionCoefficients"] /; First[assoc["Method"]] == "SphericalExpansion" :=
  Module[{opts = Association[Rest[assoc["Method"]]], lmin, lmax, coeffs},
   {lmin, lmax, coeffs} = {opts["\!\(\*SubscriptBox[\(l\), \(min\)]\)"], opts["\!\(\*SubscriptBox[\(l\), \(max\)]\)"], opts["Coefficients"]};
-  Association[Thread[Range[lmin - assoc["l"], lmax - assoc["l"]] -> coeffs]]
+  Association[Thread[Range[lmin, lmax] -> coeffs]]
  ];
 
 

@@ -453,7 +453,7 @@ SyntaxInformation[SpinWeightedSpheroidalHarmonicS] =
 Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 
 
-SetAttributes[SpinWeightedSpheroidalHarmonicS, {NumericFunction, Listable}];
+SetAttributes[SpinWeightedSpheroidalHarmonicS, {Listable, NHoldAll}];
 
 
 SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;
@@ -490,10 +490,6 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_
   ];
   Slm
 ];
-
-
-SpinWeightedSpheroidalHarmonicS /: N[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_?NumericQ, opts:OptionsPattern[]], Nopts:OptionsPattern[N]] :=
-  SpinWeightedSpheroidalHarmonicS[s, l, m, N[\[Gamma], Nopts], opts];
 
 
 (* ::Subsection::Closed:: *)

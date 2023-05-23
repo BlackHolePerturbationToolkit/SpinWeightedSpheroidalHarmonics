@@ -517,7 +517,7 @@ SyntaxInformation[SpinWeightedSpheroidalHarmonicSFunction] =
  {"ArgumentsPattern" -> {_Association}};
 
 
-SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NumericFunction}];
+SetAttributes[SpinWeightedSpheroidalHarmonicSFunction, {NHoldAll}];
 
 
 (* ::Subsection::Closed:: *)

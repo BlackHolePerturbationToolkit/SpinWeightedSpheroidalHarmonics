@@ -217,7 +217,7 @@ SyntaxInformation[SpinWeightedSpheroidalEigenvalue] =
 Options[SpinWeightedSpheroidalEigenvalue] = {Method -> Automatic};
 
 
-SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable}];
+SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable, NHoldAll}];
 
 
 SpinWeightedSpheroidalEigenvalue[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;

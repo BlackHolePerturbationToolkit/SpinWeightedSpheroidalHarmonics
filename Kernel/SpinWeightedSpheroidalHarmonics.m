@@ -504,7 +504,7 @@ SpinWeightedSpheroidalHarmonicS /:
       d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
     s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
   , {i, 0, order}];
-  coeffs = Table[Sum[d[s, l, m][i, j] SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]], {j, -i, i}], {i, 0, order}];
+  coeffs = Table[Sum[d[s, l, m][i, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]]], {j, -i, i}], {i, 0, order}];
   SeriesData[\[Gamma], 0, coeffs, 0, order + 1, 1]
 ]]];
 

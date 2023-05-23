@@ -564,10 +564,10 @@ SpinWeightedSpheroidalHarmonicSFunction /:
 (*Accessing attributes*)
 
 
-SpinWeightedSpheroidalHarmonicSFunction[assoc_][y_String] := assoc[y];
+SpinWeightedSpheroidalHarmonicSFunction[assoc_][key_String] /; KeyExistsQ[assoc, key] := assoc[key];
 
 
-Keys[SpinWeightedSpheroidalHarmonicSFunction[assoc_]] ^:= Keys[assoc];
+Keys[SpinWeightedSpheroidalHarmonicSFunction[assoc_]] ^:= Join[Keys[assoc], {"ExpansionCoefficients"}];
 
 
 (* ::Subsection::Closed:: *)

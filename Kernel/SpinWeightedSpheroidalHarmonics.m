@@ -462,7 +462,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_
 
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_, OptionsPattern[]] /; \[Gamma] == 0 :=
-  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "\[Lambda]" -> SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]], "Method" -> {"SphericalExact"}|>] /; OptionValue[Method] == Automatic;
+  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "Eigenvalue" -> SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]], "Method" -> {"SphericalExact"}|>] /; OptionValue[Method] == Automatic;
 
 
 SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_?InexactNumberQ, OptionsPattern[]] :=

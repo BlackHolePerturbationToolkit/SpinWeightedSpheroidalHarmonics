@@ -377,7 +377,7 @@ SWSHSSpectral[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   evec = First[esys[[2,pos]]];
 
   sign=Sign[evec[[Min[l-lmin+1,(nUp+nDown)/2+1]]]];
-  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "Eigenvalue" -> eval, "Method" -> {"SphericalExpansion", "Coefficients" -> sign*evec, "\!\(\*SubscriptBox[\(l\), \(min\)]\)" -> l-nDown, "\!\(\*SubscriptBox[\(l\), \(max\)]\)" -> l+nUp}|>]
+  SpinWeightedSpheroidalHarmonicSFunction[<|"s" -> s, "l" -> l, "m" -> m, "\[Gamma]"-> \[Gamma], "Eigenvalue" -> eval-s(s+1) - 2 m \[Gamma] + \[Gamma]^2, "Method" -> {"SphericalExpansion", "Coefficients" -> sign*evec, "\!\(\*SubscriptBox[\(l\), \(min\)]\)" -> l-nDown, "\!\(\*SubscriptBox[\(l\), \(max\)]\)" -> l+nUp}|>]
 ];
 
 

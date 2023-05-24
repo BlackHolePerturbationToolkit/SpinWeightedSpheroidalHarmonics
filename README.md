@@ -1,6 +1,6 @@
 # SpinWeightedSpheroidalHarmonics
 
-Copyright (c) 2019-20 Black Hole Perturbation Toolkit
+Copyright (c) 2019-23 Black Hole Perturbation Toolkit
 
 The SpinWeightedSpheroidalHarmonics package provides a set of functions for
 computing spin-weighted spherical harmonics and their associated eigenvalues.

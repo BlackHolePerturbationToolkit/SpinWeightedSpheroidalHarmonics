@@ -70,8 +70,10 @@ Begin["`Private`"];
 \[Alpha][s_,l_,0]:= Sqrt[l^2-s^2]/(Sqrt[2l-1] Sqrt[2l+1]);
 \[Alpha][s_,0,m_]:= 0;
 \[Alpha][s_,1/2,m_]:= 0;
+\[Alpha][s_,-1/2,m_]:= 0;
 \[Beta][s_,l_,m_]:=-((m s)/(l(l+1)));
 \[Beta][s_,0,m_]=0;
+\[Beta][s_,-1,m_]=0;
 s\[Lambda]lm[s_,l_,m_][0]:=l(l+1)-s(s+1); 
 s\[Lambda]lm[s_,l_,m_][i_Integer?Positive]:=-(1/d[s,l,m][0,0])(Sum[d[s,l,m][i-k,0] s\[Lambda]lm[s,l,m][k],{k,1,i-1}]+\[Alpha][s,-1+l,m] \[Alpha][s,l,m] d[s,l,m][-2+i,-2]+\[Alpha][s,l,m] (\[Beta][s,-1+l,m]+\[Beta][s,l,m]) d[s,l,m][-2+i,-1]+(-1+\[Alpha][s,l,m]^2+\[Alpha][s,1+l,m]^2+\[Beta][s,l,m]^2) d[s,l,m][-2+i,0]+\[Alpha][s,1+l,m] (\[Beta][s,l,m]+\[Beta][s,1+l,m]) d[s,l,m][-2+i,1]+\[Alpha][s,1+l,m] \[Alpha][s,2+l,m] d[s,l,m][-2+i,2]-2 s \[Alpha][s,l,m] d[s,l,m][-1+i,-1]+2 (m-s \[Beta][s,l,m]) d[s,l,m][-1+i,0]-2 s \[Alpha][s,1+l,m] d[s,l,m][-1+i,1](*+d[s,l,m][i,0] s\[Lambda]lm[s,l,m][0]-(l-s) (1+l+s) d[s,l,m][i,0]*))
 d[s_,l_,m_][i_?Negative,j_]=0

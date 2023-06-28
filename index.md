@@ -45,7 +45,7 @@ Small frequency expansions can be performed for the eigenfunctions and eigenvalu
 
 For given $s,l,m$ the eigenfunction can be expanded via, e.g.,
 ```Mathematica
-Series[SpinWeightedSpheroidalHarmonicS[2, 3, 2, \[Gamma]][\[Theta], \[Phi]], {\[Gamma], 0, 1}]
+Series[SpinWeightedSpheroidalHarmonicS[2, 3, 2, γ][θ,ϕ], {γ, 0, 1}]
 ```
 This returns
 
@@ -78,7 +78,13 @@ Currently, the high frequency expansions require explicit values for $s,l,m$.
 
 ### Further examples
 
-See the Mathematica Documentation Centre for a tutorial and documentation on individual commands.
+See the Mathematica Documentation Centre for a tutorial and documentation on individual functions.
+
+## Citation
+
+[![DOI](https://zenodo.org/badge/91104691.svg)](https://zenodo.org/badge/latestdoi/91104691)
+
+In addition to acknowledging the Black Hole Perturbation Toolkit as suggested on the [front page](https://bhptoolkit.org) we also recommend citing the specific package version you use via the citation information on the package’s Zenodo page linked from the above DOI.
 
 ## Authors and contributors
 

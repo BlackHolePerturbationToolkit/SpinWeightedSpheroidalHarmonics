@@ -82,7 +82,7 @@ See the Mathematica Documentation Centre for a tutorial and documentation on ind
 
 ## Citation
 
-[![DOI](https://zenodo.org/badge/91104691.svg)](https://zenodo.org/badge/latestdoi/91104691)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8090680.svg)](https://doi.org/10.5281/zenodo.8090680)
 
 In addition to acknowledging the Black Hole Perturbation Toolkit as suggested on the [front page](https://bhptoolkit.org) we also recommend citing the specific package version you use via the citation information on the package’s Zenodo page linked from the above DOI.
 

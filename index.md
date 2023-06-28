@@ -80,7 +80,7 @@ Currently, the high frequency expansions require explicit values for $s,l,m$.
 
 See the Mathematica Documentation Centre for a tutorial and documentation on individual functions.
 
-## Citation
+## Citing
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8090680.svg)](https://doi.org/10.5281/zenodo.8090680)
 

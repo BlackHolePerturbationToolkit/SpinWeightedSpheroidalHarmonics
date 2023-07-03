@@ -39,7 +39,7 @@ Get[FileNameJoin[{$testDir, "EigenvalueLeaverData.m"}]];
 
 Table[
   VerificationTest[
-    SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]]
+    SetPrecision[SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]], 16]
     ,
     EigenvalueLeaverData[s, l, m, \[Gamma]]
     ,

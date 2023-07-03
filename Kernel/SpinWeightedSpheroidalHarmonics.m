@@ -179,11 +179,12 @@ Options[SWSHEigenvalueLeaver] = {"InitialGuess" -> "SphericalExpansion", "NumInv
 
 
 SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
- Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar, Aini},
-  Aini = OptionValue["InitialGuess"];
-  If[Aini === "SphericalExpansion",
-    Aini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]], Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
+ Module[{Myprec, Nmax, nInv, \[Alpha], \[Beta], \[Alpha]n, \[Beta]n, \[Gamma]n, n, LHS, RHS, Eq, A, Aval, Avar, \[Lambda]ini, Aini},
+  \[Lambda]ini = OptionValue["InitialGuess"];
+  If[\[Lambda]ini === "SphericalExpansion",
+    \[Lambda]ini = Quiet[SetPrecision[SWSHEigenvalueSpectral[s, l, m, N[\[Gamma]]] - 2 m \[Gamma] + \[Gamma]^2, Precision[\[Gamma]]], SpinWeightedSpheroidalEigenvalue::numterms];
   ];
+  Aini = \[Lambda]ini + 2 m \[Gamma] - \[Gamma]^2;
   Switch[OptionValue["NumInversions"],
    Automatic,
     nInv = l-Max[Abs[m],Abs[s]];,

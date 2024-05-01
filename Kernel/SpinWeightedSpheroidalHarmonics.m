@@ -45,6 +45,7 @@ SpinWeightedSpheroidalHarmonicS::numterms = "Automatic determination of the numb
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
 SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic cannot be computed using \"Leaver\" method with the given working precision. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
+SpinWeightedSpheroidalHarmonicS::maxterms = "Spin-weighted spheroidal harmonic cannot be computed to the requested accuracy using \"Leaver\" method with `1` terms and the given working precision. A more accurate result may be obtained by increasing the value for the \"MaxTerms\" suboption for the \"Leaver\" method.";
 SpinWeightedSpheroidalHarmonicS::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 SpinWeightedSphericalHarmonicY::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 
@@ -388,7 +389,7 @@ SWSHSSpectral[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 (*Leaver's method*)
 
 
-Options[SWSHSLeaver] = {"NumTerms" -> Automatic};
+Options[SWSHSLeaver] = {"NumTerms" -> Automatic, "MaxTerms" -> 200};
 
 
 SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
@@ -412,7 +413,9 @@ SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   Switch[OptionValue["NumTerms"],
    Automatic,
     norm = normterm[nmin];
-    While[norm != (norm += normterm[nmax]), nmax++];,
+    While[nmax < OptionValue["MaxTerms"] && norm != (norm += normterm[nmax]), nmax++];
+    If[nmax == OptionValue["MaxTerms"], Message[SpinWeightedSpheroidalHarmonicS::maxterms, nmax]];
+    ,
    _Integer,
     nmax = OptionValue["NumTerms"] - 1;
     norm = Sum[normterm[i], {i, nmin, nmax}];,

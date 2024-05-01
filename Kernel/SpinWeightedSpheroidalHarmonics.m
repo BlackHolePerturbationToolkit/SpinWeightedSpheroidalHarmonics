@@ -41,6 +41,7 @@ SpinWeightedSpheroidalEigenvalue::numterms = "Automatic determination of the num
 SpinWeightedSpheroidalEigenvalue::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalEigenvalue::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 SpinWeightedSpheroidalEigenvalue::infseriesparams = "Series expansion about \[Gamma]=\[Infinity] only supported for integer or half-integer parameters, but specified parameters were s=`1`, l=`2`, m=`3`";
+SpinWeightedSpheroidalEigenvalue::findroot = "FindRoot failed to converge to the requested accuracy.";
 SpinWeightedSpheroidalHarmonicS::numterms = "Automatic determination of the number of terms to use in the SphericalExpansion method may be unreliable in certain cases. Currently using `1` terms. It is recommended to verify the result is unchanged with a different number of terms.";
 SpinWeightedSpheroidalHarmonicS::optx = "Unknown options in `1`";
 SpinWeightedSpheroidalHarmonicS::normprec = "Normalisation cannot be determined for \"Leaver\" method so it will be set to 1. To obtain an accurate result either provide a higher precision input spheroidicity or use the \"SphericalExpansion\" method instead.";
@@ -204,7 +205,11 @@ SWSHEigenvalueLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
   RHS[Ax_] := -CF[-\[Alpha]n[n-1] \[Gamma]n[n], \[Beta]n[n,Ax], {n, nInv+1}];
   LHS[Ax_] := \[Beta]n[nInv, Ax] + ContinuedFractionK[-\[Alpha]n[nInv-n] \[Gamma]n[nInv-n+1], \[Beta]n[nInv-n, Ax], {n, 1, nInv}];
   Eq[A_?NumericQ] := LHS[A] - RHS[A];
-  Aval = Avar /. Quiet[Check[FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"], Avar -> $Failed, {Power::infy, FindRoot::nlnum}], {Power::infy, FindRoot::nlnum}];
+  Quiet[Check[Check[
+    Aval = Avar /. FindRoot[Eq[Avar]==0, {Avar, Aini}, AccuracyGoal -> Myprec-3, WorkingPrecision -> Myprec, Method -> "Secant"];,
+    Aval = $Failed;,
+    {Power::infy, FindRoot::nlnum}],
+    Message[SpinWeightedSpheroidalEigenvalue::findroot], FindRoot::cvmit], {Power::infy, FindRoot::nlnum}];
   Clear[\[Alpha]n, \[Beta]n, \[Gamma]n, LHS, RHS, Eq];
   Aval
 ];

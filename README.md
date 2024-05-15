@@ -1,6 +1,6 @@
 # SpinWeightedSpheroidalHarmonics
 
-Copyright (c) 2019-23 Black Hole Perturbation Toolkit
+Copyright (c) 2019-24 Black Hole Perturbation Toolkit
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8090680.svg)](https://doi.org/10.5281/zenodo.8090680)
 

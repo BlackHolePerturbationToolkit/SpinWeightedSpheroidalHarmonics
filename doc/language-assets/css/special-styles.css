@@ -755,7 +755,7 @@ table .special-character.GraySquare, table .special-character.GrayCircle { color
 
 .ServiceAbstract { color: #888; }
 
-@font-face {
+/*@font-face {
     font-family: 'Mathematica';
     src: url('../fonts/mathematica/Mathematica.eot');
     src: url('../fonts/mathematica/Mathematica.eot?#iefix') format('embedded-opentype'),
@@ -787,4 +787,4 @@ table .special-character.GraySquare, table .special-character.GrayCircle { color
      url('../fonts/mathematica/MathematicaMono-Bold.woff') format('woff'),
          url('../fonts/mathematica/MathematicaMono-Bold.ttf') format('truetype');
     font-weight: bold;
-}
+}*/

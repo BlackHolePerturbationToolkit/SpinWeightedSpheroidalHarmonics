@@ -9,7 +9,7 @@
          url('SourceSansPro-Regular.ttf') format('truetype');
 }
 
-@font-face {
+/*@font-face {
     font-family: 'Source Sans Pro';
     font-stretch: normal;
     font-style: italic;
@@ -18,7 +18,7 @@
     src: url('SourceSansPro-Italic.woff2') format('woff2'),
          url('SourceSansPro-Italic.woff') format('woff'),
          url('SourceSansPro-Italic.ttf') format('truetype');
-}
+}*/
 
 @font-face {
     font-family: 'Source Sans Pro';

@@ -295,7 +295,7 @@ SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_, l_, m
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -313,14 +313,14 @@ SpinWeightedSpheroidalEigenvalue /:
 
 
 SpinWeightedSpheroidalEigenvalue /: 
-  Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], \[Eta]_->\[Eta]0] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)) :=Series[SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]],{\[Eta], 0, 0}];
+  Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], \[Eta]_->\[Eta]0_] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)) :=Series[SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]],{\[Eta], \[Eta]0, 0}];
 
 
 SpinWeightedSpheroidalEigenvalue /:
  HoldPattern[Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_],{\[Eta]_, \[Eta]0_, order_}]] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Module[{aux, a\[Omega],factor},
  a\[Omega]=\[Gamma];
  factor=a\[Omega]//Exponent[#,\[Eta]]&;
-aux=SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]]//ExpandSpheroidal[#,Ceiling[order/factor]]&;
+aux=SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]]//ExpandSpheroidal[#,Max[Ceiling[order/factor],1]]&;
   aux=aux//Series[#,{\[Eta],\[Eta]0,order}]&;
   aux
   ];
@@ -543,7 +543,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -561,14 +561,14 @@ SpinWeightedSpheroidalHarmonicS /:
 
 
 SpinWeightedSpheroidalHarmonicS /: 
-  Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], \[Eta]_->0] :=Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]], {\[Eta], 0, 0}];
+	HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], \[Eta]_->\[Eta]0_]]/;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]], {\[Eta], \[Eta]0, 0}];
 
 
 SpinWeightedSpheroidalHarmonicS /:
  HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_],{\[Eta]_, \[Eta]0_, order_}]] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Module[{aux, a\[Omega],factor},
  a\[Omega]=\[Gamma];
  factor=a\[Omega]//Exponent[#,\[Eta]]&;
-aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//ExpandSpheroidal[#,Ceiling[order/factor]]&;
+aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//ExpandSpheroidal[#,Max[Ceiling[order/factor],1]]&;
   aux=aux//Series[#,{\[Eta],\[Eta]0,order}]&;
   aux
   ];

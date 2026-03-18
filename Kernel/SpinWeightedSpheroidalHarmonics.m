@@ -346,7 +346,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -520,6 +520,19 @@ SpinWeightedSpheroidalHarmonicS /:
 ]]];
 
 
+(* ::Subsection::Closed:: *)
+(*Derivatives*)
+
+
+(* ::Subsubsection:: *)
+(*\[Phi] Derivatives*)
+
+
+Derivative /:
+  Derivative[a_,n_][SpinWeightedSpheroidalHarmonicS[s_,l_,m_, \[Gamma]_]][\[Theta]_, 
+  \[Phi]_]/;n!=0 :=(I m)^n Derivative[a,0][SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]]][\[Theta],\[Phi]];
+
+
 (* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicSFunction*)
 
@@ -672,6 +685,10 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
 (*SpinWeightedSphericalHarmonicY*)
 
 
+(* ::Subsection:: *)
+(*SpinWeightedSphericalHarmonicY*)
+
+
 SyntaxInformation[SpinWeightedSphericalHarmonicY] =
  {"ArgumentsPattern" -> {_, _, _, _, _, OptionsPattern[]}};
 
@@ -703,6 +720,31 @@ SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=
 
 SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] :=
   SphericalHarmonicY[l, m, \[Theta], \[Phi]];
+
+
+(* ::Subsection:: *)
+(*Derivatives*)
+
+
+(* ::Subsubsection:: *)
+(*\[Phi] Derivatives*)
+
+
+Derivative /:
+   Derivative[0,0,0,d_,n_][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[CurlyPhi]_]/;n!=0:=
+  (I m)^n Derivative[0,0,0,d,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[CurlyPhi]];
+
+
+(* ::Subsubsection:: *)
+(*\[Theta] Derivatives*)
+
+
+Derivative /:
+   Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_Integer,l_Integer,m_Integer,\[Theta]_,\[CurlyPhi]_]/;(n!=0):=Module[{aux,\[Theta]\[Theta],\[Phi]\[Phi]},
+ aux= D[SpinWeightedSphericalHarmonicY[s,l,m,\[Theta]\[Theta],\[Phi]\[Phi]],{\[Theta]\[Theta],n}];
+ aux=aux//ReplaceAll[{\[Theta]\[Theta]->\[Theta],\[Phi]\[Phi]->\[CurlyPhi]}];
+ aux
+ ];
 
 
 (* ::Section::Closed:: *)

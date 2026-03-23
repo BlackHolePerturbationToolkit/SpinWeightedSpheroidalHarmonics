@@ -595,7 +595,7 @@ Derivative /:
 DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]]:=Module[{aux,s,l,m,\[Theta],\[Phi]},
 {s,l,m,\[Theta],\[Phi]}=expr/.Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s1_,l1_,m1_,\[Theta]1_,\[Phi]1_]:>{s1,l1,m1,\[Theta]1,\[Phi]1};
 
-If[TrueQ[s>0],
+If[TrueQ[Simplify[s>0]],
 aux=Sqrt[l + l^2 + s - s^2]*SpinWeightedSphericalHarmonicY[-1 + s, l, m, \[Theta], \[Phi]]-(m + s*Cos[\[Theta]])*Csc[\[Theta]]*SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]],
 (*else*)
 aux=s Cot[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]+m Csc[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]-Sqrt[l+l^2-s-s^2] SpinWeightedSphericalHarmonicY[1+s,l,m,\[Theta],\[Phi]]

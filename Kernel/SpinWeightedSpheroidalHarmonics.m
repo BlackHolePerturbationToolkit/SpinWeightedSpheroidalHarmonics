@@ -31,7 +31,9 @@ SpinWeightedSpheroidalHarmonicSFunction::usage = "\!\(\*RowBox[{\"SpinWeightedSp
 SpinWeightedSpheroidalHarmonicS::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\", \"[\", RowBox[{StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal harmonic \!\(\*RowBox[{SubscriptBox[\"\[InvisiblePrefixScriptBase]\", \"s\"], SubscriptBox[\"S\", RowBox[{\"l\", \"m\"}]],\"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\", \";\", \"\[Gamma]\"}], \")\"}]\).
 \!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) constructs a SpinWeightedSpheroidalHarmonicSFunction that can be evaluated for specific values of \!\(\*StyleBox[\"\[Theta]\", \"TR\"]\) and \!\(\*StyleBox[\"\[Phi]\", \"TR\"]\).";
 SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalEigenvalue\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal eigenvalue with spin-weight s, degree l and order m.";
-DerivativeToRaiseLower::usage="aaa"
+DerivativeToRaiseLower::usage="DerivativeToRaiseLower[expr] reduces all \[Theta] Derivatives of SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY of different spin weight. It always brings the spin weight closer to 0, where assuming that a symbolic s is negative.";
+SpinWeightedDerivatvesOn::usage="SpinWeightedDerivatvesOn[] turns on automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS";
+SpinWeightedDerivatvesOff::usage="SpinWeightedDerivatvesOff[] turns on automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS";
 
 
 (* ::Subsection::Closed:: *)
@@ -60,11 +62,20 @@ Begin["`Private`"];
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Useful functions*)
 
 
 (* ::Subsection:: *)
+(*On-Off switch for Derivatives*)
+
+
+evaluateDerivatives=True;
+SpinWeightedDerivatvesOn[]:=Module[{aux},evaluateDerivatives=True;Update[Derivative];]
+SpinWeightedDerivatvesOff[]:=Module[{aux},evaluateDerivatives=False;Update[Derivative];]
+
+
+(* ::Subsection::Closed:: *)
 (*Expanding Spheroidals*)
 
 
@@ -296,7 +307,7 @@ SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_, l_, m
   SpinWeightedSpheroidalEigenvalue[s, l, m, N[\[Gamma], Nopts], opts];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -544,7 +555,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -583,12 +594,12 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
 (*\[Phi] Derivatives*)
 
 
-Derivative /:
+Derivative/:
   Derivative[a_,n_][SpinWeightedSpheroidalHarmonicS[s_,l_,m_, \[Gamma]_]][\[Theta]_, 
-  \[Phi]_]/;n!=0 :=(I m)^n Derivative[a,0][SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]]][\[Theta],\[Phi]];
+  \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[a,0][SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]]][\[Theta],\[Phi]];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Expanding \[Theta] Derivatives*)
 
 
@@ -766,11 +777,11 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
   
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSphericalHarmonicY*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SpinWeightedSphericalHarmonicY*)
 
 
@@ -816,7 +827,7 @@ SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] :=
 
 
 Derivative /:
-   Derivative[0,0,0,d_,n_][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[CurlyPhi]_]/;n!=0:=
+   Derivative[0,0,0,d_,n_][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[CurlyPhi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0):=
   (I m)^n Derivative[0,0,0,d,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[CurlyPhi]];
 
 
@@ -825,7 +836,7 @@ Derivative /:
 
 
 Derivative /:
-   Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_Integer,l_Integer,m_Integer,\[Theta]_,\[CurlyPhi]_]/;(n!=0):=Module[{aux,\[Theta]\[Theta],\[Phi]\[Phi]},
+   Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_Integer,l_Integer,m_Integer,\[Theta]_,\[CurlyPhi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0):=Module[{aux,\[Theta]\[Theta],\[Phi]\[Phi]},
  aux= D[SpinWeightedSphericalHarmonicY[s,l,m,\[Theta]\[Theta],\[Phi]\[Phi]],{\[Theta]\[Theta],n}];
  aux=aux//ReplaceAll[{\[Theta]\[Theta]->\[Theta],\[Phi]\[Phi]->\[CurlyPhi]}];
  aux

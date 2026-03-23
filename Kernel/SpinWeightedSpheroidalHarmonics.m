@@ -559,6 +559,10 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 (*Small-\[Gamma] expansion*)
 
 
+(* ::Subsubsection:: *)
+(*Curried form*)
+
+
 SpinWeightedSpheroidalHarmonicS /: 
   Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
@@ -586,6 +590,21 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
   ];
 
 
+(* ::Subsubsection:: *)
+(*Uncurried form*)
+
+
+Derivative/:Derivative[0,0,0,n_,0,0][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;n>0:=
+ Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
+  Do[Do[
+      d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
+    s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
+  , {i, 0, n}];
+  aux=Block[{i=n},Sum[d[s, l, m][i, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]]], {j, -i, i}]];
+  aux
+  ]]]
+
+
 (* ::Subsection:: *)
 (*Derivatives*)
 
@@ -599,34 +618,19 @@ Derivative/:
   \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[a,0][SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]]][\[Theta],\[Phi]];
 
 
-(* ::Subsubsection::Closed:: *)
-(*Expanding \[Theta] Derivatives*)
+Derivative/:
+  Derivative[0,0,0,0,a_,n_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_, \[Gamma]_,\[Theta]_, 
+  \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[0,0,0,0,a,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta],\[Phi]];
 
 
-DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]]:=Module[{aux,s,l,m,\[Theta],\[Phi]},
-{s,l,m,\[Theta],\[Phi]}=expr/.Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s1_,l1_,m1_,\[Theta]1_,\[Phi]1_]:>{s1,l1,m1,\[Theta]1,\[Phi]1};
-
-If[TrueQ[Simplify[s>0]],
-aux=Sqrt[l + l^2 + s - s^2]*SpinWeightedSphericalHarmonicY[-1 + s, l, m, \[Theta], \[Phi]]-(m + s*Cos[\[Theta]])*Csc[\[Theta]]*SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]],
-(*else*)
-aux=s Cot[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]+m Csc[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]-Sqrt[l+l^2-s-s^2] SpinWeightedSphericalHarmonicY[1+s,l,m,\[Theta],\[Phi]]
-];
-aux
-]
+(* ::Subsection:: *)
+(*Uncurried form*)
 
 
-DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]/;n>=2]:=Module[{aux,n,s,l,m,\[Theta],\[Phi],\[CurlyTheta]},
-{n,s,l,m,\[Theta],\[Phi]}=expr/.Derivative[0,0,0,n1_,0][SpinWeightedSphericalHarmonicY][s1_,l1_,m1_,\[Theta]1_,\[Phi]1_]:>{n1,s1,l1,m1,\[Theta]1,\[Phi]1};
-aux=1/2 (-l (1+l)+2 (m^2+s^2)+4 m s Cos[\[CurlyTheta]]+l (1+l) Cos[2\[CurlyTheta]]) Csc[\[CurlyTheta]]^2 SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[Phi]]-Cot[\[CurlyTheta]] Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s,l,m,\[CurlyTheta],\[Phi]]//D[#,{\[CurlyTheta],n-2}]&;
-aux=aux/.\[CurlyTheta]->\[Theta];
-aux=aux//DerivativeToRaiseLower;
-aux
-]
+SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;(NumericQ[s]&&NumericQ[l]&&NumericQ[m]&&NumericQ[\[Gamma]]):=SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]][\[Theta],\[Phi]];
 
-DerivativeToRaiseLower[expr_]:=Module[{aux},
-aux=expr/.Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]:>DerivativeToRaiseLower[Derivative[0,0,0,n,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[Phi]]];
-aux
-]
+
+SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSpheroidalHarmonicS[s,l,m,0][\[Theta],\[Phi]];
 
 
 (* ::Section::Closed:: *)
@@ -822,7 +826,7 @@ SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] :=
 (*Derivatives*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*\[Phi] Derivatives*)
 
 
@@ -841,6 +845,36 @@ Derivative /:
  aux=aux//ReplaceAll[{\[Theta]\[Theta]->\[Theta],\[Phi]\[Phi]->\[CurlyPhi]}];
  aux
  ];
+
+
+(* ::Subsubsection:: *)
+(*Expanding \[Theta] Derivatives*)
+
+
+DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]]:=Module[{aux,s,l,m,\[Theta],\[Phi]},
+{s,l,m,\[Theta],\[Phi]}=expr/.Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s1_,l1_,m1_,\[Theta]1_,\[Phi]1_]:>{s1,l1,m1,\[Theta]1,\[Phi]1};
+
+If[TrueQ[Simplify[s>0]],
+aux=Sqrt[l + l^2 + s - s^2]*SpinWeightedSphericalHarmonicY[-1 + s, l, m, \[Theta], \[Phi]]-(m + s*Cos[\[Theta]])*Csc[\[Theta]]*SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]],
+(*else*)
+aux=s Cot[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]+m Csc[\[Theta]] SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]]-Sqrt[l+l^2-s-s^2] SpinWeightedSphericalHarmonicY[1+s,l,m,\[Theta],\[Phi]]
+];
+aux
+]
+
+
+DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]/;n>=2]:=Module[{aux,n,s,l,m,\[Theta],\[Phi],\[CurlyTheta]},
+{n,s,l,m,\[Theta],\[Phi]}=expr/.Derivative[0,0,0,n1_,0][SpinWeightedSphericalHarmonicY][s1_,l1_,m1_,\[Theta]1_,\[Phi]1_]:>{n1,s1,l1,m1,\[Theta]1,\[Phi]1};
+aux=1/2 (-l (1+l)+2 (m^2+s^2)+4 m s Cos[\[CurlyTheta]]+l (1+l) Cos[2\[CurlyTheta]]) Csc[\[CurlyTheta]]^2 SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[Phi]]-Cot[\[CurlyTheta]] Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s,l,m,\[CurlyTheta],\[Phi]]//D[#,{\[CurlyTheta],n-2}]&;
+aux=aux/.\[CurlyTheta]->\[Theta];
+aux=aux//DerivativeToRaiseLower;
+aux
+]
+
+DerivativeToRaiseLower[expr_]:=Module[{aux},
+aux=expr/.Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]:>DerivativeToRaiseLower[Derivative[0,0,0,n,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[Phi]]];
+aux
+]
 
 
 (* ::Section::Closed:: *)

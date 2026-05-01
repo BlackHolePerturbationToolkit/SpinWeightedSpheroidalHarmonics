@@ -32,6 +32,7 @@ SpinWeightedSpheroidalHarmonicS::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidal
 \!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) constructs a SpinWeightedSpheroidalHarmonicSFunction that can be evaluated for specific values of \!\(\*StyleBox[\"\[Theta]\", \"TR\"]\) and \!\(\*StyleBox[\"\[Phi]\", \"TR\"]\).";
 SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalEigenvalue\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal eigenvalue with spin-weight s, degree l and order m.";
 DerivativeToRaiseLower::usage="DerivativeToRaiseLower[expr] reduces all \[Theta] Derivatives of SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY of different spin weight. It always brings the spin weight closer to 0, where assuming that a symbolic s is negative.";
+ToSphericalHarmonicY::usage="ToSphericalHarmonicY[expr] maps all SpinWeightedSphericalHarmonicY to SphericalHarmonicY";
 SpinWeightedDerivatvesOn::usage="SpinWeightedDerivatvesOn[] turns on automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS";
 SpinWeightedDerivatvesOff::usage="SpinWeightedDerivatvesOff[] turns on automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS";
 
@@ -847,8 +848,12 @@ Derivative /:
  ];
 
 
+(* ::Subsection:: *)
+(*Identities*)
+
+
 (* ::Subsubsection:: *)
-(*Expanding \[Theta] Derivatives*)
+(*\[Theta] Derivatives for generic l*)
 
 
 DerivativeToRaiseLower[expr_]/;MatchQ[expr,Derivative[0,0,0,1,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]]:=Module[{aux,s,l,m,\[Theta],\[Phi]},
@@ -875,6 +880,26 @@ DerivativeToRaiseLower[expr_]:=Module[{aux},
 aux=expr/.Derivative[0,0,0,n_,0][SpinWeightedSphericalHarmonicY][s_,l_,m_,\[Theta]_,\[Phi]_]:>DerivativeToRaiseLower[Derivative[0,0,0,n,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[Phi]]];
 aux
 ]
+
+
+(* ::Subsubsection:: *)
+(*Spin reduction*)
+
+
+ToSphericalHarmonicY[expr_SpinWeightedSphericalHarmonicY]:=Module[{aux,s,l,m,\[CurlyTheta],\[CurlyPhi]},
+{s,l,m,\[CurlyTheta],\[CurlyPhi]}=expr//ReplacePart[0->List];
+If[TrueQ[Simplify[s>=2]],aux=(-Sqrt[-2+l+l^2+3 s-s^2] SpinWeightedSphericalHarmonicY[-2+s,l,m,\[CurlyTheta],\[CurlyPhi]]+2 (m+(-1+s) Cos[\[CurlyTheta]]) Csc[\[CurlyTheta]] SpinWeightedSphericalHarmonicY[-1+s,l,m,\[CurlyTheta],\[CurlyPhi]])/Sqrt[l+l^2+s-s^2]];
+If[TrueQ[Simplify[s==1]],aux=(-((E^(-I \[CurlyPhi]) Sqrt[Gamma[1+l-m]] Sqrt[Gamma[2+l+m]] SphericalHarmonicY[l,1+m,\[CurlyTheta],\[CurlyPhi]])/(Sqrt[Gamma[l-m]] Sqrt[Gamma[1+l+m]]))+m SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]] Tan[\[CurlyTheta]/2])/Sqrt[l (1+l)]];
+(*If[TrueQ[Simplify[l==s]],aux=(Sqrt[s] Sin[\[CurlyTheta]] SpinWeightedSpheroidalHarmonics`SpinWeightedSphericalHarmonicY[-1+s,l,m,\[CurlyTheta],\[CurlyPhi]])/(Sqrt[2] (m+s Cos[\[CurlyTheta]]))];
+If[TrueQ[Simplify[l==s+1]],aux=(Sqrt[2+4 s] (m+(1+s) Cos[\[CurlyTheta]]) Csc[\[CurlyTheta]] SpinWeightedSpheroidalHarmonics`SpinWeightedSphericalHarmonicY[-1+s,1+s,m,\[CurlyTheta],\[CurlyPhi]])/(-1-s+2 s (1+s) Cot[\[CurlyTheta]]^2+2 m (1+2 s) Cot[\[CurlyTheta]] Csc[\[CurlyTheta]]+2 m^2 Csc[\[CurlyTheta]]^2)];*)
+If[TrueQ[Simplify[s<=-2]],aux=(2 (m+(1+s) Cos[\[CurlyTheta]]) Csc[\[CurlyTheta]] SpinWeightedSphericalHarmonicY[1+s,l,m,\[CurlyTheta],\[CurlyPhi]]-Sqrt[-2+l+l^2-3 s-s^2] SpinWeightedSphericalHarmonicY[2+s,l,m,\[CurlyTheta],\[CurlyPhi]])/Sqrt[l+l^2-s (1+s)]];
+(*If[TrueQ[Simplify[l==-s]],aux=(Sqrt[-s] Sin[\[CurlyTheta]] SpinWeightedSpheroidalHarmonics`SpinWeightedSphericalHarmonicY[1+s,l,m,\[CurlyTheta],\[CurlyPhi]])/(Sqrt[2] (m+s Cos[\[CurlyTheta]]))];*)
+If[TrueQ[Simplify[s==-1]],aux=(m Cot[\[CurlyTheta]/2] SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]]+(E^(-I \[CurlyPhi]) Sqrt[Gamma[1+l-m]] Sqrt[Gamma[2+l+m]] SphericalHarmonicY[l,1+m,\[CurlyTheta],\[CurlyPhi]])/(Sqrt[Gamma[l-m]] Sqrt[Gamma[1+l+m]]))/Sqrt[l (1+l)]];
+If[ValueQ[aux],aux=ToSphericalHarmonicY[aux],aux=expr];
+aux
+]
+
+ToSphericalHarmonicY[expr_]:=expr/.SpinWeightedSphericalHarmonicY[s_,l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>ToSphericalHarmonicY[SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[CurlyPhi]]];
 
 
 (* ::Section::Closed:: *)

@@ -22,7 +22,7 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -67,7 +67,7 @@ Begin["`Private`"];
 (*Useful functions*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*On-Off switch for Derivatives*)
 
 
@@ -506,7 +506,7 @@ SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -556,7 +556,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -606,7 +606,16 @@ Derivative/:Derivative[0,0,0,n_,0,0][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,\
   ]]]
 
 
-(* ::Subsection:: *)
+Derivative/:Derivative[0,0,0,n_,n\[Theta]_,0][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;(n>0&&n\[Theta]>0):=Module[{aux,\[Theta]\[Theta],\[Phi]\[Phi]},
+Derivative[0,0,0,n,0,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta]\[Theta],\[Phi]\[Phi]]//D[#,{\[Theta]\[Theta],n\[Theta]}]&//ReplaceAll[{\[Theta]\[Theta]->\[Theta],\[Phi]\[Phi]->\[Phi]}]
+]
+
+
+(* ::Subsubsection:: *)
+(*Expansion of derivatives*)
+
+
+(* ::Subsection::Closed:: *)
 (*Derivatives*)
 
 
@@ -632,6 +641,7 @@ SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;(NumericQ
 
 
 SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSpheroidalHarmonicS[s,l,m,0][\[Theta],\[Phi]];
+Derivative[0,0,0,0,d_,e_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,0,\[Theta]_,\[Phi]_]:=Derivative[d,e][SpinWeightedSpheroidalHarmonicS[s,l,m,0]][\[Theta],\[Phi]];
 
 
 (* ::Section::Closed:: *)

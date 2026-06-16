@@ -434,7 +434,7 @@ SpinWeightedSpheroidalEigenvalue /: MakeBoxes[SpinWeightedSpheroidalEigenvalue[s
 
 (* 3. Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, \[Gamma]_}, "BHPTSpinWeightedY"]] := 
-  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>" " <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> "}";
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
 
 
 (* ::Section:: *)
@@ -594,7 +594,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -629,7 +629,7 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
   ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Uncurried form*)
 
 
@@ -678,10 +678,6 @@ Derivative[0,0,0,n,0,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta]
 ]
 
 
-(* ::Subsubsection:: *)
-(*Expansion of derivatives*)
-
-
 (* ::Subsection::Closed:: *)
 (*Derivatives*)
 
@@ -711,7 +707,7 @@ SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSpher
 Derivative[0,0,0,0,d_,e_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,0,\[Theta]_,\[Phi]_]:=Derivative[d,e][SpinWeightedSpheroidalHarmonicS[s,l,m,0]][\[Theta],\[Phi]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Conjugate*)
 
 
@@ -730,6 +726,7 @@ SpinWeightedSpheroidalHarmonicS/:
 (*SpinWeightedSpheroidalHarmonicS/:HoldPattern[TeXForm[SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_]]]:="{}_"<>ToString[s,TeXForm]<>"S_{"<>ToString[l,TeXForm]<>" "<>ToString[m,TeXForm]<>" "<>ToString[\[Gamma],TeXForm]<>"}("<>ToString[\[Theta],TeXForm]<>","<>ToString[\[Phi],TeXForm]<>")";*)
 
 
+(*This code is AI generated*)
 (* 2. Intercept the function during Box creation and wrap it in a named TemplateBox *)
 SpinWeightedSpheroidalHarmonicS /: MakeBoxes[SpinWeightedSpheroidalHarmonicS[s_, l_, m_,\[Gamma]_, \[Theta]_, \[Phi]_], TraditionalForm] := 
   TemplateBox[{
@@ -756,7 +753,7 @@ SpinWeightedSpheroidalHarmonicS /: MakeBoxes[SpinWeightedSpheroidalHarmonicS[s_,
 
 (* 3. Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_}, "BHPTSpinWeightedY"]] := 
-  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>" " <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> "}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> ")";
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> " ; "<>System`Convert`TeXFormDump`MakeTeX[\[Gamma]]<>")";
 
 
 
@@ -1060,6 +1057,23 @@ SpinWeightedSphericalHarmonicY/:
 
 
 (*SpinWeightedSphericalHarmonicY/:HoldPattern[TeXForm[SpinWeightedSphericalHarmonicY[s_,l_,m_,\[Theta]_,\[Phi]_]]]:="{}_"<>ToString[s,TeXForm]<>"Y_{"<>ToString[l,TeXForm]<>" "<>ToString[m,TeXForm]<>"}("<>ToString[\[Theta],TeXForm]<>","<>ToString[\[Phi],TeXForm]<>")";*)
+
+
+(*(* 2. Intercept during Box creation (Keep this part!) *)
+SpinWeightedSphericalHarmonicY /: MakeBoxes[SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_], TraditionalForm] := 
+  TemplateBox[{
+    MakeBoxes[s, TraditionalForm], 
+    MakeBoxes[l, TraditionalForm], 
+    MakeBoxes[m, TraditionalForm], 
+    MakeBoxes[\[Theta], TraditionalForm], 
+    MakeBoxes[\[Phi], TraditionalForm]
+   }, 
+   "BHPTSpinWeightedY"
+  ];
+
+(* 3. Register the TemplateBox natively with the TeX engine *)
+System`Convert`TeXFormDump`template["BHPTSpinWeightedY"] = 
+  {"{}_{", 1, "}Y_{", 2, " ", 3, "}(", 4, ",", 5, ")"};*)
 
 
 (* 2. Intercept the function during Box creation and wrap it in a named TemplateBox *)

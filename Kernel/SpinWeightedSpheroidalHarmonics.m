@@ -414,7 +414,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*TeXForm*)
 
 
@@ -615,18 +615,38 @@ SpinWeightedSpheroidalHarmonicS /:
 ]]];
 
 
-SpinWeightedSpheroidalHarmonicS /: 
-	HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], \[Eta]_->\[Eta]0_]]/;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]], {\[Eta], \[Eta]0, 0}];
+(*SpinWeightedSpheroidalHarmonicS /: 
+	HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], \[Eta]_->\[Eta]0_]]/;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]], {\[Eta], \[Eta]0, 0}];*)
 
 
-SpinWeightedSpheroidalHarmonicS /:
+(*SpinWeightedSpheroidalHarmonicS /:
  HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_],{\[Eta]_, \[Eta]0_, order_}]] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Module[{aux, a\[Omega],factor},
  a\[Omega]=\[Gamma];
  factor=a\[Omega]//Exponent[#,\[Eta]]&;
 aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//ExpandSpheroidal[#,Max[Ceiling[order/factor],1]]&;
   aux=aux//Series[#,{\[Eta],\[Eta]0,order}]&;
   aux
-  ];
+  ];*)
+
+
+(*
+\[WarningSign] NUCLEAR OPTION \[WarningSign]
+This is here to stop Series from searching through its rules before going into Dervative form 
+*)
+Unprotect[Series];
+
+Series[expr_, {x_, x0_, order_}] /; (!FreeQ[Unevaluated[expr], SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_]]) := 
+  Module[{aux,symbolicSeries,dummySWSHS},
+   (* Step A: Swap your function out for a completely raw dummy symbol *)
+   (* Step B: Compute the structural Taylor series symbolically*)
+   symbolicSeries = Series[expr /. SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_] -> dummySWSHS[s,l,m,\[Gamma],\[Theta],\[Phi]], {x, x0, order}];
+   
+   (* Step C: Plug SpinWeightedSpheroidalHarmonicS back in *)
+   aux=symbolicSeries /. dummySWSHS->SpinWeightedSpheroidalHarmonicS/.SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_] -> SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]][\[Theta],\[Phi]];
+   aux
+ ]
+
+Protect[Series];
 
 
 (* ::Subsubsection:: *)
@@ -642,15 +662,6 @@ Derivative/:Derivative[0,0,0,n_,0,0][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,\
   aux=Block[{i=n},Sum[d[s, l, m][i, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]]], {j, -i, i}]];
   aux
   ]]]
-
-
-(*SpinWeightedSpheroidalHarmonicS /: 
-	HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_,\[Theta]_, \[Phi]_],{\[Omega]_,\[Omega]0_,order_}]]/;( ! FreeQ[\[Gamma], \[Omega]]&&(Simplify[\[Gamma]/.\[Omega]->\[Omega]0]===0)):=
-	Module[{aux},
-	Echo["here"];
-	aux=SWSHS[s,l,m,\[Gamma],\[Theta],\[Phi]]//Series[#,{\[Omega],\[Omega]0,order}]&//ReplaceAll[SWSHS->SpinWeightedSpheroidalHarmonicS];
-	aux
-	];*)
 
 
 (*
@@ -696,11 +707,14 @@ Derivative/:
   \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[0,0,0,0,a,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta],\[Phi]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Uncurried form*)
 
 
-SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;(NumericQ[s]&&NumericQ[l]&&NumericQ[m]&&NumericQ[\[Gamma]]):=SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]][\[Theta],\[Phi]];
+SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]/;(NumericQ[s]&&NumericQ[l]&&NumericQ[m]&&NumericQ[\[Gamma]]):=Module[{aux},
+aux=SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]][\[Theta],\[Phi]];
+aux
+];
 
 
 SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSpheroidalHarmonicS[s,l,m,0][\[Theta],\[Phi]];

@@ -635,11 +635,11 @@ This is here to stop Series from searching through its rules before going into D
 *)
 Unprotect[Series];
 
-Series[expr_, {x_, x0_, order_}] /; (!FreeQ[Unevaluated[expr], SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_]]) := 
+Series[expr_, x_] /; (!FreeQ[Unevaluated[expr], SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_]]) := 
   Module[{aux,symbolicSeries,dummySWSHS},
    (* Step A: Swap your function out for a completely raw dummy symbol *)
    (* Step B: Compute the structural Taylor series symbolically*)
-   symbolicSeries = Series[expr /. SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_] -> dummySWSHS[s,l,m,\[Gamma],\[Theta],\[Phi]], {x, x0, order}];
+   symbolicSeries = Series[expr /. SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_][\[Theta]_,\[Phi]_] -> dummySWSHS[s,l,m,\[Gamma],\[Theta],\[Phi]], x];
    
    (* Step C: Plug SpinWeightedSpheroidalHarmonicS back in *)
    aux=symbolicSeries /. dummySWSHS->SpinWeightedSpheroidalHarmonicS/.SpinWeightedSpheroidalHarmonicS[s_,l_,m_,\[Gamma]_,\[Theta]_,\[Phi]_] -> SpinWeightedSpheroidalHarmonicS[s,l,m,\[Gamma]][\[Theta],\[Phi]];
@@ -670,11 +670,11 @@ This is here to stop Series from searching through its rules before going into D
 *)
 Unprotect[Series];
 
-Series[expr_, {x_, x0_, order_}] /; (!FreeQ[Unevaluated[expr], SpinWeightedSpheroidalHarmonicS]) := 
+Series[expr_, x_] /; (!FreeQ[Unevaluated[expr], SpinWeightedSpheroidalHarmonicS]) := 
   Module[{aux,symbolicSeries,dummySWSHS},
    (* Step A: Swap your function out for a completely raw dummy symbol *)
    (* Step B: Compute the structural Taylor series symbolically*)
-   symbolicSeries = Series[expr /. SpinWeightedSpheroidalHarmonicS -> dummySWSHS, {x, x0, order}];
+   symbolicSeries = Series[expr /. SpinWeightedSpheroidalHarmonicS -> dummySWSHS,x];
    
    (* Step C: Plug SpinWeightedSpheroidalHarmonicS back in *)
    aux=symbolicSeries /. dummySWSHS -> SpinWeightedSpheroidalHarmonicS;
@@ -707,7 +707,7 @@ Derivative/:
   \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[0,0,0,0,a,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta],\[Phi]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Uncurried form*)
 
 
@@ -730,7 +730,7 @@ SpinWeightedSpheroidalHarmonicS/:
   \[Phi]_]]:=(-1)^(s+m) SpinWeightedSpheroidalHarmonicS[-s,l,-m,-Conjugate[\[Gamma]],Conjugate[\[Theta]],Conjugate[\[Phi]]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*TexForm*)
 
 
@@ -767,7 +767,7 @@ SpinWeightedSpheroidalHarmonicS /: MakeBoxes[SpinWeightedSpheroidalHarmonicS[s_,
 
 (* 3. Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_}, "BHPTSpinWeightedY"]] := 
-  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> " ; "<>System`Convert`TeXFormDump`MakeTeX[\[Gamma]]<>")";
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> " ; "<>System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> " )";
 
 
 

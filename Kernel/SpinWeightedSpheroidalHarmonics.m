@@ -39,6 +39,9 @@ EvaluateSpinZero::usages="EvaluateSpinZero[True/False] turns on/off automatic ev
 SpeedUpSWSHSSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS. This is off by default."
 
 
+SpeedUpSWSHSSeries::warn="\[WarningSign] Warning: Uprotecting Series \[WarningSign]";
+
+
 (* ::Subsection::Closed:: *)
 (*Error Messages*)
 
@@ -445,7 +448,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, \[Gamma]_}, "BHPTSpi
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Output Form*)
 
 
@@ -703,6 +706,7 @@ This is here to stop Series from searching through its rules before going into D
 *)
 $insideSWSHSSeriesQ=False
 SpeedUpSWSHSSeries[True]:=Module[{aux},
+Message[SpeedUpSWSHSSeries::warn];
 Unprotect[Series];
 Series[expr_, x__]/;(!$insideSWSHSSeriesQ):= Block[{SpinWeightedSpheroidalEigenvalue,SpinWeightedSpheroidalHarmonicS,$insideSWSHSSeriesQ=True},Series[expr,x]];
 Protect[Series];

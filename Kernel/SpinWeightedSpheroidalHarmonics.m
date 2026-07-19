@@ -821,7 +821,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_},
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Output Form*)
 
 
@@ -844,7 +844,7 @@ SpinWeightedSpheroidalHarmonicS /: Format[
              RowBox[{
                SubscriptBox["", #1], 
                SubscriptBox["S", RowBox[{#2,"",#3}]]
-             ,RowBox[{"[",#4,",",#5,",",#6,"]"}]}],
+             ,RowBox[{"[",#4,"]","[",#5,",",#6,"]"}]}],
              Background -> None,
              FrameStyle ->None,
              RoundingRadius -> 4,

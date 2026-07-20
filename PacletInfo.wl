@@ -1,6 +1,8 @@
+(* ::Package:: *)
+
 Paclet[
   "Name" -> "SpinWeightedSpheroidalHarmonics",
-  "Version" -> "1.0.1",
+  "Version" -> "1.1",
   "MathematicaVersion" -> "10.2+",
   "Creator" -> "Black Hole Perturbation Toolkit",
   "Description" -> "A set of functions for computing spin-weighted spheroidal harmonics.",

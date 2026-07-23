@@ -718,7 +718,7 @@ Protect[Series];
 ]
 
 
-If[$SpeedUpSWSHSeries,SpeedUpSWSHSeries[True]];
+If[$SpeedUpSWSHSeries===True,SpeedUpSWSHSeries[True]];
 
 
 (*(*

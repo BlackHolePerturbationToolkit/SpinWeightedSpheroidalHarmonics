@@ -718,6 +718,9 @@ Protect[Series];
 ]
 
 
+If[$SpeedUpSWSHSeries,SpeedUpSWSHSeries[True]];
+
+
 (*(*
 \[WarningSign] NUCLEAR OPTION \[WarningSign]
 This is here to stop Series from searching through its rules before going into Dervative form 

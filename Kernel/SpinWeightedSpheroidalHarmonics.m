@@ -20,7 +20,8 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 
 ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-ClearAttributes[{DerivativeToYslm,ToSpinWeight,SpinWeightedDerivatves,EvaluateSpinZero,SpeedUpSWSHSeries}, {Protected, ReadProtected}];
+ClearAttributes[{DerivativeToYslm,ToSpinWeight,SpinWeightedDerivatves,EvaluateSpinZero,SpeedUpSWSHSeries,SpheroidalEquation}, {Protected, ReadProtected}];
+
 
 
 (* ::Subsection:: *)
@@ -37,6 +38,7 @@ ToSpinWeight::usage="ToSpinWeight[expr,spin] maps all SpinWeightedSphericalHarmo
 SpinWeightedDerivatves::usage="SpinWeightedDerivatves[True/False] turns on/off automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS. This is on by default.";
 EvaluateSpinZero::usages="EvaluateSpinZero[True/False] turns on/off automatic evaluation of SpinWeightedSphericalHarmonicY[0,l,m,\[Theta],\[Phi]] to SphericalHarmonicY[l,m,\[Theta],\[Phi]]. This is on by default."
 SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default."
+SpheroidalEquation::usage="SpheroidalEquation[s,l,m,\[Gamma],\[Theta],\[Phi]] returns the spheroidal equation."
 
 
 (* ::Subsection:: *)
@@ -68,7 +70,7 @@ Begin["`Private`"];
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
@@ -184,6 +186,16 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 (* ::Section:: *)
+(*SpheroidalEquation*)
+
+
+SpheroidalEquation[s_,\[ScriptL]_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]:=Module[{aux},
+aux=D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],{\[Theta],2}]+Cot[\[Theta]]D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],\[Theta]]+(2 \[Gamma] (m-s Cos[\[Theta]])-(m+s Cos[\[Theta]])^2/Sin[\[Theta]]^2+SpinWeightedSpheroidalEigenvalue[s,\[ScriptL],m,\[Gamma]]+s-\[Gamma]^2 Sin[\[Theta]]^2)SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]];
+aux
+]
+
+
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
@@ -482,7 +494,7 @@ SpinWeightedSpheroidalEigenvalue /: Format[
    ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -1317,7 +1329,7 @@ Derivative /: Format[
 
 
 SetAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-SetAttributes[{DerivativeToYslm,ToSpinWeight,SpeedUpSWSHSeries,SpinWeightedDerivatves,EvaluateSpinZero,SpeenDup}, {Protected, ReadProtected}];
+SetAttributes[{DerivativeToYslm,ToSpinWeight,SpeedUpSWSHSeries,SpinWeightedDerivatves,EvaluateSpinZero,SpheroidalEquation}, {Protected, ReadProtected}];
 
 
 (* ::Subsection::Closed:: *)

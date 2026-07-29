@@ -189,8 +189,9 @@ CF[a_, b_, {n_, n0_}] :=
 (*SpheroidalEquation*)
 
 
-SpheroidalEquation[s_,\[ScriptL]_,m_,\[Gamma]_,\[Theta]_,\[Phi]_]:=Module[{aux},
+SpheroidalEquation[s_,\[ScriptL]_,m_,\[Gamma]_,\[CurlyTheta]_,\[CurlyPhi]_]:=Module[{aux,\[Theta],\[Phi]},
 aux=D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],{\[Theta],2}]+Cot[\[Theta]]D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],\[Theta]]+(2 \[Gamma] (m-s Cos[\[Theta]])-(m+s Cos[\[Theta]])^2/Sin[\[Theta]]^2+SpinWeightedSpheroidalEigenvalue[s,\[ScriptL],m,\[Gamma]]+s-\[Gamma]^2 Sin[\[Theta]]^2)SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]];
+aux=aux/.{\[Theta]->\[CurlyTheta],\[Phi]->\[CurlyPhi]};
 aux
 ]
 

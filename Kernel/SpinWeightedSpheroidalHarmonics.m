@@ -20,7 +20,7 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 
 ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-ClearAttributes[{SpinWeightedSimplify,SpinWeightedDerivatves,EvaluateSpinZero,SpeedUpSWSHSeries}, {Protected, ReadProtected}];
+ClearAttributes[{SpinWeightedSimplify,SpinWeightedControl}, {Protected, ReadProtected}];
 
 
 
@@ -36,9 +36,10 @@ SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroida
 (*DerivativeToYslm::usage="DerivativeToYslm[expr] reduces all \[Theta] Derivatives of SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY of different spin weight. It always brings the spin weight closer to 0, where assuming that a symbolic s is negative.";
 ToSpinWeight::usage="ToSpinWeight[expr,spin] maps all SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY with a \[PlusMinus]1 range from spin. This is often useful when dealing with expressions of a known spin weight, to allow simplifications."; *)
 SpinWeightedSimplify::usage="SpinWeightedSimplify[expr,spin] canonicalizes all SpinWeightedSphericalHarmonicY and its derivatives towards the given spin weight."
-SpinWeightedDerivatves::usage="SpinWeightedDerivatves[True/False] turns on/off automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS. This is on by default.";
+(*SpinWeightedDerivatves::usage="SpinWeightedDerivatves[True/False] turns on/off automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS. This is on by default.";
 EvaluateSpinZero::usages="EvaluateSpinZero[True/False] turns on/off automatic evaluation of SpinWeightedSphericalHarmonicY[0,l,m,\[Theta],\[Phi]] to SphericalHarmonicY[l,m,\[Theta],\[Phi]]. This is on by default."
-SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default."
+SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default." *)
+SpinWeightedControl::usage="Allows to change the behaviour of SpinWeightedSpheroidalHarmonicS and SpinWeightedSphericalHarmonicY."
 (*SpheroidalEquation::usage="SpheroidalEquation[s,l,m,\[Gamma],\[Theta],\[Phi]] returns the spheroidal equation."*)
 
 
@@ -60,7 +61,7 @@ SpinWeightedSpheroidalHarmonicS::params = "Invalid parameters s=`1`, l=`2`, m=`3
 SpinWeightedSphericalHarmonicY::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 
 
-SpeedUpSWSHSeries::warn="\[WarningSign] Warning: Uprotecting Series \[WarningSign]";
+SpinWeightedControl::warn="\[WarningSign] Warning: Uprotecting Series \[WarningSign]";
 
 
 (* ::Subsection::Closed:: *)
@@ -75,22 +76,39 @@ Begin["`Private`"];
 (*Useful functions*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*On-Off switch for Derivatives*)
 
 
 evaluateDerivatives=True;
-SpinWeightedDerivatves[True]:=Module[{aux},evaluateDerivatives=True;Update[Derivative];]
-SpinWeightedDerivatves[False]:=Module[{aux},evaluateDerivatives=False;Update[Derivative];]
+SpinWeightedDerivatives[True]:=Module[{aux},evaluateDerivatives=True;Update[Derivative];]
+SpinWeightedDerivatives[False]:=Module[{aux},evaluateDerivatives=False;Update[Derivative];]
+SpinWeightedDerivatives[None]:=Identity
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*On-Off switch for evaluating SpinWeightedSphericalHarmonicY[0,...] to SphericalHarmonicY*)
 
 
 evaluateSpinZero=True;
 EvaluateSpinZero[True]:=Module[{aux},evaluateSpinZero=True;Update[SpinWeightedSphericalHarmonicY];]
 EvaluateSpinZero[False]:=Module[{aux},evaluateSpinZero=False;Update[SpinWeightedSphericalHarmonicY];]
+EvaluateSpinZero[None]:=Identity;
+
+
+(* ::Subsection:: *)
+(*Control*)
+
+
+Options[SpinWeightedControl]={"SpinWeightedDerivatives"->None,"EvaluateSpinZero"->None,"SpeedUpSWSHSeries"->None}
+
+
+SpinWeightedControl[OptionsPattern[]]:=Module[{aux},
+SpinWeightedDerivatives[OptionValue["SpinWeightedDerivatives"]];
+EvaluateSpinZero[OptionValue["EvaluateSpinZero"]];
+SpeedUpSWSHSeries[OptionValue["SpeedUpSWSHSeries"]];
+]
+
 
 
 (* ::Subsection::Closed:: *)
@@ -496,7 +514,7 @@ SpinWeightedSpheroidalEigenvalue /: Format[
    ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -653,7 +671,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -720,7 +738,7 @@ This is here to stop Series from searching through its rules before going into D
 *)
 $insideSWSHSeriesQ=False
 SpeedUpSWSHSeries[True]:=Module[{aux},
-Message[SpeedUpSWSHSeries::warn];
+Message[SpinWeightedControl::warn];
 Unprotect[Series];
 Clear[Series];
 Series[expr_, x__]/;(!$insideSWSHSeriesQ):= Block[{SpinWeightedSpheroidalEigenvalue,SpinWeightedSpheroidalHarmonicS,$insideSWSHSeriesQ=True},Series[expr,x]];
@@ -731,6 +749,7 @@ Unprotect[Series];
 Clear[Series];
 Protect[Series];
 ]
+SpeedUpSWSHSeries[None]:=Identity;
 
 
 If[$SpeedUpSWSHSeries===True,SpeedUpSWSHSeries[True]];
@@ -761,7 +780,7 @@ Derivative[0,0,0,n,0,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta]
 ]*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Derivatives*)
 
 
@@ -779,7 +798,7 @@ Derivative/:
   \[Phi]_]/;(TrueQ[Simplify[evaluateDerivatives]]&&n!=0) :=(I m)^n Derivative[0,0,0,0,a,0][SpinWeightedSpheroidalHarmonicS][s,l,m,\[Gamma],\[Theta],\[Phi]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Uncurried form*)
 
 
@@ -1342,7 +1361,7 @@ Derivative /: Format[
 
 
 SetAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-SetAttributes[{SpinWeightedSimplify,SpeedUpSWSHSeries,SpinWeightedDerivatves,EvaluateSpinZero}, {Protected, ReadProtected}];
+SetAttributes[{SpinWeightedSimplify,SpinWeightedControl}, {Protected, ReadProtected}];
 
 
 (* ::Subsection::Closed:: *)

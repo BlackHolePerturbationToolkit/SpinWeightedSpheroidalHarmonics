@@ -4,7 +4,7 @@
 (*SpinWeightedSpheoridalHarmonics package*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Create Package*)
 
 
@@ -15,7 +15,7 @@
 BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Unprotect symbols*)
 
 
@@ -24,7 +24,7 @@ ClearAttributes[{SpinWeightedSimplify,SpinWeightedControl}, {Protected, ReadProt
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -43,7 +43,7 @@ SpinWeightedControl::usage="Allows to change the behaviour of SpinWeightedSphero
 (*SpheroidalEquation::usage="SpheroidalEquation[s,l,m,\[Gamma],\[Theta],\[Phi]] returns the spheroidal equation."*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error Messages*)
 
 
@@ -72,11 +72,11 @@ Begin["`Private`"];
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*On-Off switch for Derivatives*)
 
 
@@ -86,7 +86,7 @@ SpinWeightedDerivatives[False]:=Module[{aux},evaluateDerivatives=False;Update[De
 SpinWeightedDerivatives[None]:=Identity
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*On-Off switch for evaluating SpinWeightedSphericalHarmonicY[0,...] to SphericalHarmonicY*)
 
 
@@ -96,7 +96,7 @@ EvaluateSpinZero[False]:=Module[{aux},evaluateSpinZero=False;Update[SpinWeighted
 EvaluateSpinZero[None]:=Identity;
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Control*)
 
 
@@ -671,7 +671,7 @@ SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]:
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -1080,7 +1080,7 @@ SpinWeightedSpheroidalHarmonicSFunction[assoc_][\[Theta]_?NumericQ, \[Phi]_?Nume
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*SphericalExact method*)
 
 
@@ -1088,7 +1088,7 @@ SpinWeightedSpheroidalHarmonicSFunction[assoc_][\[Theta]_, \[Phi]_] /; First[ass
   SpinWeightedSphericalHarmonicY[assoc["s"], assoc["l"], assoc["m"], \[Theta], \[Phi]];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Derivatives*)
 
 
@@ -1117,7 +1117,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
   
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSphericalHarmonicY*)
 
 

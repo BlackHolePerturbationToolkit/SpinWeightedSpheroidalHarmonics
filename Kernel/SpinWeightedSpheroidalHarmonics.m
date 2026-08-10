@@ -86,7 +86,7 @@ SpinWeightedDerivatives[None]:=Identity
 (*On-Off switch for evaluating SpinWeightedSphericalHarmonicY[0,...] to SphericalHarmonicY*)
 
 
-EvaluateSpinZero::usages="EvaluateSpinZero[True/False] turns on/off automatic evaluation of SpinWeightedSphericalHarmonicY[0,l,m,\[Theta],\[Phi]] to SphericalHarmonicY[l,m,\[Theta],\[Phi]]. This is on by default.";
+EvaluateSpinZero::usage = "EvaluateSpinZero[True/False] turns on/off automatic evaluation of SpinWeightedSphericalHarmonicY[0,l,m,\[Theta],\[Phi]] to SphericalHarmonicY[l,m,\[Theta],\[Phi]]. This is on by default.";
 
 
 evaluateSpinZero=True;
@@ -696,7 +696,7 @@ SpinWeightedSpheroidalHarmonicS/:Derivative[0,0,0,n_,n\[Theta]_,0][SpinWeightedS
   ]]]]
 
 
-SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default." *)
+SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default.";
 
 
 (*

@@ -334,16 +334,15 @@ SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_, l_, m
 (*Small-\[Gamma] expansion*)
 
 
-SpinWeightedSpheroidalEigenvalue/:Derivative[0,0,0,n_][SpinWeightedSpheroidalEigenvalue]/;n>0:=Function[{s,l,m,\[Gamma]},
+Derivative[0,0,0,n_][SpinWeightedSpheroidalEigenvalue][s_, l_, m_, 0] /; n>0 :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
   Do[
     Do[
       d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
     s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
   , {i, 0, n}];
- aux=Block[{i=n},(i!)s\[Lambda]lm[s, l, m][i]];
-	aux
-]]]]
+  (n!)s\[Lambda]lm[s, l, m][n]
+]]]
 
 
 (* ::Subsection::Closed:: *)
@@ -659,15 +658,14 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
 (*Uncurried form*)
 
 
-SpinWeightedSpheroidalHarmonicS/:Derivative[0,0,0,n_,n\[Theta]_,0][SpinWeightedSpheroidalHarmonicS]/;n>0:=Function[{s,l,m,\[Gamma],\[Theta],\[Phi]},
+Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_, 0, \[Theta]_, \[Phi]_] /; n>0 :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
   Do[Do[
       d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
     s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
   , {i, 0, n}];
-  aux=Block[{i=n},Sum[(i!)d[s, l, m][i, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, Derivative[0,0,0,n\[Theta],0][SpinWeightedSphericalHarmonicY][s, l+j, m, \[Theta], \[Phi]]], {j, -i, i}]];
-  aux
-  ]]]]
+  Sum[(n!)d[s, l, m][n, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, Derivative[0,0,0,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s, l+j, m, \[Theta], \[Phi]]], {j, -n, n}];
+]]]
 
 
 SpeedUpSWSHSeries::usage=" \[WarningSign]SETTING TO TRUE UNPROTECTS SERIES\[WarningSign] SpeedUpSWSHSeries[True/False] speeds up small spheroidicity expansions of SpinWeightedSpheroidalHarmonicS and SpinWeightedSpheroidalEigenvalue. This is off by default.";

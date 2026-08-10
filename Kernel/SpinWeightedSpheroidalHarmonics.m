@@ -1054,16 +1054,11 @@ SpinWeightedSphericalHarmonicY[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Theta]_,
 
 
 SpinWeightedSphericalHarmonicY[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Theta]_, \[Phi]_] :=
-  (-1)^m Sqrt[((l+m)!(l-m)!(2l+1))/(4\[Pi] (l+s)!(l-s)!)] Sum[Binomial[l-s,r] Binomial[l+s,r+s-m] (-1)^(l-r-s) If[(2 l - 2 r - s + m)===0, 1, Sin[\[Theta]/2]^(2 l - 2 r - s + m)] If[(2 r + s - m)===0, 1, Cos[\[Theta]/2]^(2 r + s - m)],{r,Max[m-s,0],Min[l-s,l+m]}]Exp[I m \[Phi]];
+  (-1)^s Sqrt[(2l+1)/(4\[Pi])] Sqrt[(l-m)!/(l+m)! (l-s)!/(l+s)!]If[m+s===0,1,Sin[\[Theta]/2]^-(m+s)]If[m-s===0,1,Cos[\[Theta]/2]^(m-s)]Hypergeometric2F1Regularized[-l-s,l-s+1,1-s-m,(1-Cos[\[Theta]])/2]Exp[I m \[Phi]];
 
 
 FunctionExpand[SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_]] ^:=
-  ((-1)^m*E^(I*m*\[Phi])*Sqrt[((1 + 2*l)*(l - m)!*(l + m)!)/((l - s)!*(l + s)!)]*
-  Piecewise[{{(-1)^(l - s)*Binomial[l + s, -m + s]*Cos[\[Theta]/2]^(-m + s)*
-      Hypergeometric2F1[-l - m, -l + s, 1 - m + s, -Cot[\[Theta]/2]^2]*
-      Sin[\[Theta]/2]^(2*l + m - s), m <= s}}, (-1)^(l - m)*Binomial[l - s, m - s]*
-    Cos[\[Theta]/2]^(m - s)*Hypergeometric2F1[-l + m, -l - s, 1 + m - s, -Cot[\[Theta]/2]^2]*
-    Sin[\[Theta]/2]^(2*l - m + s)])/(2*Sqrt[Pi]);
+  (-1)^s Sqrt[(2l+1)/(4\[Pi])] Sqrt[(l-m)!/(l+m)! (l-s)!/(l+s)!] Sin[\[Theta]/2]^-(m+s) Cos[\[Theta]/2]^(m-s) Hypergeometric2F1Regularized[-l-s,l-s+1,1-s-m,(1-Cos[\[Theta]])/2]Exp[I m \[Phi]];
 
 
 SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=

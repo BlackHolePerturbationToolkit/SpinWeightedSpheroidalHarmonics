@@ -19,8 +19,10 @@ BeginPackage["SpinWeightedSpheroidalHarmonics`"];
 (*Unprotect symbols*)
 
 
-ClearAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-ClearAttributes[{SpinWeightedSimplify,SpinWeightedControl}, {Protected, ReadProtected}];
+ClearAttributes[{
+  SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS,
+  SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue,
+  SpinWeightedSimplify, SpinWeightedControl}, {Protected, ReadProtected}];
 
 
 (* ::Subsection::Closed:: *)
@@ -1280,8 +1282,10 @@ Derivative /: Format[
 (*Protect symbols*)
 
 
-SetAttributes[{SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS, SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue}, {Protected, ReadProtected}];
-SetAttributes[{SpinWeightedSimplify,SpinWeightedControl}, {Protected, ReadProtected}];
+SetAttributes[{
+  SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS,
+  SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue,
+  SpinWeightedSimplify, SpinWeightedControl}, {Protected, ReadProtected}];
 
 
 (* ::Subsection::Closed:: *)

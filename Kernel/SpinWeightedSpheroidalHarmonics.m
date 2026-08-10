@@ -111,32 +111,6 @@ SpeedUpSWSHSeries[OptionValue["SpeedUpSWSHSeries"]];
 
 
 (* ::Subsection::Closed:: *)
-(*Expanding Spheroidals (depricated)*)
-
-
-(*ExpandSpheroidal[expr_SpinWeightedSpheroidalEigenvalue,order_]:=Module[{aux,\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega],\[Gamma]},
-{\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega]}={expr[[1]],expr[[2]],expr[[3]],expr[[4]]};
-aux=SpinWeightedSpheroidalEigenvalue[\[ScriptS],\[ScriptL],\[ScriptM],\[Gamma]]//Series[#,{\[Gamma],0,order}]&//Normal;
-aux=aux/.\[Gamma]->a\[Omega];
-aux
-]
-
-ExpandSpheroidal[expr_,order_]/;MatchQ[expr,SpinWeightedSpheroidalHarmonicS[___][___]]:=Module[{aux,\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega],\[Theta],\[Phi],\[Gamma]},
-{\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega],\[Theta],\[Phi]}={expr[[0]][[1]],expr[[0]][[2]],expr[[0]][[3]],expr[[0]][[4]],expr[[1]],expr[[2]]};
-aux=SpinWeightedSpheroidalHarmonicS[\[ScriptS],\[ScriptL],\[ScriptM],\[Gamma]][\[Theta],\[Phi]]//Series[#,{\[Gamma],0,order}]&//Normal;
-aux=aux/.\[Gamma]->a\[Omega];
-aux
-]
-
-ExpandSpheroidal[expr_,order_]:=Module[{aux,replsEigenValue,replsHarmonicS},
-replsEigenValue=SpinWeightedSpheroidalEigenvalue[\[ScriptS]_,\[ScriptL]_,\[ScriptM]_,a\[Omega]__]:>ExpandSpheroidal[SpinWeightedSpheroidalEigenvalue[\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega]],order];
-replsHarmonicS=SpinWeightedSpheroidalHarmonicS[\[ScriptS]_,\[ScriptL]_,\[ScriptM]_,a\[Omega]__][\[Theta]_,\[Phi]_]:>ExpandSpheroidal[SpinWeightedSpheroidalHarmonicS[\[ScriptS],\[ScriptL],\[ScriptM],a\[Omega]][\[Theta],\[Phi]],order];
-aux=expr/.replsEigenValue/.replsHarmonicS;
-aux
-];*)
-
-
-(* ::Subsection::Closed:: *)
 (*Series expansion coefficients*)
 
 

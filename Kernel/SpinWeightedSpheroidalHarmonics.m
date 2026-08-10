@@ -73,7 +73,7 @@ Begin["`Private`"];
 (*On-Off switch for Derivatives*)
 
 
-SpinWeightedDerivatves::usage="SpinWeightedDerivatves[True/False] turns on/off automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS. This is on by default.";
+SpinWeightedDerivatives::usage="SpinWeightedDerivatives[True/False] turns on/off automatic evaluation of derivatives for SpinWeightedSphericalHarmonicY and SpinWeightedSpheroidalHarmonicS. This is on by default.";
 
 
 evaluateDerivatives=True;
@@ -726,7 +726,7 @@ If[$SpeedUpSWSHSeries===True,SpeedUpSWSHSeries[True]];
 (*Derivatives*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*\[Phi] Derivatives*)
 
 
@@ -1103,7 +1103,7 @@ SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_]/;TrueQ[Simplify[ev
 (*Derivatives*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*\[Phi] Derivatives*)
 
 
@@ -1112,7 +1112,7 @@ Derivative /:
   (I m)^n Derivative[0,0,0,d,0][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[CurlyPhi]];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*\[Theta] Derivatives*)
 
 

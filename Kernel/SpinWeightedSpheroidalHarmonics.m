@@ -292,6 +292,9 @@ Options[SpinWeightedSpheroidalEigenvalue] = {Method -> Automatic};
 SetAttributes[SpinWeightedSpheroidalEigenvalue, {NumericFunction, Listable, NHoldAll}];
 
 
+SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_] /; l < 0 := SpinWeightedSpheroidalEigenvalue[s, -(l+1), m, \[Gamma]];
+
+
 SpinWeightedSpheroidalEigenvalue[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;
   l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] :=
  (Message[SpinWeightedSpheroidalEigenvalue::params, s, l, m]; $Failed);
@@ -585,8 +588,14 @@ Options[SpinWeightedSpheroidalHarmonicS] = {Method -> Automatic};
 SetAttributes[SpinWeightedSpheroidalHarmonicS, {Listable, NHoldAll}];
 
 
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_] /; l < 0 := SpinWeightedSpheroidalHarmonicS[s, -(l+1), m, \[Gamma]];
+
+
+SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_] /; l < Abs[s] || l < Abs[m] := 0;
+
+
 SpinWeightedSpheroidalHarmonicS[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Gamma]_, OptionsPattern[]] /;
-  l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
+  !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
  (Message[SpinWeightedSpheroidalHarmonicS::params, s, l, m]; $Failed);
 
 
@@ -1042,14 +1051,20 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
 
 
 SyntaxInformation[SpinWeightedSphericalHarmonicY] =
- {"ArgumentsPattern" -> {_, _, _, _, _, OptionsPattern[]}};
+ {"ArgumentsPattern" -> {_, _, _, _, _}};
 
 
 SetAttributes[SpinWeightedSphericalHarmonicY, {NumericFunction, Listable}];
 
 
-SpinWeightedSphericalHarmonicY[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Theta]_, \[Phi]_, OptionsPattern[]] /;
-  l < Abs[s] || Abs[m] > l || !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
+SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_] /; l < 0 := SpinWeightedSphericalHarmonicY[s, -(l+1), m, \[Theta], \[Phi]];
+
+
+SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_] /; l < Abs[s] || l < Abs[m] := 0;
+
+
+SpinWeightedSphericalHarmonicY[s_?NumericQ, l_?NumericQ, m_?NumericQ, \[Theta]_, \[Phi]_] /;
+  !AllTrue[{2s, 2l, 2m}, IntegerQ] || !IntegerQ[l-s] || !IntegerQ[m-s] := 
  (Message[SpinWeightedSphericalHarmonicY::params, s, l, m]; $Failed);
 
 

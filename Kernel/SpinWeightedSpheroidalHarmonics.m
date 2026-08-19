@@ -1261,7 +1261,7 @@ Derivative /: Format[
 SetAttributes[{
   SpinWeightedSphericalHarmonicY, SpinWeightedSpheroidalHarmonicS,
   SpinWeightedSpheroidalHarmonicSFunction, SpinWeightedSpheroidalEigenvalue,
-  SpinWeightedSimplify, SpinWeightedControl}, {Protected, ReadProtected}];
+  SpinWeightedSimplify, SetSpinWeightedOptions}, {Protected, ReadProtected}]
 
 
 (* ::Subsection::Closed:: *)

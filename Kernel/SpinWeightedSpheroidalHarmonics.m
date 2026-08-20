@@ -181,20 +181,6 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 (* ::Section::Closed:: *)
-(*SpheroidalEquation*)
-
-
-SpheroidalEquation::usage = "SpheroidalEquation[s,l,m,\[Gamma],\[Theta],\[Phi]] returns the spheroidal equation.";
-
-
-SpheroidalEquation[s_,\[ScriptL]_,m_,\[Gamma]_,\[CurlyTheta]_,\[CurlyPhi]_]:=Module[{aux,\[Theta],\[Phi]},
-aux=D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],{\[Theta],2}]+Cot[\[Theta]]D[SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]],\[Theta]]+(2 \[Gamma] (m-s Cos[\[Theta]])-(m+s Cos[\[Theta]])^2/Sin[\[Theta]]^2+SpinWeightedSpheroidalEigenvalue[s,\[ScriptL],m,\[Gamma]]+s-\[Gamma]^2 Sin[\[Theta]]^2)SpinWeightedSpheroidalHarmonicS[s,\[ScriptL],m,\[Gamma],\[Theta],\[Phi]];
-aux=aux/.{\[Theta]->\[CurlyTheta],\[Phi]->\[CurlyPhi]};
-aux
-]
-
-
-(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 

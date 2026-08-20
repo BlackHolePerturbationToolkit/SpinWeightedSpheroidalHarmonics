@@ -340,6 +340,19 @@ SpinWeightedSpheroidalEigenvalue /: N[SpinWeightedSpheroidalEigenvalue[s_, l_, m
 (*Small-\[Gamma] expansion*)
 
 
+SpinWeightedSpheroidalEigenvalue /: 
+  Series[SpinWeightedSpheroidalEigenvalue[s_, l_, m_, \[Gamma]_], {\[Gamma]_, 0, order_}] := 
+ Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
+  Do[
+    Do[
+      d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
+    s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
+  , {i, 0, order}];
+  coeffs = Table[s\[Lambda]lm[s, l, m][i], {i, 0, order}];
+  SeriesData[\[Gamma], 0, coeffs, 0, order + 1, 1]
+]]];
+
+
 Derivative[0,0,0,n_][SpinWeightedSpheroidalEigenvalue][s_, l_, m_, 0] /; n>0 :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
   Do[

@@ -676,7 +676,7 @@ Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_
       d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
     s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
   , {i, 0, n}];
-  Sum[(n!)d[s, l, m][n, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, Derivative[0,0,0,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s, l+j, m, \[Theta], \[Phi]]], {j, -n, n}];
+  Sum[(n!)d[s, l, m][n, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, Derivative[0,0,0,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s, l+j, m, \[Theta], \[Phi]]], {j, -n, n}]
 ]]]
 
 

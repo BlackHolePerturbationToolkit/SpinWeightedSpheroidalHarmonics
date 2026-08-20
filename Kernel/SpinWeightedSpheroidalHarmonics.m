@@ -54,6 +54,7 @@ SpinWeightedSpheroidalHarmonicS::prec = "Spin-weighted spheroidal harmonic canno
 SpinWeightedSpheroidalHarmonicS::maxterms = "Spin-weighted spheroidal harmonic cannot be computed to the requested accuracy using \"Leaver\" method with `1` terms and the given working precision. A more accurate result may be obtained by increasing the value for the \"MaxTerms\" suboption for the \"Leaver\" method.";
 SpinWeightedSpheroidalHarmonicS::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
 SpinWeightedSphericalHarmonicY::params = "Invalid parameters s=`1`, l=`2`, m=`3`";
+SetSpinWeightedOptions::invparam = "Invalid option `1`\[RightArrow]`2`.";
 
 
 (* ::Subsection::Closed:: *)
@@ -72,23 +73,31 @@ Begin["`Private`"];
 (*SetSpinWeightedOptions*)
 
 
-SetSpinWeightedOptions[arg1_, args__]:=Sequence[SetSpinWeightedOptions[arg1],SetSpinWeightedOptions[args]];
+$SpinWeightedOptions = <|"EvaluateDerivatives" -> True, "EvaluateSpinZero" -> True, "OverloadSeries" -> False|>;
+
+
+SetSpinWeightedOptions[] := $SpinWeightedOptions;
+
+
+SetSpinWeightedOptions[arg1_, args__] := (Sequence[SetSpinWeightedOptions[arg1], SetSpinWeightedOptions[args]]; $SpinWeightedOptions);
+
+
+SetSpinWeightedOptions[key_ -> val_] /; !MemberQ[{"EvaluateDerivatives", "EvaluateSpinZero", "OverloadSeries"}, key] || !BooleanQ[val] :=
+  Message[SetSpinWeightedOptions::invparam, key, val];
 
 
 (* ::Subsubsection::Closed:: *)
 (*Evaluate derivatives*)
 
 
-$evaluateDerivatives = True;
-SetSpinWeightedOptions["EvaluateDerivatives" -> bool_?BooleanQ] := ($evaluateDerivatives = bool; Update[Derivative]);
+SetSpinWeightedOptions["EvaluateDerivatives" -> bool_?BooleanQ] := ($SpinWeightedOptions["EvaluateDerivatives"] = bool; Update[Derivative]; $SpinWeightedOptions);
 
 
 (* ::Subsubsection::Closed:: *)
 (*Evaluate SpinWeightedSphericalHarmonicY[0,...] to SphericalHarmonicY*)
 
 
-$evaluateSpinZero = True;
-SetSpinWeightedOptions["EvaluateSpinZero" -> bool_?BooleanQ] := ($evaluateSpinZero = bool; Update[SpinWeightedSphericalHarmonicY]);
+SetSpinWeightedOptions["EvaluateSpinZero" -> bool_?BooleanQ] := ($SpinWeightedOptions["EvaluateSpinZero"] = bool; Update[SpinWeightedSphericalHarmonicY]; $SpinWeightedOptions);
 
 
 (* ::Subsubsection::Closed:: *)
@@ -102,6 +111,8 @@ SetSpinWeightedOptions["OverloadSeries" -> True] :=
   SetDelayed[Series[expr_, x__] /;(!$insideSWSHSeriesQ),
     Block[{SpinWeightedSpheroidalEigenvalue, SpinWeightedSpheroidalHarmonicS, $insideSWSHSeriesQ=True}, Series[expr,x]]];
   Protect[Series];
+  $SpinWeightedOptions["OverloadSeries"] = True;
+  $SpinWeightedOptions
 ];
 
 
@@ -110,6 +121,8 @@ SetSpinWeightedOptions["OverloadSeries" -> False] :=
   Unprotect[Series];
   Unset[Series[expr_, x__] /;(!$insideSWSHSeriesQ)];
   Protect[Series];
+  $SpinWeightedOptions["OverloadSeries"] = False;
+  $SpinWeightedOptions
 ];
 
 
@@ -687,12 +700,12 @@ Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_
 (*\[Phi] Derivatives*)
 
 
-Derivative[a_, n_][SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_]][\[Theta]_, \[Phi]_] /; ($evaluateDerivatives && n!=0):=
-  If[n==0, 1, (I m)^n, (I m)^n] Derivative[a, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]][\[Theta], \[Phi]];
+Derivative[a_, n_][SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_]][\[Theta]_, \[Phi]_] /; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0):=
+  (I m)^n Derivative[a, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]][\[Theta], \[Phi]];
 
 
-Derivative[0, 0, 0, 0, a_, n_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_, \[Gamma]_, \[Theta]_, \[Phi]_]/; ($evaluateDerivatives && n!=0) :=
-  If[n==0, 1, (I m)^n, (I m)^n] Derivative[0, 0, 0, 0, a, 0][SpinWeightedSpheroidalHarmonicS][s, l, m, \[Gamma], \[Theta], \[Phi]];
+Derivative[0, 0, 0, 0, a_, n_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_, \[Gamma]_, \[Theta]_, \[Phi]_]/; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0) :=
+  (I m)^n Derivative[0, 0, 0, 0, a, 0][SpinWeightedSpheroidalHarmonicS][s, l, m, \[Gamma], \[Theta], \[Phi]];
 
 
 (* ::Subsection::Closed:: *)
@@ -1052,7 +1065,7 @@ SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=
   SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], 0];
 
 
-SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] /; $evaluateSpinZero := SphericalHarmonicY[l, m, \[Theta], \[Phi]];
+SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] /; $SpinWeightedOptions["EvaluateSpinZero"] := SphericalHarmonicY[l, m, \[Theta], \[Phi]];
 
 
 (* ::Subsection::Closed:: *)
@@ -1063,15 +1076,15 @@ SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] /; $evaluateSpinZe
 (*\[Phi] Derivatives*)
 
 
-Derivative[0, 0, 0, d_, n_][SpinWeightedSphericalHarmonicY][s_, l_, m_, \[Theta]_, \[Phi]_] /; ($evaluateDerivatives && n!=0) :=
-  If[n==0, 1, (I m)^n, (I m)^n] Derivative[0, 0, 0, d, 0][SpinWeightedSphericalHarmonicY][s, l, m, \[Theta], \[Phi]];
+Derivative[0, 0, 0, d_, n_][SpinWeightedSphericalHarmonicY][s_, l_, m_, \[Theta]_, \[Phi]_] /; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0) :=
+  (I m)^n Derivative[0, 0, 0, d, 0][SpinWeightedSphericalHarmonicY][s, l, m, \[Theta], \[Phi]];
 
 
 (* ::Subsubsection::Closed:: *)
 (*\[Theta] Derivatives*)
 
 
-Derivative[0, 0, 0, n_, 0][SpinWeightedSphericalHarmonicY][s_Integer, l_Integer, m_Integer, \[Theta]_, \[CurlyPhi]_] /; ($evaluateDerivatives && n!=0) :=
+Derivative[0, 0, 0, n_, 0][SpinWeightedSphericalHarmonicY][s_Integer, l_Integer, m_Integer, \[Theta]_, \[CurlyPhi]_] /; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0) :=
  Module[{\[Theta]\[Theta], \[Phi]\[Phi]}, D[SpinWeightedSphericalHarmonicY[s, l, m, \[Theta]\[Theta], \[Phi]\[Phi]],{\[Theta]\[Theta], n}] /. {\[Theta]\[Theta]->\[Theta], \[Phi]\[Phi]->\[CurlyPhi]}];
 
 

@@ -73,10 +73,7 @@ Begin["`Private`"];
 (*SetSpinWeightedOptions*)
 
 
-$SpinWeightedOptions = <|"EvaluateDerivatives" -> True, "EvaluateSpinZero" -> True, "OverloadSeries" -> False|>;
-
-
-$SpinWeightedOptions = <|"EvaluateDerivatives" -> If[ValueQ[$EvaluateDerivatives],$EvaluateDerivatives,True], "EvaluateSpinZero" -> If[ValueQ[$EvaluateSpinZero],$EvaluateSpinZero,True], "OverloadSeries" -> If[ValueQ[$OverloadSeries],$OverloadSeries,False]|>;
+If[!ValueQ[$SpinWeightedOptions],$SpinWeightedOptions = <|"EvaluateDerivatives" -> If[ValueQ[$EvaluateDerivatives],$EvaluateDerivatives,True], "EvaluateSpinZero" -> If[ValueQ[$EvaluateSpinZero],$EvaluateSpinZero,True], "OverloadSeries" -> If[ValueQ[$OverloadSeries],$OverloadSeries,False]|>];
 
 
 SetSpinWeightedOptions[] := $SpinWeightedOptions;

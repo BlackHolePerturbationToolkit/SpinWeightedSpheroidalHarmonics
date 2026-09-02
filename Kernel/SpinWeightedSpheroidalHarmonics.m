@@ -665,7 +665,7 @@ aux
 
 
 SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSphericalHarmonicY[s,l,m,\[Theta],\[Phi]];
-Derivative[ns_,nl_,nm_,0,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,0,\[Theta]_,\[Phi]_]:=Derivative[ns,nl,nm,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s,l,m,0,\[Theta],\[Phi]];
+Derivative[ns_,nl_,nm_,0,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,0,\[Theta]_,\[Phi]_]:=Derivative[ns,nl,nm,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[Phi]];
 
 
 (* ::Subsection:: *)
@@ -703,10 +703,11 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
   ];*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Uncurried form*)
 
 
+(*This is the straight fast case*)
 SpinWeightedSpheroidalHarmonicS /: 
   Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_,\[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
@@ -720,6 +721,7 @@ SpinWeightedSpheroidalHarmonicS /:
 ]]];
 
 
+(*This handles all more complicated cases*)
 Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_, 0, \[Theta]_, \[Phi]_] /; n>0 :=
  Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
   Do[Do[

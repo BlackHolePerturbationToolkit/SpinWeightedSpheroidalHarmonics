@@ -65,15 +65,18 @@ Begin["`Private`"];
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Useful functions*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*SetSpinWeightedOptions*)
 
 
 $SpinWeightedOptions = <|"EvaluateDerivatives" -> True, "EvaluateSpinZero" -> True, "OverloadSeries" -> False|>;
+
+
+$SpinWeightedOptions = <|"EvaluateDerivatives" -> If[ValueQ[$EvaluateDerivatives],$EvaluateDerivatives,True], "EvaluateSpinZero" -> If[ValueQ[$EvaluateSpinZero],$EvaluateSpinZero,True], "OverloadSeries" -> If[ValueQ[$OverloadSeries],$OverloadSeries,False]|>;
 
 
 SetSpinWeightedOptions[] := $SpinWeightedOptions;
@@ -100,7 +103,7 @@ SetSpinWeightedOptions["EvaluateDerivatives" -> bool_?BooleanQ] := ($SpinWeighte
 SetSpinWeightedOptions["EvaluateSpinZero" -> bool_?BooleanQ] := ($SpinWeightedOptions["EvaluateSpinZero"] = bool; Update[SpinWeightedSphericalHarmonicY]; $SpinWeightedOptions);
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Overload Series for better performance*)
 
 
@@ -1184,7 +1187,7 @@ aux
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*s recursion relations*)
 
 
@@ -1213,7 +1216,7 @@ aux
 ToSpinWeight[expr_,spin_:0]:=expr/.{SpinWeightedSphericalHarmonicY[s_,l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>ToSpinWeight[SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[CurlyPhi]],spin],SphericalHarmonicY[l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>ToSpinWeight[SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]],spin]};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*l recursion relations*)
 
 
@@ -1243,7 +1246,7 @@ aux
 To\[ScriptL][expr_,spin_:0]:=expr/.{SpinWeightedSphericalHarmonicY[s_,l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>To\[ScriptL][SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[CurlyPhi]],spin],SphericalHarmonicY[l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>To\[ScriptL][SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]],spin]};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*SpinWeightedSimplify*)
 
 

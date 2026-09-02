@@ -4,7 +4,7 @@
 (*SpinWeightedSpheoridalHarmonics package*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Create Package*)
 
 
@@ -25,7 +25,7 @@ ClearAttributes[{
   SpinWeightedSimplify, SetSpinWeightedOptions}, {Protected, ReadProtected}];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Usage messages*)
 
 
@@ -34,7 +34,7 @@ SpinWeightedSpheroidalHarmonicSFunction::usage = "\!\(\*RowBox[{\"SpinWeightedSp
 SpinWeightedSpheroidalHarmonicS::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\", \"[\", RowBox[{StyleBox[\"\[Theta]\", \"TR\"], \",\", StyleBox[\"\[Phi]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal harmonic \!\(\*RowBox[{SubscriptBox[\"\[InvisiblePrefixScriptBase]\", \"s\"], SubscriptBox[\"S\", RowBox[{\"l\", \"m\"}]],\"(\", RowBox[{\"\[Theta]\", \",\", \"\[Phi]\", \";\", \"\[Gamma]\"}], \")\"}]\).
 \!\(\*RowBox[{\"SpinWeightedSpheroidalHarmonicS\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) constructs a SpinWeightedSpheroidalHarmonicSFunction that can be evaluated for specific values of \!\(\*StyleBox[\"\[Theta]\", \"TR\"]\) and \!\(\*StyleBox[\"\[Phi]\", \"TR\"]\).";
 SpinWeightedSpheroidalEigenvalue::usage = "\!\(\*RowBox[{\"SpinWeightedSpheroidalEigenvalue\", \"[\", RowBox[{StyleBox[\"s\", \"TI\"], \",\", StyleBox[\"l\", \"TI\"], \",\", StyleBox[\"m\", \"TI\"], \",\", StyleBox[\"\[Gamma]\", \"TR\"]}], \"]\"}]\) gives the spin-weighted spheroidal eigenvalue with spin-weight s, degree l and order m.";
-SpinWeightedSimplify::usage="\!\(\*RowBox[{\"SpinWeightedSimplify\", \"[\", RowBox[{StyleBox[\"expr\", \"TI\"], \",\", StyleBox[\"s\", \"TI\"]}], \"]\"}]\) canonicalizes all instances of SpinWeightedSphericalHarmonicY and its derivatives by converting them to harmonics of spin weight \!\(\*StyleBox[\"s\", \"TR\"]\)."
+SpinWeightedSimplify::usage="\!\(\*RowBox[{\"SpinWeightedSimplify\", \"[\", RowBox[{StyleBox[\"expr\", \"TI\"]}], \"]\"}]\) canonicalizes all instances of SpinWeightedSphericalHarmonicY and its derivatives by converting them to harmonics of different spin weight and \[ScriptL]-mode number."
 SetSpinWeightedOptions::usage="\!\(\*RowBox[{\"SetSpinWeightedOptions\", \"[\", RowBox[{StyleBox[\"opt \[RightArrow] val\", \"TI\"], \",\", StyleBox[\"\[Ellipsis]\", \"TR\"]}], \"]\"}]\) allows to change the behaviour of SpinWeightedSpheroidalHarmonicS and SpinWeightedSphericalHarmonicY."
 
 
@@ -65,11 +65,11 @@ Begin["`Private`"];
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SetSpinWeightedOptions*)
 
 
@@ -480,7 +480,7 @@ SpinWeightedSpheroidalEigenvalue /: Format[
    ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -587,7 +587,7 @@ SWSHSLeaver[s_, l_, m_, \[Gamma]_, opts:OptionsPattern[]] :=
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -668,7 +668,7 @@ SpinWeightedSpheroidalHarmonicS[s_,l_,m_,0,\[Theta]_,\[Phi]_]:=SpinWeightedSpher
 Derivative[ns_,nl_,nm_,0,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_,l_,m_,0,\[Theta]_,\[Phi]_]:=Derivative[ns,nl,nm,n\[Theta],n\[Phi]][SpinWeightedSphericalHarmonicY][s,l,m,\[Theta],\[Phi]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Small-\[Gamma] expansion*)
 
 
@@ -703,7 +703,7 @@ aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//Expand
   ];*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Uncurried form*)
 
 
@@ -732,7 +732,7 @@ Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_
 ]]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Derivatives*)
 
 
@@ -757,7 +757,7 @@ SpinWeightedSpheroidalHarmonicS/:
   \[Phi]_]]:=(-1)^(s+m) SpinWeightedSpheroidalHarmonicS[-s,l,-m,-Conjugate[\[Gamma]],Conjugate[\[Theta]],Conjugate[\[Phi]]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*TexForm*)
 
 
@@ -801,7 +801,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_},
 *)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Output Form*)
 
 
@@ -1086,7 +1086,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
   
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSphericalHarmonicY*)
 
 
@@ -1127,7 +1127,7 @@ SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=
 SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] /; $SpinWeightedOptions["EvaluateSpinZero"] := SphericalHarmonicY[l, m, \[Theta], \[Phi]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Derivatives*)
 
 
@@ -1147,12 +1147,12 @@ Derivative[0, 0, 0, n_, 0][SpinWeightedSphericalHarmonicY][s_Integer, l_Integer,
  Module[{\[Theta]\[Theta], \[Phi]\[Phi]}, D[SpinWeightedSphericalHarmonicY[s, l, m, \[Theta]\[Theta], \[Phi]\[Phi]],{\[Theta]\[Theta], n}] /. {\[Theta]\[Theta]->\[Theta], \[Phi]\[Phi]->\[CurlyPhi]}];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Identities*)
 
 
 (* ::Subsubsection::Closed:: *)
-(*\[Theta] Derivatives for generic l*)
+(*\[Theta] Derivatives via spin -raising/lowering*)
 
 
 DerivativeToYslm::usage = "DerivativeToYslm[expr] reduces all \[Theta] Derivatives of SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY of different spin weight. It always brings the spin weight closer to 0, where assuming that a symbolic s is negative.";
@@ -1185,7 +1185,7 @@ aux
 
 
 (* ::Subsubsection::Closed:: *)
-(*Spin reduction*)
+(*s recursion relations*)
 
 
 ToSpinWeight::usage="ToSpinWeight[expr,spin] maps all SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY with a \[PlusMinus]1 range from spin. This is often useful when dealing with expressions of a known spin weight, to allow simplifications.";
@@ -1213,14 +1213,47 @@ aux
 ToSpinWeight[expr_,spin_:0]:=expr/.{SpinWeightedSphericalHarmonicY[s_,l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>ToSpinWeight[SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[CurlyPhi]],spin],SphericalHarmonicY[l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>ToSpinWeight[SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]],spin]};
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
+(*l recursion relations*)
+
+
+To\[ScriptL]::usage="To\[ScriptL][expr,\[ScriptL]] maps all SpinWeightedSphericalHarmonicY to SpinWeightedSphericalHarmonicY with a \[PlusMinus]1 range from \[ScriptL].";
+To\[ScriptL][expr_SpinWeightedSphericalHarmonicY,spin_:0]:=Module[{aux,s,l,m,\[CurlyTheta],\[CurlyPhi]},
+{s,l,m,\[CurlyTheta],\[CurlyPhi]}=expr//ReplacePart[0->List];
+If[TrueQ[!IntegerQ[l]],Return[expr]];
+If[TrueQ[Simplify[(l-Abs[s]<=1)&&(l>spin+1)]],Return[expr]];
+If[TrueQ[Simplify[(l-spin)==0||(l-spin)==1]],Return[expr]];
+If[TrueQ[Simplify[l>spin+1]],aux=-((l Sqrt[(-1+l)^2-m^2] Sqrt[(-1+l)^2-s^2]SpinWeightedSphericalHarmonicY[s,l-2,m,\[CurlyTheta],\[CurlyPhi]])/((-1+l) Sqrt[1-4/(1+2 l)] Sqrt[(l-m) (l+m)] Sqrt[(l-s) (l+s)]))+(Sqrt[-3+2 l] Sqrt[-1+2 l] (m s+(-1+l) l Cos[\[CurlyTheta]])SpinWeightedSphericalHarmonicY[s,l-1,m,\[CurlyTheta],\[CurlyPhi]])/((-1+l) Sqrt[1-4/(1+2 l)] Sqrt[(l-m) (l+m)] Sqrt[(l-s) (l+s)])];
+If[TrueQ[Simplify[l<spin]],aux=(Sqrt[1+2 l] Sqrt[3+2 l] (m s+(1+l) (2+l) Cos[\[CurlyTheta]])SpinWeightedSphericalHarmonicY[s,l+1,m,\[CurlyTheta],\[CurlyPhi]])/((2+l) Sqrt[(1+l-m) (1+l+m)] Sqrt[(1+l-s) (1+l+s)])-((1+l) Sqrt[1+2 l] Sqrt[(2+l-m) (2+l+m)] Sqrt[(2+l-s) (2+l+s)] SpinWeightedSphericalHarmonicY[s,l+2,m,\[CurlyTheta],\[CurlyPhi]])/((2+l) Sqrt[5+2 l] Sqrt[(1+l-m) (1+l+m)] Sqrt[(1+l-s) (1+l+s)])];
+If[ValueQ[aux],aux=To\[ScriptL][aux,spin]];
+aux
+]
+To\[ScriptL][expr_SphericalHarmonicY,spin_:0]:=Module[{aux,s,l,m,\[CurlyTheta],\[CurlyPhi]},
+s=0;
+{l,m,\[CurlyTheta],\[CurlyPhi]}=expr//ReplacePart[0->List];
+If[TrueQ[!IntegerQ[l]],Return[expr]];
+If[TrueQ[Simplify[(l-Abs[s]<=1)&&(l>spin+1)]],Return[expr]];
+If[TrueQ[Simplify[(l-spin)==0||(l-spin)==1]],Return[expr]];
+If[TrueQ[Simplify[l>spin+1]],aux=-((l Sqrt[(-1+l)^2-m^2] Sqrt[(-1+l)^2-s^2] SpinWeightedSphericalHarmonicY[s,l-2,m,\[CurlyTheta],\[CurlyPhi]])/((-1+l) Sqrt[1-4/(1+2 l)] Sqrt[(l-m) (l+m)] Sqrt[(l-s) (l+s)]))+(Sqrt[-3+2 l] Sqrt[-1+2 l] (m s+(-1+l) l Cos[\[CurlyTheta]])SpinWeightedSphericalHarmonicY[s,l-1,m,\[CurlyTheta],\[CurlyPhi]])/((-1+l) Sqrt[1-4/(1+2 l)] Sqrt[(l-m) (l+m)] Sqrt[(l-s) (l+s)])];
+If[TrueQ[Simplify[l<spin]],aux=(Sqrt[1+2 l] Sqrt[3+2 l] (m s+(1+l) (2+l) Cos[\[CurlyTheta]])SpinWeightedSphericalHarmonicY[s,l+1,m,\[CurlyTheta],\[CurlyPhi]])/((2+l) Sqrt[(1+l-m) (1+l+m)] Sqrt[(1+l-s) (1+l+s)])-((1+l) Sqrt[1+2 l] Sqrt[(2+l-m) (2+l+m)] Sqrt[(2+l-s) (2+l+s)]SpinWeightedSphericalHarmonicY[s,l+2,m,\[CurlyTheta],\[CurlyPhi]])/((2+l) Sqrt[5+2 l] Sqrt[(1+l-m) (1+l+m)] Sqrt[(1+l-s) (1+l+s)])];
+If[ValueQ[aux],aux=To\[ScriptL][aux,spin]];
+aux
+]
+
+To\[ScriptL][expr_,spin_:0]:=expr/.{SpinWeightedSphericalHarmonicY[s_,l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>To\[ScriptL][SpinWeightedSphericalHarmonicY[s,l,m,\[CurlyTheta],\[CurlyPhi]],spin],SphericalHarmonicY[l_,m_,\[CurlyTheta]_,\[CurlyPhi]_]:>To\[ScriptL][SphericalHarmonicY[l,m,\[CurlyTheta],\[CurlyPhi]],spin]};
+
+
+(* ::Subsubsection:: *)
 (*SpinWeightedSimplify*)
 
 
-Options[SpinWeightedSimplify]={"YDerivatives"->True,"YSpinWeight"->True}
+Options[SpinWeightedSimplify]={"YDerivatives"->True,"s"->False,"l"->False}
 
 
-SpinWeightedSimplify[expr_,spin_Integer:0,OptionsPattern[]]:=expr//If[OptionValue["YDerivatives"],DerivativeToYslm,Identity]//If[OptionValue["YSpinWeight"],(ToSpinWeight[#,spin]&),Identity];
+(*SpinWeightedSimplify[expr_,spin_Integer:0,OptionsPattern[]]:=expr//If[OptionValue["YDerivatives"],DerivativeToYslm,Identity]//If[OptionValue["YSpinWeight"],(ToSpinWeight[#,spin]&),Identity];*)
+
+
+SpinWeightedSimplify[expr_,OptionsPattern[]]:=expr//If[OptionValue["YDerivatives"],DerivativeToYslm,Identity]//If[IntegerQ[OptionValue["s"]],(ToSpinWeight[#,OptionValue["s"]]&),Identity]//If[IntegerQ[OptionValue["l"]],(To\[ScriptL][#,OptionValue["l"]]&),Identity];
 
 
 (* ::Subsection::Closed:: *)
@@ -1253,7 +1286,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, th_, ph_}, "BHPTSpin
 
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Output format*)
 
 

@@ -65,7 +65,7 @@ Begin["`Private`"];
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Useful functions*)
 
 
@@ -100,7 +100,7 @@ SetSpinWeightedOptions["EvaluateDerivatives" -> bool_?BooleanQ] := ($SpinWeighte
 SetSpinWeightedOptions["EvaluateSpinZero" -> bool_?BooleanQ] := ($SpinWeightedOptions["EvaluateSpinZero"] = bool; Update[SpinWeightedSphericalHarmonicY]; $SpinWeightedOptions);
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Overload Series for better performance*)
 
 
@@ -193,7 +193,7 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
@@ -446,41 +446,41 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, \[Gamma]_}, "BHPTSpi
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Output Form*)
 
 
-SpinWeightedSpheroidalEigenvalue /: Format[
+SpinWeightedSpheroidalEigenvalue /: MakeBoxes[
   SpinWeightedSpheroidalEigenvalue[s_, l_, m_,\[Gamma]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Gamma]]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
-               SubscriptBox["", #1], 
-               SubscriptBox["\[Lambda]", RowBox[{#2,"",#3}]]
-             ,RowBox[{"[",#4,"]"}]}],
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
-             RoundingRadius -> 4,
              FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     SpinWeightedSpheroidalEigenvalue[s, l, m,\[Gamma]]
+           ]]},
+InterpretationBox[ box, SpinWeightedSpheroidalEigenvalue[s, l, m, \[Gamma]]]
    ]
 
 
-(* ::Section::Closed:: *)
+Derivative /: MakeBoxes[
+  Derivative[0,0,0,d\[Gamma]_][SpinWeightedSpheroidalEigenvalue][s_, l_, m_,\[Gamma]_], 
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
+             RowBox[{
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubsuperscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}],RowBox[{"(",ToBoxes[d\[Gamma],form], ")"}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
+             Background -> None,
+             FrameStyle ->None,
+             FrameMargins -> {{0,1}, {0,0}}
+           ]]},
+InterpretationBox[ box,Derivative[0,0,0,d\[Gamma]][SpinWeightedSpheroidalEigenvalue][s, l, m, \[Gamma]]]
+   ]
+
+
+(* ::Section:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -801,140 +801,67 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_},
 *)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Output Form*)
 
 
-(*SpinWeightedSpheroidalHarmonicS /: Format[
-  SpinWeightedSpheroidalHarmonicS[s_, l_, m_,\[Gamma]_][ \[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Gamma]],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
-             RowBox[{
-               SubscriptBox["", #1], 
-               SubscriptBox["S", RowBox[{#2,"",#3}]]
-             ,RowBox[{"[",#4,"]","[",#5,",",#6,"]"}]}],
-             Background -> None,
-             FrameStyle ->None,
-             RoundingRadius -> 4,
-             FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     SpinWeightedSpheroidalHarmonicS[s, l, m,\[Gamma]][ \[Theta], \[Phi]]
-   ]*)
-
-
-(*Derivative /: Format[
-  Derivative[n5_,n6_][SpinWeightedSpheroidalHarmonicS[s_, l_, m_,\[Gamma]_]][\[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Gamma]],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]],
-           ToBoxes[n5],
-           ToBoxes[n6]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
-             RowBox[{
-               SubscriptBox["", #1], 
-                SuperscriptBox[RowBox[{SubscriptBox["S", RowBox[{#2,"",#3}]],RowBox[{"[",#4,"]"}]}],RowBox[{"(",#7,",",#8,")"}]]
-             ,RowBox[{"[",#5,",",#6,"]"}]}],
-             Background -> None,
-             FrameStyle ->None,
-             RoundingRadius -> 4,
-             FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     Derivative[n5,n6][SpinWeightedSpheroidalHarmonicS[s, l, m,\[Gamma]]][\[Theta], \[Phi]]
-   ]*)
-
-
-SpinWeightedSpheroidalHarmonicS /: Format[
+SpinWeightedSpheroidalHarmonicS /: MakeBoxes[
   SpinWeightedSpheroidalHarmonicS[s_, l_, m_,\[Gamma]_,\[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Gamma]],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
-               SubscriptBox["", #1], 
-               SubscriptBox["S", RowBox[{#2,"",#3}]]
-             ,RowBox[{"[",#4,",",#5,",",#6,"]"}]}],
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],",",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
-             RoundingRadius -> 4,
              FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     SpinWeightedSpheroidalHarmonicS[s, l, m,\[Gamma],\[Theta], \[Phi]]
+           ]]},
+InterpretationBox[ box, SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma],\[Theta], \[Phi]]]
    ]
 
 
-Derivative /: Format[
-  Derivative[0,0,0,n4_,n5_,n6_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_,\[Gamma]_,\[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Gamma]],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]],
-           ToBoxes[n4],
-           ToBoxes[n5],
-           ToBoxes[n6]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
+Derivative/: MakeBoxes[
+  Derivative[0,0,0,d\[Gamma]_,d\[Theta]_,d\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_,\[Gamma]_, \[Theta]_, \[Phi]_], 
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
-               SubscriptBox["", #1], 
-               SubsuperscriptBox["S", RowBox[{#2,"",#3}],RowBox[{"(",#7,",",#8,",",#9,")"}]]
-             ,RowBox[{"[",#4,",",#5,",",#6,"]"}]}],
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form], ",",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],",",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
-             RoundingRadius -> 4,
              FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     Derivative[0,0,0,n4,n5,n6][SpinWeightedSpheroidalHarmonicS][s, l, m,\[Gamma],\[Theta], \[Phi]]
+           ]]},
+InterpretationBox[ box, Derivative[0,0,0,d\[Gamma],d\[Theta],d\[Phi]][SpinWeightedSpheroidalHarmonicS][s, l, m,\[Gamma], \[Theta], \[Phi]]]
+   ]
+
+
+SpinWeightedSpheroidalHarmonicS /: MakeBoxes[
+  SpinWeightedSpheroidalHarmonicS[s_, l_, m_,\[Gamma]_], 
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
+             RowBox[{
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
+             Background -> None,
+             FrameStyle ->None,
+             FrameMargins -> {{0,1}, {0,0}}
+           ]]},
+InterpretationBox[ box, SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]]
+   ]
+
+
+Derivative/: MakeBoxes[
+  Derivative[0,0,0,d\[Gamma]_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_,\[Gamma]_], 
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
+             RowBox[{
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form],")"}]]
+             ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
+             Background -> None,
+             FrameStyle ->None,
+             FrameMargins -> {{0,1}, {0,0}}
+           ]]},
+InterpretationBox[ box, Derivative[0,0,0,d\[Gamma]][SpinWeightedSpheroidalHarmonicS][s, l, m,\[Gamma]]]
    ]
 
 
@@ -1127,7 +1054,7 @@ SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, 0.] :=
 SpinWeightedSphericalHarmonicY[0, l_, m_, \[Theta]_, \[Phi]_] /; $SpinWeightedOptions["EvaluateSpinZero"] := SphericalHarmonicY[l, m, \[Theta], \[Phi]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Derivatives*)
 
 
@@ -1147,7 +1074,7 @@ Derivative[0, 0, 0, n_, 0][SpinWeightedSphericalHarmonicY][s_Integer, l_Integer,
  Module[{\[Theta]\[Theta], \[Phi]\[Phi]}, D[SpinWeightedSphericalHarmonicY[s, l, m, \[Theta]\[Theta], \[Phi]\[Phi]],{\[Theta]\[Theta], n}] /. {\[Theta]\[Theta]->\[Theta], \[Phi]\[Phi]->\[CurlyPhi]}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Identities*)
 
 
@@ -1290,67 +1217,33 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, th_, ph_}, "BHPTSpin
 (*Output format*)
 
 
-SpinWeightedSphericalHarmonicY /: Format[
+SpinWeightedSphericalHarmonicY /: MakeBoxes[
   SpinWeightedSphericalHarmonicY[s_, l_, m_, \[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
-               SubscriptBox["", #1], 
-               SubscriptBox["Y", RowBox[{#2, " ", #3}]]
-             ,RowBox[{"[",#4,",",#5,"]"}]}],
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubscriptBox["Y", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+             ,RowBox[{"[",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
-             RoundingRadius -> 4,
              FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]]
+           ]]},
+InterpretationBox[ box, SpinWeightedSphericalHarmonicY[s, l, m, \[Theta], \[Phi]]]
    ]
 
 
-Derivative /: Format[
-  Derivative[0,0,0,n5_,n6_][SpinWeightedSphericalHarmonicY][s_, l_, m_,\[Theta]_, \[Phi]_], 
-  StandardForm
-] := Interpretation[
-       DisplayForm[
-         TemplateBox[{
-           ToBoxes[s], 
-           ToBoxes[l], 
-           ToBoxes[m],
-           ToBoxes[\[Theta]],
-           ToBoxes[\[Phi]],
-           ToBoxes[n5],
-           ToBoxes[n6]
-         },
-         "MyCustomBox",
-         DisplayFunction -> (
-          StyleBox[ FrameBox[
+Derivative/: MakeBoxes[
+  Derivative[0,0,0,d\[Theta]_,d\[Phi]_][SpinWeightedSphericalHarmonicY][s_, l_, m_, \[Theta]_, \[Phi]_], 
+form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
-               SubscriptBox["", #1], 
-               SubsuperscriptBox["Y", RowBox[{#2,"",#3}],RowBox[{"(",#6,",",#7,")"}]]
-             ,RowBox[{"[",#4,",",#5,"]"}]}],
+               SubscriptBox["", ToBoxes[s,form]], 
+               SubsuperscriptBox["Y", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
+             ,RowBox[{"[",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
-             RoundingRadius -> 4,
              FrameMargins -> {{0,1}, {0,0}}
-           ]] &
-         )
-       ]
-     ], 
-     Derivative[0,0,0,n5,n6][SpinWeightedSphericalHarmonicY][s, l, m,\[Theta], \[Phi]]
+           ]]},
+InterpretationBox[ box, Derivative[0,0,0,d\[Theta],d\[Phi]][SpinWeightedSphericalHarmonicY][s, l, m, \[Theta], \[Phi]]]
    ]
 
 

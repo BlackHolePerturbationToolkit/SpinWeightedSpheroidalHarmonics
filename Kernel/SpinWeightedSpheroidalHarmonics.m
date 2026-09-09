@@ -466,7 +466,7 @@ SpinWeightedSpheroidalEigenvalue /: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+               SubscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -481,7 +481,7 @@ Derivative /: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubsuperscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}],RowBox[{"(",ToBoxes[d\[Gamma],form], ")"}]]
+               SubsuperscriptBox["\[Lambda]", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}],RowBox[{"(",ToBoxes[d\[Gamma],form], ")"}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -821,7 +821,7 @@ SpinWeightedSpheroidalHarmonicS /: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+               SubscriptBox["S", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],",",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -836,7 +836,7 @@ Derivative/: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form], ",",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
+               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form], ",",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],",",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -851,7 +851,7 @@ SpinWeightedSpheroidalHarmonicS /: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+               SubscriptBox["S", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -866,7 +866,7 @@ Derivative/: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form],")"}]]
+               SubsuperscriptBox["S", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Gamma],form],")"}]]
              ,RowBox[{"[",ToBoxes[\[Gamma],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -1242,7 +1242,7 @@ SpinWeightedSphericalHarmonicY /: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubscriptBox["Y", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}]]
+               SubscriptBox["Y", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}]]
              ,RowBox[{"[",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,
@@ -1257,7 +1257,7 @@ Derivative/: MakeBoxes[
 form:(StandardForm|TraditionalForm)] :=With[{box= StyleBox[FrameBox[
              RowBox[{
                SubscriptBox["", ToBoxes[s,form]], 
-               SubsuperscriptBox["Y", RowBox[{ToBoxes[l,form], " ",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
+               SubsuperscriptBox["Y", RowBox[{ToBoxes[l,form], " \[InvisibleSpace]",ToBoxes[m,form]}], RowBox[{"(",ToBoxes[d\[Theta],form], ",",ToBoxes[d\[Phi],form],")"}]]
              ,RowBox[{"[",ToBoxes[\[Theta],form],",",ToBoxes[\[Phi],form],"]"}]}],
              Background -> None,
              FrameStyle ->None,

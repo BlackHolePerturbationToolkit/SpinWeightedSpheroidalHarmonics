@@ -680,41 +680,6 @@ Derivative[ns_,nl_,nm_,0,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s
 (*Small-\[Gamma] expansion*)
 
 
-(* ::Subsubsection::Closed:: *)
-(*Curried form (depricated)*)
-
-
-(*SpinWeightedSpheroidalHarmonicS /: 
-  Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=
- Module[{i, j, coeffs}, Internal`InheritedBlock[{d, s\[Lambda]lm}, Block[{\[Alpha], \[Beta]},
-  Do[
-    Do[
-      d[s, l, m][i, j] = simplify[d[s, l, m][i, j]], {j, -i, i}]; 
-    s\[Lambda]lm[s, l, m][i] = simplify[s\[Lambda]lm[s, l, m][i]];
-  , {i, 0, order}];
-  coeffs = Table[Sum[d[s, l, m][i, j] If[TrueQ[l+j < Abs[s] || l+j < Abs[m]], 0, SpinWeightedSphericalHarmonicY[s, l+j, m, \[Theta], \[Phi]]], {j, -i, i}], {i, 0, order}];
-  SeriesData[\[Gamma], 0, coeffs, 0, order + 1, 1]
-]]];*)
-
-
-(*SpinWeightedSpheroidalHarmonicS /: 
-	HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_], \[Eta]_->\[Eta]0_]]/;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Series[SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]], {\[Eta], \[Eta]0, 0}];*)
-
-
-(*SpinWeightedSpheroidalHarmonicS /:
- HoldPattern[Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_][\[Theta]_, \[Phi]_],{\[Eta]_, \[Eta]0_, order_}]] /;( ! FreeQ[\[Gamma], \[Eta]]&&(Simplify[\[Gamma]/.\[Eta]->\[Eta]0]===0)):=Module[{aux, a\[Omega],factor},
- a\[Omega]=\[Gamma];
- factor=a\[Omega]//Exponent[#,\[Eta]]&;
-aux=SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]][\[Theta], \[Phi]]//ExpandSpheroidal[#,Max[Ceiling[order/factor],1]]&;
-  aux=aux//Series[#,{\[Eta],\[Eta]0,order}]&;
-  aux
-  ];*)
-
-
-(* ::Subsubsection::Closed:: *)
-(*Uncurried form*)
-
-
 (*This is the straight fast case*)
 SpinWeightedSpheroidalHarmonicS /: 
   Series[SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_,\[Theta]_, \[Phi]_], {\[Gamma]_, 0, order_}] :=
@@ -744,12 +709,8 @@ Derivative[0,0,0,n_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_
 (*Derivatives*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*\[Phi] Derivatives*)
-
-
-(*Derivative[a_, n_][SpinWeightedSpheroidalHarmonicS[s_, l_, m_, \[Gamma]_]][\[Theta]_, \[Phi]_] /; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0):=
-  (I m)^n Derivative[a, 0][SpinWeightedSpheroidalHarmonicS[s, l, m, \[Gamma]]][\[Theta], \[Phi]];*)
 
 
 Derivative[0, 0, 0, 0, a_, n_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_, \[Gamma]_, \[Theta]_, \[Phi]_]/; ($SpinWeightedOptions["EvaluateDerivatives"] && n!=0) :=

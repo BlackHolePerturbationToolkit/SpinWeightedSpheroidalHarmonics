@@ -4,7 +4,7 @@
 (*SpinWeightedSpheoridalHarmonics package*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Create Package*)
 
 
@@ -25,7 +25,7 @@ ClearAttributes[{
   SpinWeightedSimplify, SetSpinWeightedOptions}, {Protected, ReadProtected}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage messages*)
 
 
@@ -69,11 +69,8 @@ Begin["`Private`"];
 (*Useful functions*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SetSpinWeightedOptions*)
-
-
-If[!ValueQ[$SpinWeightedOptions],$SpinWeightedOptions = <|"EvaluateDerivatives" -> If[ValueQ[$EvaluateDerivatives],$EvaluateDerivatives,True], "EvaluateSpinZero" -> If[ValueQ[$EvaluateSpinZero],$EvaluateSpinZero,True], "OverloadSeries" -> If[ValueQ[$OverloadSeries],$OverloadSeries,False]|>];
 
 
 SetSpinWeightedOptions[] := $SpinWeightedOptions;
@@ -119,11 +116,25 @@ SetSpinWeightedOptions["OverloadSeries" -> True] :=
 SetSpinWeightedOptions["OverloadSeries" -> False] :=
  Module[{},
   Unprotect[Series];
-  Unset[Series[expr_, x__] /;(!$insideSWSHSeriesQ)];
+  Quiet[Unset[Series[expr_, x__] /;(!$insideSWSHSeriesQ)], Unset::norep];
   Protect[Series];
   $SpinWeightedOptions["OverloadSeries"] = False;
   $SpinWeightedOptions
 ];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Set initial values of options*)
+
+
+If[ValueQ[$SpinWeightedOptions],
+ $SpinWeightedOptions = Append[<|"EvaluateDerivatives" -> True, "EvaluateSpinZero" -> True, "OverloadSeries" -> False|>, $SpinWeightedOptions];
+,
+ $SpinWeightedOptions = <|"EvaluateDerivatives" -> True, "EvaluateSpinZero" -> True, "OverloadSeries" -> False|>;
+];
+
+
+Apply[SetSpinWeightedOptions, Normal[$SpinWeightedOptions]];
 
 
 (* ::Subsection::Closed:: *)
@@ -193,7 +204,7 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
@@ -446,7 +457,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, \[Gamma]_}, "BHPTSpi
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Output Form*)
 
 
@@ -480,7 +491,7 @@ InterpretationBox[ box,Derivative[0,0,0,d\[Gamma]][SpinWeightedSpheroidalEigenva
    ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSpheroidalHarmonicS*)
 
 
@@ -1013,7 +1024,7 @@ Derivative[d1_,d2_][SpinWeightedSpheroidalHarmonicSFunction[assoc_]][\[Theta]_?N
   
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*SpinWeightedSphericalHarmonicY*)
 
 
@@ -1074,7 +1085,7 @@ Derivative[0, 0, 0, n_, 0][SpinWeightedSphericalHarmonicY][s_Integer, l_Integer,
  Module[{\[Theta]\[Theta], \[Phi]\[Phi]}, D[SpinWeightedSphericalHarmonicY[s, l, m, \[Theta]\[Theta], \[Phi]\[Phi]],{\[Theta]\[Theta], n}] /. {\[Theta]\[Theta]->\[Theta], \[Phi]\[Phi]->\[CurlyPhi]}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Identities*)
 
 
@@ -1111,7 +1122,7 @@ aux
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*s recursion relations*)
 
 
@@ -1222,7 +1233,7 @@ System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, th_, ph_}, "BHPTSpin
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Output format*)
 
 

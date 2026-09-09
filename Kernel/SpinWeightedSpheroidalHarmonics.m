@@ -204,7 +204,7 @@ CF[a_, b_, {n_, n0_}] :=
 
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*SpinWeightedSpheroidalEigenvalue*)
 
 
@@ -434,7 +434,7 @@ Module[{slm,z0,q,aFgen,AFgen,Asgen,\[Delta]gen,\[Nu]gen,RecRelgen,n,c,p,Serngen,
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*TeXForm*)
 
 
@@ -452,6 +452,23 @@ SpinWeightedSpheroidalEigenvalue /: MakeBoxes[SpinWeightedSpheroidalEigenvalue[s
 (* Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, \[Gamma]_}, "SpinWeightedSpheroidalEigenvalue"]] := 
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
+
+
+(* Intercept the function during Box creation and wrap it in a named TemplateBox *)
+Derivative /: MakeBoxes[Derivative[0,0,0,n\[Gamma]_][SpinWeightedSpheroidalEigenvalue][s_, l_, m_,\[Gamma]_], TraditionalForm] := 
+  TemplateBox[{
+     MakeBoxes[n\[Gamma], TraditionalForm], 
+    MakeBoxes[s, TraditionalForm], 
+    MakeBoxes[l, TraditionalForm], 
+    MakeBoxes[m, TraditionalForm], 
+    MakeBoxes[\[Gamma], TraditionalForm]
+   }, 
+   "Derivative[SpinWeightedSpheroidalEigenvalue]"
+  ];
+
+(* Teach the TeX converter how to handle this specific TemplateBox *)
+System`Convert`TeXFormDump`maketex[TemplateBox[{n\[Gamma]_,s_, l_, m_, \[Gamma]_}, "Derivative[SpinWeightedSpheroidalEigenvalue]"]] := 
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}\\lambda_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}^{( " <> System`Convert`TeXFormDump`MakeTeX[n\[Gamma]] <>")}(" <> System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> ")";
 
 
 (* ::Subsection::Closed:: *)
@@ -726,7 +743,7 @@ SpinWeightedSpheroidalHarmonicS/:
   \[Phi]_]]:=(-1)^(s+m) SpinWeightedSpheroidalHarmonicS[-s,l,-m,-Conjugate[\[Gamma]],Conjugate[\[Theta]],Conjugate[\[Phi]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*TexForm*)
 
 
@@ -746,6 +763,28 @@ SpinWeightedSpheroidalHarmonicS /: MakeBoxes[SpinWeightedSpheroidalHarmonicS[s_,
 (* Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_,\[Gamma]_, th_, ph_}, "SpinWeightedSpheroidalHarmonicS"]] := 
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> " ; "<>System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> " )";
+
+
+
+(* Intercept the function during Box creation and wrap it in a named TemplateBox *)
+Derivative /: MakeBoxes[Derivative[0,0,0,n\[Gamma]_,n\[Theta]_,n\[Phi]_][SpinWeightedSpheroidalHarmonicS][s_, l_, m_,\[Gamma]_, \[Theta]_, \[Phi]_], TraditionalForm] := 
+  TemplateBox[{
+  MakeBoxes[n\[Gamma], TraditionalForm],
+  MakeBoxes[n\[Theta], TraditionalForm],
+  MakeBoxes[n\[Phi], TraditionalForm],
+    MakeBoxes[s, TraditionalForm], 
+    MakeBoxes[l, TraditionalForm], 
+    MakeBoxes[m, TraditionalForm], 
+    MakeBoxes[\[Gamma], TraditionalForm], 
+    MakeBoxes[\[Theta], TraditionalForm], 
+    MakeBoxes[\[Phi], TraditionalForm]
+   }, 
+   "Derivative[SpinWeightedSpheroidalHarmonicS]"
+  ];
+
+(* Teach the TeX converter how to handle this specific TemplateBox *)
+System`Convert`TeXFormDump`maketex[TemplateBox[{n\[Gamma]_,n\[Theta]_,n\[Phi]_,s_, l_, m_,\[Gamma]_, th_, ph_}, "Derivative[SpinWeightedSpheroidalHarmonicS]"]] := 
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}S_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <>"}^{("<> System`Convert`TeXFormDump`MakeTeX[n\[Theta]]<>" , "<> System`Convert`TeXFormDump`MakeTeX[n\[Phi]]<>" , "<> System`Convert`TeXFormDump`MakeTeX[n\[Gamma]]<>")}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> " ; "<>System`Convert`TeXFormDump`MakeTeX[\[Gamma]] <> " )";
 
 
 
@@ -1142,7 +1181,7 @@ SpinWeightedSphericalHarmonicY/:
   Conjugate[SpinWeightedSphericalHarmonicY[s_,l_,m_, \[Theta]_,\[Phi]_]]:=(-1)^(s+m) SpinWeightedSphericalHarmonicY[-s,l,-m,Conjugate[\[Theta]],Conjugate[\[Phi]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*TexForm*)
 
 
@@ -1161,6 +1200,26 @@ SpinWeightedSphericalHarmonicY /: MakeBoxes[SpinWeightedSphericalHarmonicY[s_, l
 (* Teach the TeX converter how to handle this specific TemplateBox *)
 System`Convert`TeXFormDump`maketex[TemplateBox[{s_, l_, m_, th_, ph_}, "SpinWeightedSphericalHarmonicY"]] := 
   "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}Y_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <> "}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> ")";
+
+
+
+(* Intercept the function during Box creation and wrap it in a named TemplateBox *)
+Derivative /: MakeBoxes[Derivative[0,0,0,n\[Theta]_,n\[Phi]_][SpinWeightedSphericalHarmonicY][s_, l_, m_, \[Theta]_, \[Phi]_], TraditionalForm] := 
+  TemplateBox[{
+  MakeBoxes[n\[Theta], TraditionalForm], 
+  MakeBoxes[n\[Phi], TraditionalForm], 
+    MakeBoxes[s, TraditionalForm], 
+    MakeBoxes[l, TraditionalForm], 
+    MakeBoxes[m, TraditionalForm], 
+    MakeBoxes[\[Theta], TraditionalForm], 
+    MakeBoxes[\[Phi], TraditionalForm]
+   }, 
+   "Derivative[SpinWeightedSphericalHarmonicY]"
+  ];
+
+(* Teach the TeX converter how to handle this specific TemplateBox *)
+System`Convert`TeXFormDump`maketex[TemplateBox[{n\[Theta]_,n\[Phi]_,s_, l_, m_, th_, ph_}, "Derivative[SpinWeightedSphericalHarmonicY]"]] := 
+  "{}_{" <> System`Convert`TeXFormDump`MakeTeX[s] <> "}Y_{" <> System`Convert`TeXFormDump`MakeTeX[l] <> " " <> System`Convert`TeXFormDump`MakeTeX[m] <> "}^{(" <> System`Convert`TeXFormDump`MakeTeX[n\[Theta]] <> " , " <> System`Convert`TeXFormDump`MakeTeX[n\[Phi]] <> ")}(" <> System`Convert`TeXFormDump`MakeTeX[th] <> "," <> System`Convert`TeXFormDump`MakeTeX[ph] <> ")";
 
 
 

@@ -50,9 +50,9 @@ identifiers:
     value: 10.5281/zenodo.8090680
     description: Latest release on Zenodo
 repository-code: 'https://github.com/BlackHolePerturbationToolkit/SpinWeightedSpheroidalHarmonics'
-date-released: 2026-09-14
+date-released: 2026-09-16
 abstract: >-
   A Mathematica package for computing solutions to the
   spin-weighted spheroidal equation.
 license: MIT
-version: 1.1.0
+version: 1.1.1

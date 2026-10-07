@@ -51,5 +51,3 @@ jobs:
         shell: bash
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
         id: extract_branch
-          branch: gh-pages
-          directory: gh-pages
